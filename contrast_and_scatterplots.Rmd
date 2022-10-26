@@ -67,7 +67,6 @@ library(broom.mixed)
 library(insight)
 library(qwraps2)
 library(lmerTest)
-library(knitr)
 library(tinylabels)
 ```
 
