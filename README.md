@@ -14,7 +14,7 @@ Resources are provided for the full reproduction of the computational environmen
 
 To begin, clone this repository to your local machine. With Docker running in the background, use a terminal (or cmd on Windows) to navigate to the cloned repository and type the following Docker command:
 
-```docker build -t contrast_and_scatteplots .```
+```docker build -t contrast_and_scatterplots .```
 
 Then, type:
 
@@ -32,7 +32,7 @@ The manuscript was written using a template from the `rticles` package.
 
 Files used in generating manuscript:
 
- - `contrast_and_scatteplots.Rmd`: Full R markdown script including text and all code
+ - `contrast_and_scatterplots.Rmd`: Full R markdown script including text and all code
  - `contrast_and_scatterplots_cache`: folder containing cached models
  - `data`: folder containing collected, anonymised data
  - `images` and `contrast_and_scatterplots_files` folders for manuscript figures
