@@ -41,6 +41,11 @@ Files used in generating manuscript:
 
 Knitting the manuscript may take some time depending on the performance of your computer.
 
+### Other Files
+
+ - `item_preparation`: folder containing scripts to generate all experimental items, practice items, and visual masks for each experiment
+ - `plot_examples`: folder containing examples of experimental items for each experiment
+
 ## Experiment Code and Materials
 
  - Experiment 1: https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments
