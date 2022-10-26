@@ -632,9 +632,9 @@ analysis (`r printnum(gender_e1$M)`% male, `r printnum(gender_e1$F)`% female, an
 
 ## Results
 
-All analyses were conducted using R (version 4.2.0, [@r_core]).
+All analyses were conducted using R (version 4.2.1, [@r_core]).
 
-Models were built using the **buildmer** (version 2.4 [@voeten_buildmer_2022]) and
+Models were built using the **buildmer** (version 2.7 [@voeten_buildmer_2022]) and
 **lme4** (version 1.1-30 [@bates_lme4_2015]) packages. **buildmer** takes the most
 complex model, in terms of random effects intercepts for participants and items, and 
 corresponding slopes for fixed effects terms [@barr_random_2013] as an input. 
@@ -682,7 +682,7 @@ having lower correlation than high and full contrast plots. There was no signifi
 difference in correlation estimates between high and full contrast plots.
 
 Statistical testing for contrasts between the 4 levels of the contrast condition
-was performed with the **emmeans** package (version 1.7.3, [@emmeans]) and are 
+was performed with the **emmeans** package (version 1.8.1-1, [@emmeans]) and are 
 shown in table \ref{contrasts-table-e1}. Means and standard deviations of 
 correlation judgements are shown in table \ref{sum-stats-e1}.
 
@@ -874,9 +874,9 @@ in the full analysis (`r printnum(gender_e2$M)`% male, `r printnum(gender_e2$F)`
 
 ## Results
 
-All analyses were conducted using R (version 4.2.0, [@r_core]).
+All analyses were conducted using R (version 4.2.1, [@r_core]).
 
-As in E1, models were built using the **buildmer** (version 2.4, [@voeten_buildmer_2022])
+As in E1, models were built using the **buildmer** (version 2.7, [@voeten_buildmer_2022])
 and **lme4** (version 1.1-30 [@bates_lme4_2015]) packages.
 
 ```{r e2-bar-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{e2-bar-plot}Mean error in correlation estimation across the four contrast conditions in E2.", description = "Bar plot showing mean estimation error for four contrast conditions in experiment 2, lowest mean error is for non-linear decay, followed by linear decay, full contrast, and inverted non-linear decay. Values are provided in table 4."}
@@ -920,7 +920,7 @@ There was no significant difference in correlation estimates between linear deca
 and full contrast conditions.
 
 Statistical testing for significant contrasts between the 4 levels of the contrast
-conditions was performed with the **emmeans** package (version 1.7.3, [@emmeans])
+conditions was performed with the **emmeans** package (version 1.8.1-1, [@emmeans])
 and are shown in table \ref{contrasts-table-e2}. Means and standard deviations of
 correlation estimates are shown in table \ref{sum-stats-e2}.
 
