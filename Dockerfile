@@ -9,13 +9,14 @@ ADD images/ /home/rstudio/images/
 ADD contrast_and_scatterplots.Rmd /home/rstudio/
 ADD contrast_and_scatterplots_cache/ /home/rstudio/contrast_and_scatterplots_cache/
 ADD elsarticle.cls /home/rstudio/
-ADD contrast-scatterplots.bib/home/rstudio/
+ADD contrast-scatterplots.bib /home/rstudio/
+ADD plot_examples/ /home/rstudio/
 
 # Add appropriate versions of required R packages to container
 
 RUN R -e "install.packages('devtools')"
 
-RUN R -e "require(devtools)
+RUN R -e "require(devtools)"
 
 RUN R -e "devtools::install_version('rticles', version = '0.24', dependencies = T)"
 RUN R -e "devtools::install_version('MASS', version = '7.3-57', dependencies = T)"
