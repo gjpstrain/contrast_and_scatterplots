@@ -10,7 +10,7 @@ ADD contrast_and_scatterplots.Rmd /home/rstudio/
 ADD contrast_and_scatterplots_cache/ /home/rstudio/contrast_and_scatterplots_cache/
 ADD elsarticle.cls /home/rstudio/
 ADD contrast-scatterplots.bib /home/rstudio/
-ADD plot_examples/ /home/rstudio/
+ADD plot_examples/ /home/rstudio/plot_examples/
 
 # Add appropriate versions of required R packages to container
 
@@ -19,6 +19,7 @@ RUN R -e "install.packages('devtools')"
 RUN R -e "require(devtools)"
 
 RUN R -e "devtools::install_version('rticles', version = '0.24', dependencies = T)"
+RUN R -e "devtools::install_version('tinytex', version = '0.42', dependencies = T)"
 RUN R -e "devtools::install_version('MASS', version = '7.3-57', dependencies = T)"
 RUN R -e "devtools::install_version('buildmer', version = '2.7', dependencies = T)"
 RUN R -e "devtools::install_version('emmeans', version = '1.8.1-1', dependencies = T)"
