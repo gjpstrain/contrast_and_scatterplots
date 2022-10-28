@@ -68,6 +68,8 @@ library(insight)
 library(qwraps2)
 library(lmerTest)
 library(tinylabels)
+
+tinytex:::install_yihui_pkgs()
 ```
 
 ```{r eval-models, include=FALSE}
