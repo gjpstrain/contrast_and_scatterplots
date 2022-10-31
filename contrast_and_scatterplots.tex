@@ -458,22 +458,22 @@ item\_preparation folder.
 \section{Open Research Statement}\label{open-research-statement}}
 
 Both experiments were conducted according to the principles of open and
-reproducible research. All data and analysis code are available at xxxx
-(Note: if this submission is accepted, this link will be replaced by a
-link to a Docker image, which will reproduce the computational
-environment used for analysis, so that a fully-reproducible version of
-this paper can be generated). Both experiments and their related
-hypotheses and analysis plans were pre-registered with the OSF
-(https://osf.io/v23e9/), and there were no deviations from them.
-Consistent with our pre-registrations, when producing models for our
-analyses, we aimed for the most complex random effects structures. The
-structure of these models was identified using the \textbf{buildmer}
-package in R \citep{voeten_buildmer_2022}. This package takes the most
-complex random effects model and subsequently removes random effects
-terms that do not substantially contribute to explaining variance in
-correlation ratings. This approach does mean that the final model used
-is not always the most complex one possible, but rather is the most
-complex that substantially explains variance and converges.
+reproducible research. All data and analysis code are available at
+https://github.com/gjpstrain/contrast\_and\_scatterplots. This
+repository contains instructions for building a Docker container that
+fully reproduces the computational environment this paper was written
+in. Both experiments and their related hypotheses and analysis plans
+were pre-registered with the OSF (https://osf.io/v23e9/), and there were
+no deviations from them. Consistent with our pre-registrations, when
+producing models for our analyses, we aimed for the most complex random
+effects structures. The structure of these models was identified using
+the \textbf{buildmer} package in R \citep{voeten_buildmer_2022}. This
+package takes the most complex random effects model and subsequently
+removes random effects terms that do not substantially contribute to
+explaining variance in correlation ratings. This approach does mean that
+the final model used is not always the most complex one possible, but
+rather is the most complex that substantially explains variance and
+converges.
 
 \hypertarget{experiment-1-changing-the-contrast-of-all-points}{%
 \section{Experiment 1: Changing the Contrast of All
@@ -699,34 +699,6 @@ instructions needed to run the experiment in full.
 \begin{figure}
 \includegraphics[width=1\linewidth]{contrast_and_scatterplots_files/figure-latex/decay-parameters-1} \caption{\label{decay-parameters}Here we use an \textit{r} value of 0.2 to demonstrate the relationship between the size of a point's residual and the contrast alpha value that translates to.}\label{fig:decay-parameters}
 \end{figure}
-
-\begin{verbatim}
-## <ggproto object: Class CoordCartesian, Coord, gg>
-##     aspect: function
-##     backtransform_range: function
-##     clip: on
-##     default: FALSE
-##     distance: function
-##     expand: TRUE
-##     is_free: function
-##     is_linear: function
-##     labels: function
-##     limits: list
-##     modify_scales: function
-##     range: function
-##     render_axis_h: function
-##     render_axis_v: function
-##     render_bg: function
-##     render_fg: function
-##     setup_data: function
-##     setup_layout: function
-##     setup_panel_guides: function
-##     setup_panel_params: function
-##     setup_params: function
-##     train_panel_guides: function
-##     transform: function
-##     super:  <ggproto object: Class CoordCartesian, Coord, gg>
-\end{verbatim}
 
 \hypertarget{participants-1}{%
 \subsection{Participants}\label{participants-1}}
