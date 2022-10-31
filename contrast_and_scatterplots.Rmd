@@ -561,10 +561,9 @@ item_preparation folder.
 # Open Research Statement
 
 Both experiments were conducted according to the principles of open and reproducible 
-research. All data and analysis code are available at xxxx (Note: if this submission
-is accepted, this link will be replaced by a link to a Docker image, which will 
-reproduce the computational environment used for analysis, so that a 
-fully-reproducible version of this paper can be generated). Both experiments
+research. All data and analysis code are available at https://github.com/gjpstrain/contrast_and_scatterplots.
+This repository contains instructions for building a Docker container that fully reproduces
+the computational environment this paper was written in. Both experiments
 and their related hypotheses and analysis plans were pre-registered with the OSF
 (https://osf.io/v23e9/), and there were no deviations from them. Consistent with 
 our pre-registrations, when producing models for our analyses, we aimed for the 
