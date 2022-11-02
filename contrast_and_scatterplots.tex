@@ -113,18 +113,18 @@ United Kingdom.}
   Scatterplots are common data visualizations that can be used to
   communicate a range of ideas, primarily the correlation between two
   variables. Despite their ubiquity, people typically do not perceive
-  correlations between variables accurately, tending to underestimate
-  the strength of relationship displayed. Here we describe a
-  two-experiment study in which we adjust the visual contrast of
-  scatterplot points, and demonstrate a systematic approach to altering
-  the bias. We find evidence that lowering the total visual contrast in
-  a plot leads to increased bias in correlation estimates and show that
-  decreasing the salience of points as a function of their distance from
-  the regression line, by lowering their contrast, can facilitate more
-  accurate correlation perception. We discuss the implications of these
-  findings for visualization design, and provide a framework for online,
-  reproducible, and large-sample-size (N = 150 per experiment) testing
-  of the design parameters of data visualizations.
+  correlations between variables accurately from scatterplots, tending
+  to underestimate the strength of relationship displayed. Here we
+  describe a two-experiment study in which we adjust the visual contrast
+  of scatterplot points, and demonstrate a systematic approach to
+  altering the bias. We find evidence that lowering the total visual
+  contrast in a plot leads to increased bias in correlation estimates
+  and show that decreasing the salience of points as a function of their
+  distance from the regression line, by lowering their contrast, can
+  facilitate more accurate correlation perception. We discuss the
+  implications of these findings for visualization design, and provide a
+  framework for online, reproducible, and large-sample-size (N = 150 per
+  experiment) testing of the design parameters of data visualizations.
   \end{abstract}
     \begin{keyword}
     Scatterplot \sep Correlation Perception \sep Crowdsourced \sep 
@@ -164,10 +164,10 @@ significantly increases the accuracy of people's performance on
 correlation estimation tasks. In our first experiment, we show that
 manipulating the contrast of scatterplot points can bias participants'
 estimates of correlation. In our second we leverage this effect to
-correct for a systematic underestimation by viewers of correlations in
-scatterplots that has a long-standing basis in the literature. Through
-this we also present a framework for the effective, inexpensive, and
-high-powered study of data visualizations.
+partially correct for a systematic underestimation by viewers of
+correlations in scatterplots that has a long-standing basis in the
+literature. Through this work we also present a framework for the
+effective, inexpensive, and high-powered study of data visualizations.
 
 \hypertarget{why-study-scatterplots}{%
 \subsection{Why Study Scatterplots?}\label{why-study-scatterplots}}
@@ -219,13 +219,10 @@ distinguishable 75\% of the time. This novel approach
 \citep{rensink_2010} allows researchers to obtain measurements for
 participants' precision and accuracy in correlation estimation, and to
 begin to fit mathematical models that describe the relationship between
-objective and perceived correlation. Mathematical modelling is useful
-with regards to discovering perceptual processes and laws for
-correlation perception. Given that this paper seeks to provide design
-guidelines, we do not model the relationship between \emph{r} and
-perceived \emph{r}. We are instead interested in comparative,
-naturalistic judgements of correlation, and therefore have elected to
-use a direct estimation paradigm.
+objective and perceived correlation. Given that this paper seeks to
+provide design guidelines, and is interested in comparative,
+naturalistic judgements of correlation, we have elected to use a direct
+estimation paradigm.
 
 \begin{figure}
 
@@ -272,7 +269,7 @@ Bringing together work that has sought to model the relationship between
 objective and perceived \emph{r} values, \citet{rensink_2017} notes that
 equations for both discrimination and magnitude estimation include a
 parameter, termed \emph{u} in \citet{rensink_2017}, that is small when
-\emph{r} = 1, and increases as \emph{r} approaches 0. The usefulness of
+\emph{r} = 1, and increases as \emph{r} approaches 0. The utility of
 this parameter in modelling correlation perception is indifferent to the
 type of data visualization used, which implies that the width of the
 probability distribution, summarised by the aforementioned parameter, is
@@ -309,6 +306,14 @@ changes in point contrast \citep{rensink_2012}, although this work took
 place with low sample sizes (n = 12), and using only bisection/JND
 methodologies.
 
+\citet{champion_2017} found participants' speed discrimination
+thresholds (a proxy measure of uncertainty in the sensory signal) to be
+higher for low contrast stimuli, and \citet{wehrhahn_1990} found
+participants' performances on a vernier acuity tasks to become
+exponentially poorer when contrast was lowered past a certain threshold.
+Given this evidence, the lack of effect of point contrast on correlation
+perception in \citet{rensink_2012} warrants further investigation.
+
 A recent study \citep{hong_2021} used contrast and size to encode a
 third variable in trivariate scatterplots. The authors then asked
 participants to use a mouse to click on the average position of all the
@@ -325,24 +330,24 @@ viewer's underestimation bias.
 Intuitively, the best way to correct for an underestimation in
 correlation would be to simply remove outer data points until
 correlation perception aligned with what the actual correlation value
-was. This is arguably dishonest, and crucially our methodology allows us
-to begin to correct for the underestimation bias \textbf{without}
-removing data points, thereby preserving the integrity of the
-scatterplot for numerical retrieval or cluster separation tasks, among
-others.
+was. Effectively hiding data is clearly problematic, and crucially our
+methodology allows us to begin to correct for the underestimation bias
+\textbf{without} removing data points, thereby preserving the integrity
+of the scatterplot for numerical retrieval or cluster separation tasks,
+among others.
 
-\hypertarget{the-current-experiments}{%
-\section{The Current Experiments}\label{the-current-experiments}}
+Before we begin attempting to use contrast manipulations to address the
+underestimation bias, we first test what the effect of contrast is on
+correlation perception in our paradigm more generally. In both of the
+experiments described below, we use a 1-factor, 4-level design to test
+the effects of different contrast levels on participants' estimates of
+correlation.
 
-Before we can begin attempting to use contrast manipulations to address
-the underestimation bias, we must first test what the effect of contrast
-is on correlation perception in our paradigm more generally. In both of
-the experiments described below, we use a 1-factor, 4-level design to
-test the effects of different contrast levels on participants' estimates
-of correlation.
+\hypertarget{general-methods}{%
+\section{General Methods}\label{general-methods}}
 
 \hypertarget{formalising-contrast}{%
-\section{Formalising Contrast}\label{formalising-contrast}}
+\subsection{Formalising Contrast}\label{formalising-contrast}}
 
 We use the \textbf{ggplot2} \citep{hadley_gg2016} package for plot
 creation in both experiments, which uses an alpha parameter to set
@@ -381,16 +386,13 @@ henceforth refer to the alpha value as ``contrast alpha'' throughout.
 \end{figure}
 
 \hypertarget{overview-of-experiments}{%
-\section{Overview of Experiments}\label{overview-of-experiments}}
+\subsection{Overview of Experiments}\label{overview-of-experiments}}
 
-Experiments 1 and 2 share multiple aspects of their procedures. To save
-space these will be described here, while aspects that differ will be
-described during more specific discussion of the experiments.
-
-Both experiments were built using PsychoPy \citep{pierce_psychopy_2019},
-and hosted on pavlovia.org. Participants were only permitted to complete
-the experiments on a desktop computer or laptop. As with the luminances
-of scatterplots and their points, we had no control over the distance
+Experiments 1 and 2 share multiple aspects of their procedures. Both
+experiments were built using PsychoPy \citep{pierce_psychopy_2019}, and
+hosted on pavlovia.org. Participants were only permitted to complete the
+experiments on a desktop computer or laptop. As with the luminances of
+scatterplots and their points, we had no control over the distance
 participants were from their monitors. Again, as we are measuring
 relative differences in both of our experiments, we do not consider this
 to be an issue.
@@ -445,7 +447,7 @@ experiment. Presentation order was randomised.
 \subsection{Plot Generation}\label{plot-generation}}
 
 Scatterplots were randomly generated from bivariate normal
-distributions. All presented were 1200 * 1200 pixels in size, and
+distributions. All plots presented were 1200 * 1200 pixels in size, and
 included no titles, tick labels, or axis labels. Each plot contained 128
 data points. 45 \emph{r} values were generated on a uniform distribution
 between 0.2 and 0.95. We chose these boundaries due to evidence that
@@ -483,26 +485,18 @@ Points}\label{experiment-1-changing-the-contrast-of-all-points}}
 \subsection{Introduction}\label{introduction-1}}
 
 Our first experiment varied the contrast of every point on a scatterplot
-in a uniform manner. For each of the 45 \emph{r} values there were 4
-versions of each plot corresponding to the 4 levels of point contrast,
-examples of which can be seen in Figure \ref{e1-example-plots}. We
+in a uniform manner. Given the effects of contrast on perception
+described above {[}\citet{champion_2017};wehrhahn\_1990{]}, we
 hypothesized that there would be a wider spread of correlation estimates
-for plots with lower contrast compared to plots with higher contrast.
+for plots with lower contrast compared to plots with higher contrast,
+potentially due to the greater spatial uncertainty induced by lower
+contrast.
 
-The experiment is hosted at
-https://gitlab.pavlovia.org/Strain/exp\_uniform\_adjustments. This
-repository contains all the experimental code, materials, and
-instructions needed to run the experiment in full.
-
-\begin{figure}
-
-\includegraphics[width=1\linewidth]{plot_examples/uniform_adjustments_plot_examples} \hfill{}
-
-\caption{\label{e1-example-plots}The four levels of the contrast condition in experiment 1, demonstrated with an \textit{r} value of 0.6.}\label{fig:e1-example-plots}
-\end{figure}
+\hypertarget{method}{%
+\subsection{Method}\label{method}}
 
 \hypertarget{participants}{%
-\subsection{Participants}\label{participants}}
+\subsubsection{Participants}\label{participants}}
 
 150 participants were recruited using the Prolific.co platform. Normal
 to corrected- to-normal vision and English fluency were required for
@@ -520,6 +514,25 @@ were rejected from the study. The remaining 150 participants' data were
 included in the full analysis (51.01\% male, 47.65\% female, and 1.34\%
 non-binary). Mean age of participants was 28.29 (\emph{SD} = 8.59). Mean
 graph literacy score was 21.76 (\emph{SD} = 4.47) out of 30.
+
+\hypertarget{design}{%
+\subsubsection{Design}\label{design}}
+
+For each of the 45 \emph{r} values there were 4 versions of each plot
+corresponding to the 4 levels of point contrast, examples of which can
+be seen in Figure \ref{e1-example-plots}.
+
+The experiment is hosted at
+https://gitlab.pavlovia.org/Strain/exp\_uniform\_adjustments. This
+repository contains all the experimental code, materials, and
+instructions needed to run the experiment in full.
+
+\begin{figure}
+
+\includegraphics[width=1\linewidth]{plot_examples/uniform_adjustments_plot_examples} \hfill{}
+
+\caption{\label{e1-example-plots}The four levels of the contrast condition in experiment 1, demonstrated with an \textit{r} value of 0.6.}\label{fig:e1-example-plots}
+\end{figure}
 
 \hypertarget{results}{%
 \subsection{Results}\label{results}}
@@ -660,22 +673,55 @@ Adjustments}\label{experiment-2-spatially-dependent-contrast-adjustments}}
 \hypertarget{introduction-2}{%
 \subsection{Introduction}\label{introduction-2}}
 
-Our second experiment varied the contrast of scatterplot points using
-spatially dependent functions. For each of the 45 \emph{r} values there
-were four versions of each plot, which can be seen in Figure
-\ref{e2-example-plots}. Three used functions relating point residuals to
-point contrast, which we henceforth refer to as decay parameters, with
-the remaining condition being the contrast alpha = 1 uniform contrast
-condition from the first experiment. We hypothesized that participants'
-estimates of correlation would exhibit lower mean error with the decay
-parameter in which contrast falls with residual distance in a non-linear
-fashion (the non-linear decay parameter), and that the use of a
-non-linear inverted decay parameter, in which contrast increased with
-residual distance, would result in higher mean errors than all other
-conditions. We used the following equation to non-linearly map residuals
-to alpha values, where R is the residual of the point in question. 0.25
-was chosen as the value of \(b\), which represented an ideal balance
-between point legibility and contrast decay severity.
+In experiment 1 we found that contrast has a clear effect on the
+perception of correlation such that scatterplots with higher levels of
+point contrast are rated as being more correlated. Given this result, it
+would be important to consider how the spatial arrangement of variations
+in point contrast might affect correlation perception. With this in
+mind, in our second experience, we varied the contrast of scatterplot
+points using spatially dependent functions.
+
+\hypertarget{methods}{%
+\subsection{Methods}\label{methods}}
+
+\hypertarget{participants-1}{%
+\subsubsection{Participants}\label{participants-1}}
+
+150 participants were recruited using the Prolific.co platform. Normal
+to corrected-to-normal vision and English fluency were required for
+participation. In accordance with guidelines published in
+\citep{peer_2021}, participants were required to have previously
+completed at least 100 studies on Prolific, and were required to have a
+Prolific score of at least 100, indicating acceptance on at least
+100/101 previously completed studies. In addition, participants who had
+completed an earlier, similar study \emph{(preprint)} or the first
+experiment described above were prevented from participating.
+
+Data were collected from 157 participants. 7 failed more than 2 out of 6
+attention check questions, and, as per pre-registration stipulations,
+were rejected from the study. The remaining 150 participants data were
+included in the full analysis (51.33\% male, 46.00\% female, and 2.67\%
+non-binary). Mean age of participants was 27.05 (\emph{SD} = 7.37). Mean
+graph literacy score was 21.71 (\emph{SD} = 4.06) out of 30.
+
+\hypertarget{design-1}{%
+\subsubsection{Design}\label{design-1}}
+
+For each of the 45 \emph{r} values there were four versions of each
+plot, which can be seen in Figure \ref{e2-example-plots}. Three used
+functions relating point residuals to point contrast, which we
+henceforth refer to as decay parameters, with the remaining condition
+being the contrast alpha = 1 uniform contrast condition from the first
+experiment. We hypothesized that participants' estimates of correlation
+would exhibit lower mean error with the decay parameter in which
+contrast falls with residual distance in a non-linear fashion (the
+non-linear decay parameter), and that the use of a non-linear inverted
+decay parameter, in which contrast increased with residual distance,
+would result in higher mean errors than all other conditions. We used
+the following equation to non-linearly map residuals to alpha values,
+where R is the residual of the point in question. 0.25 was chosen as the
+value of \(b\), which represented an ideal balance between point
+legibility and contrast decay severity.
 
 \begin{align}
   alpha = 1 - b^R
@@ -699,26 +745,6 @@ instructions needed to run the experiment in full.
 \begin{figure}
 \includegraphics[width=1\linewidth]{contrast_and_scatterplots_files/figure-latex/decay-parameters-1} \caption{\label{decay-parameters}Here we use an \textit{r} value of 0.2 to demonstrate the relationship between the size of a point's residual and the contrast alpha value that translates to.}\label{fig:decay-parameters}
 \end{figure}
-
-\hypertarget{participants-1}{%
-\subsection{Participants}\label{participants-1}}
-
-150 participants were recruited using the Prolific.co platform. Normal
-to corrected-to-normal vision and English fluency were required for
-participation. In accordance with guidelines published in
-\citep{peer_2021}, participants were required to have previously
-completed at least 100 studies on Prolific, and were required to have a
-Prolific score of at least 100, indicating acceptance on at least
-100/101 previously completed studies. In addition, participants who had
-completed an earlier, similar study \emph{(preprint)} or the first
-experiment described above were prevented from participating.
-
-Data were collected from 157 participants. 7 failed more than 2 out of 6
-attention check questions, and, as per pre-registration stipulations,
-were rejected from the study. The remaining 150 participants data were
-included in the full analysis (51.33\% male, 46.00\% female, and 2.67\%
-non-binary). Mean age of participants was 27.05 (\emph{SD} = 7.37). Mean
-graph literacy score was 21.71 (\emph{SD} = 4.06) out of 30.
 
 \hypertarget{results-1}{%
 \subsection{Results}\label{results-1}}

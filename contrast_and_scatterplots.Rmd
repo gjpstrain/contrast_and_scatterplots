@@ -21,7 +21,7 @@ address:
     address: Division of Psychology, Communication and Human Neuroscience, School of Health Sciences, Faculty of Biology, Medicine, and Health, University of Manchester, Oxford Road, Manchester, M13 9PL, United Kingdom.
 abstract: |
 
-  Scatterplots are common data visualizations that can be used to communicate a range of ideas, primarily the correlation between two variables. Despite their ubiquity, people typically do not perceive correlations between variables accurately, tending to underestimate the strength of relationship displayed. Here we describe a two-experiment study in which we adjust the visual contrast of scatterplot points, and demonstrate a systematic approach to altering the bias. We find evidence that lowering the total visual contrast in a plot leads to increased bias in correlation estimates and show that decreasing the salience of points as a function of their distance from the regression line, by lowering their contrast, can facilitate more accurate correlation perception. We discuss the implications of these findings for visualization design, and provide a framework for online, reproducible, and large-sample-size (N = 150 per experiment) testing of the design parameters of data visualizations.
+  Scatterplots are common data visualizations that can be used to communicate a range of ideas, primarily the correlation between two variables. Despite their ubiquity, people typically do not perceive correlations between variables accurately from scatterplots, tending to underestimate the strength of relationship displayed. Here we describe a two-experiment study in which we adjust the visual contrast of scatterplot points, and demonstrate a systematic approach to altering the bias. We find evidence that lowering the total visual contrast in a plot leads to increased bias in correlation estimates and show that decreasing the salience of points as a function of their distance from the regression line, by lowering their contrast, can facilitate more accurate correlation perception. We discuss the implications of these findings for visualization design, and provide a framework for online, reproducible, and large-sample-size (N = 150 per experiment) testing of the design parameters of data visualizations.
   
 keywords: 
   - Scatterplot
@@ -69,7 +69,9 @@ library(qwraps2)
 library(lmerTest)
 library(tinylabels)
 
-tinytex:::install_yihui_pkgs()
+
+# Comment out the following line if additional tinytex packages are already installed
+#tinytex:::install_yihui_pkgs()
 ```
 
 ```{r eval-models, include=FALSE}
@@ -115,7 +117,9 @@ demographics <- anon_file %>%
   dplyr::select(matches(c("participant",
                           "age_textbox.text",
                           "gender_slider.response")))
+
 # split plots_with_labels column into item and contrast condition columns 
+
 anon_file <- anon_file %>%
   mutate(images = str_replace(images, pattern = "A", replacement = "-A")) %>%
   mutate(images = str_replace(images, pattern = "B", replacement = "-B")) %>%
@@ -124,11 +128,13 @@ anon_file <- anon_file %>%
   separate(images, c("item", "contrast"), sep = "-") %>%
   mutate(contrast = str_replace(contrast, pattern = ".png", replacement = "")) %>%
   mutate(item = str_replace(item, pattern = "all_plots/", replacement = ""))
+
 # select relevant columns
 # select only experimental items
 # add literacy data
 # change data types where appropriate
 # output this file with suffix 'tidy'
+
 anon_file %>%
   dplyr::select(c("participant",
                   "item",
@@ -147,22 +153,33 @@ anon_file %>%
   assign(paste0(unique(anon_file$expName), "_tidy"),
            value = ., envir = .GlobalEnv)
 }
+
 # use wrangle function on anonmyised data files 
+
 walk(list(contrast1_anon,
           contrast2_anon),
      wrangle)
+
 # Experiments were incorrectly named, so rename them
+
 E1_uniform_adjustments_tidy <- E3_full_exp_tidy
 E2_spatially_dependent_tidy <- E2_full_exp_tidy
+
 # remove incorrectly named and anon dfs from environment
+
 rm(E3_full_exp_tidy, E2_full_exp_tidy, contrast1_anon, contrast2_anon, wrangle)
+
 # check for missing age values
+
 sum(is.na(E1_uniform_adjustments_tidy$age_textbox.text))
 sum(is.na(E2_spatially_dependent_tidy$age_textbox.text))
+
 # print sessions with missing age values
+
 E2_spatially_dependent_tidy %>%
   filter(is.na(age_textbox.text)) %>%
   distinct(session)
+
 # no missing values in E1, some in E2.
 # fill in missing age values from prolific_data.csv
 # we can't include this as it contains personally
@@ -313,9 +330,9 @@ or data training can understand the message that visualizations are trying to co
 In this paper we present a novel visualization technique that significantly increases
 the accuracy of people's performance on correlation estimation tasks. In our first experiment, we show
 that manipulating the contrast of scatterplot points can bias participants' estimates
-of correlation. In our second we leverage this effect to correct for a systematic
+of correlation. In our second we leverage this effect to partially correct for a systematic
 underestimation by viewers of correlations in scatterplots that has a long-standing basis 
-in the literature. Through this we also present a framework for the effective, inexpensive,
+in the literature. Through this work we also present a framework for the effective, inexpensive,
 and high-powered study of data visualizations.
 
 ## Why Study Scatterplots?
@@ -357,11 +374,7 @@ such that their correlations are distinguishable 75% of the time. This novel app
 [@rensink_2010] allows researchers to obtain measurements for participants'
 precision and accuracy in correlation estimation, and to begin to fit mathematical
 models that describe the relationship between objective and perceived correlation.
-Mathematical modelling is useful with regards to discovering perceptual processes
-and laws for correlation perception. Given that this paper seeks to provide 
-design guidelines, we do not model the relationship between *r* and perceived *r*.
-We are instead interested in comparative, naturalistic judgements of correlation,
-and therefore have elected to use a direct estimation paradigm.
+Given that this paper seeks to provide design guidelines, and is interested in comparative, naturalistic judgements of correlation, we have elected to use a direct estimation paradigm.
 
 ```{r underestimation-curve, warning=FALSE, echo=FALSE, message=FALSE, fig.cap="\\label{underestimation-curve}Using a function that relates objective to subjective \\textit{r}\ supplied in \\citep{rensink_2017}\ allows us to visualize the nature of the underestimation curve found in correlation perception studies. The curve represents the underestimation of correlation.", fig.height=3.2, fig.width=3.2, fig.align='left', description = "A line graph, with objective r value on the horizontal axis, and subjective r value on the vertical axis. A curve describes the relationship between the two variables, which are similar at r = 0 or 1. The curve shows how r is underestimated in the midrange, reaching maximum underestimation around r = 0.6."}
 my_rs <- seq(from = 0, to = 1, length.out = 100)
@@ -407,7 +420,7 @@ was more predictive of participants' estimates of correlation than the objective
 Bringing together work that has sought to model the relationship between objective
 and perceived *r* values, @rensink_2017 notes that equations for both
 discrimination and magnitude estimation include a parameter, termed *u* in @rensink_2017,
-that is small when *r* = 1, and increases as *r* approaches 0. The usefulness of this parameter in modelling
+that is small when *r* = 1, and increases as *r* approaches 0. The utility of this parameter in modelling
 correlation perception is indifferent to the type of data visualization used, which
 implies that the width of the probability distribution, summarised by the aforementioned
 parameter, is key to how people estimate correlation. Within the context of scatterplots
@@ -436,6 +449,13 @@ on people's perceptions of correlation; what has been found is that correlation 
 seems to be invariant to changes in point contrast [@rensink_2012], although this work
 took place with low sample sizes (n = 12), and using only bisection/JND methodologies.
 
+@champion_2017 found participants' speed discrimination thresholds (a proxy measure
+of uncertainty in the sensory signal) to be higher for low contrast stimuli, and
+@wehrhahn_1990 found participants' performances on a vernier acuity tasks to become
+exponentially poorer when contrast was lowered past a certain threshold. Given this
+evidence, the lack of effect of point contrast on correlation perception in @rensink_2012
+warrants further investigation.
+
 A recent study [@hong_2021] used contrast and size to encode a third variable
 in trivariate scatterplots. The authors then asked participants to use a mouse
 to click on the average position of all the points displayed. They found that participants'
@@ -448,19 +468,19 @@ a narrower distribution, we would expect this to be able to correct for a viewer
 
 Intuitively, the best way to correct for an underestimation in correlation would 
 be to simply remove outer data points until correlation perception aligned with
-what the actual correlation value was. This is arguably dishonest, and crucially
+what the actual correlation value was. Effectively hiding data is clearly problematic, and crucially
 our methodology allows us to begin to correct for the underestimation bias **without**
 removing data points, thereby preserving the integrity of the scatterplot for 
 numerical retrieval or cluster separation tasks, among others.
 
-# The Current Experiments
-
-Before we can begin attempting to use contrast manipulations to address the underestimation
-bias, we must first test what the effect of contrast is on correlation perception in
+Before we begin attempting to use contrast manipulations to address the underestimation
+bias, we first test what the effect of contrast is on correlation perception in
 our paradigm more generally. In both of the experiments described below, we use a 1-factor,
 4-level design to test the effects of different contrast levels on participants' estimates of correlation.
 
-# Formalising Contrast
+# General Methods
+
+## Formalising Contrast
 
 We use the **ggplot2** [@hadley_gg2016] package for plot creation in both experiments,
 which uses an alpha parameter to set contrast. Alpha here refers to the 
@@ -501,13 +521,10 @@ ggplot(aes(x1, y1), data = df) +
 rm(x1,y1,df)
 ```
 
-# Overview of Experiments
+## Overview of Experiments
 
-Experiments 1 and 2 share multiple aspects of their procedures. To save space
-these will be described here, while aspects that differ will be described during
-more specific discussion of the experiments.
-
-Both experiments were built using PsychoPy [@pierce_psychopy_2019], and hosted on
+Experiments 1 and 2 share multiple aspects of their procedures. Both experiments were 
+built using PsychoPy [@pierce_psychopy_2019], and hosted on
 pavlovia.org. Participants were only permitted to complete the experiments on
 a desktop computer or laptop. As with the luminances of scatterplots and their
 points, we had no control over the distance participants were from their monitors. Again,
@@ -550,7 +567,7 @@ knitr::include_graphics("images/example-trial.png")
 
 ## Plot Generation
 
-Scatterplots were randomly generated from bivariate normal distributions. All presented
+Scatterplots were randomly generated from bivariate normal distributions. All plots presented
 were 1200 * 1200 pixels in size, and included no titles, tick labels, or axis labels.
 Each plot contained 128 data points. 45 *r* values were generated on a uniform distribution
 between 0.2 and 0.95. We chose these boundaries due to evidence that very little
@@ -580,21 +597,15 @@ and converges.
 ## Introduction
 
 Our first experiment varied the contrast of every point on a scatterplot in a
-uniform manner. For each of the 45 *r* values there were 4 versions of each plot
-corresponding to the 4 levels of point contrast, examples of which can be seen
-in Figure \ref{e1-example-plots}. We hypothesized that there would be a 
+uniform manner. Given the effects of contrast on perception 
+described above [@champion_2017;wehrhahn_1990], we hypothesized that there would be a 
 wider spread of correlation estimates for plots with lower contrast compared to plots
-with higher contrast.
+with higher contrast, potentially due to the greater spatial uncertainty induced by
+lower contrast.
 
-The experiment is hosted at https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments.
-This repository contains all the experimental code, materials, and instructions needed
-to run the experiment in full.
+## Method 
 
-```{r e1-example-plots, echo=FALSE, fig.align='left', out.width="100%", fig.cap="\\label{e1-example-plots}The four levels of the contrast condition in experiment 1, demonstrated with an \\textit{r} value of 0.6.", description = "An array of four scatterplots. Top left has points with low contrast and is labelled `Contrast alpha = 0.25`. Top right plot has medium contrast (contrast alpha = 0.5). Bottom right has high contrast (contrast alpha = 0.75). Bottom right has full contrast (contrast alpha = 1)."}
-knitr::include_graphics("plot_examples/uniform_adjustments_plot_examples.png")
-```
-
-## Participants
+### Participants
 
 ```{r demographics_e1, echo=FALSE}
 # extract age data
@@ -629,6 +640,21 @@ analysis (`r printnum(gender_e1$M)`% male, `r printnum(gender_e1$F)`% female, an
 `r printnum(gender_e1$NB)`% non-binary). Mean age of participants was `r printnum(age_e1$mean)`
 (*SD* = `r printnum(age_e1$sd)`). Mean graph literacy score was `r printnum(literacy_e1$mean)`
 (*SD* = `r printnum(literacy_e1$sd)`) out of 30.
+
+
+### Design
+
+For each of the 45 *r* values there were 4 versions of each plot
+corresponding to the 4 levels of point contrast, examples of which can be seen
+in Figure \ref{e1-example-plots}. 
+
+The experiment is hosted at https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments.
+This repository contains all the experimental code, materials, and instructions needed
+to run the experiment in full.
+
+```{r e1-example-plots, echo=FALSE, fig.align='left', out.width="100%", fig.cap="\\label{e1-example-plots}The four levels of the contrast condition in experiment 1, demonstrated with an \\textit{r} value of 0.6.", description = "An array of four scatterplots. Top left has points with low contrast and is labelled `Contrast alpha = 0.25`. Top right plot has medium contrast (contrast alpha = 0.5). Bottom right has high contrast (contrast alpha = 0.75). Bottom right has full contrast (contrast alpha = 1)."}
+knitr::include_graphics("plot_examples/uniform_adjustments_plot_examples.png")
+```
 
 ## Results
 
@@ -762,8 +788,54 @@ of correlation.
 
 ## Introduction
 
-Our second experiment varied the contrast of scatterplot points using 
-spatially dependent functions. For each of the 45 *r* values there were four versions
+In experiment 1 we found that contrast has a clear effect on the perception of correlation
+such that scatterplots with higher levels of point contrast are rated as being 
+more correlated. Given this result, it would be important to consider how the 
+spatial arrangement of variations in point contrast might affect correlation perception.
+With this in mind, in our second experience, we varied the contrast of scatterplot points using 
+spatially dependent functions.
+
+## Methods
+
+### Participants
+
+```{r demographics_e2, echo=FALSE}
+# extract age data
+age_e2 <- distinct(E2_spatially_dependent_tidy, participant,
+                   .keep_all = TRUE) %>%
+  summarise(mean = mean(age_textbox.text, na.rm = TRUE),
+            sd = sd(age_textbox.text, na.rm = TRUE)) 
+# extract gender data
+gender_e2 <- distinct(E2_spatially_dependent_tidy, participant,
+                      .keep_all = TRUE) %>%
+  group_by(gender_slider.response) %>%
+  summarise(perc = n()/nrow(.)*100) %>%
+  pivot_wider(names_from = gender_slider.response, values_from = perc)
+# extract literacy data
+literacy_e2 <- distinct(E2_spatially_dependent_tidy, participant,
+                        .keep_all = TRUE) %>%
+  summarise(mean = mean(literacy), sd = sd(literacy))
+```
+
+150 participants were recruited using the Prolific.co platform.
+Normal to corrected-to-normal vision and English fluency were required for participation. In accordance
+with guidelines published in [@peer_2021], participants were required to have 
+previously completed at least 100 studies on Prolific, and were required to have
+a Prolific score of at least 100, indicating acceptance on at least 100/101 previously completed studies.
+In addition, participants who had completed an earlier, similar study *(preprint)* or the first
+experiment described above were prevented from participating.
+
+Data were collected from 157 participants. 7 failed more
+than 2 out of 6 attention check questions, and, as per pre-registration stipulations, 
+were rejected from the study. The remaining 150 participants data were included
+in the full analysis (`r printnum(gender_e2$M)`% male, `r printnum(gender_e2$F)`% female, and 
+`r printnum(gender_e2$NB)`% non-binary). Mean age of participants was `r printnum(age_e2$mean)`
+(*SD* = `r printnum(age_e2$sd)`). Mean graph literacy score was `r printnum(literacy_e2$mean)`
+(*SD* = `r printnum(literacy_e2$sd)`) out of 30.
+
+### Design
+
+For each of the 45 *r* values there were four versions
 of each plot, which can be seen in Figure \ref{e2-example-plots}. 
 Three used functions relating point residuals to point contrast, which we henceforth
 refer to as decay parameters, with the remaining condition being the contrast alpha = 1 uniform
@@ -836,42 +908,6 @@ slopes %>%
   annotate(geom = "text", x  = 2, y = 0.88, label = "Non-Linear Inverted Decay", angle = 8)
   coord_cartesian(xlim = c(0,2.6), ylim = c(0,1))
 ```
-
-## Participants
-
-```{r demographics_e2, echo=FALSE}
-# extract age data
-age_e2 <- distinct(E2_spatially_dependent_tidy, participant,
-                   .keep_all = TRUE) %>%
-  summarise(mean = mean(age_textbox.text, na.rm = TRUE),
-            sd = sd(age_textbox.text, na.rm = TRUE)) 
-# extract gender data
-gender_e2 <- distinct(E2_spatially_dependent_tidy, participant,
-                      .keep_all = TRUE) %>%
-  group_by(gender_slider.response) %>%
-  summarise(perc = n()/nrow(.)*100) %>%
-  pivot_wider(names_from = gender_slider.response, values_from = perc)
-# extract literacy data
-literacy_e2 <- distinct(E2_spatially_dependent_tidy, participant,
-                        .keep_all = TRUE) %>%
-  summarise(mean = mean(literacy), sd = sd(literacy))
-```
-
-150 participants were recruited using the Prolific.co platform.
-Normal to corrected-to-normal vision and English fluency were required for participation. In accordance
-with guidelines published in [@peer_2021], participants were required to have 
-previously completed at least 100 studies on Prolific, and were required to have
-a Prolific score of at least 100, indicating acceptance on at least 100/101 previously completed studies.
-In addition, participants who had completed an earlier, similar study *(preprint)* or the first
-experiment described above were prevented from participating.
-
-Data were collected from 157 participants. 7 failed more
-than 2 out of 6 attention check questions, and, as per pre-registration stipulations, 
-were rejected from the study. The remaining 150 participants data were included
-in the full analysis (`r printnum(gender_e2$M)`% male, `r printnum(gender_e2$F)`% female, and 
-`r printnum(gender_e2$NB)`% non-binary). Mean age of participants was `r printnum(age_e2$mean)`
-(*SD* = `r printnum(age_e2$sd)`). Mean graph literacy score was `r printnum(literacy_e2$mean)`
-(*SD* = `r printnum(literacy_e2$sd)`) out of 30.
 
 ## Results
 
