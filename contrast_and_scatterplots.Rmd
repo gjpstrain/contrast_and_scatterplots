@@ -758,8 +758,8 @@ compared to when it was higher. This was true up until contrast alpha was set to
 implying a threshold around alpha = 0.75 past which there
 is little variation in the perception of contrast, at least as far as it is associated
 with correlation estimation. This lack of significant difference in correlation estimation
-between our two highest contrast values fits with the logarithmic nature of contrast/
-brightness perception [@varshney_2013; @fechner_1948]; despite there being equal 
+between our two highest contrast values fits with the logarithmic nature of contrast/brightness
+perception [@varshney_2013; @fechner_1948]; despite there being equal 
 linear distance between the contrast values we used, the perceptual distance 
 between them was clearly non-linear. 
 
