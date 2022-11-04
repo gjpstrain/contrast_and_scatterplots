@@ -301,8 +301,9 @@ bar_plot_function <- function(df) {
     theme_minimal() +
     labs(x = "Contrast Condition",
          y = "Mean Error") +
-    theme(axis.text.x = element_text(colour = "black", size = 10),
-          legend.position = "none") +
+    theme(axis.text.x = element_text(colour = "black", size = 14),
+          legend.position = "none",
+          axis.title = element_text(colour = "black", size = 13)) +
     scale_y_continuous(breaks = scales::pretty_breaks(n = 8)) +
     coord_cartesian(ylim = c(0, max_error)) 
   
@@ -324,7 +325,7 @@ In the last two centuries, the use of data visualizations has become increasingl
 common [@friendly_2005; @azzam_2013]. The speed of the adoption of visualizations has 
 meant rigorous scientific study of how they are comprehended by a viewer
 has often failed to keep pace. For many people, the COVID-19 pandemic has made
-data visualizations an everyday phenomena (see @bbc_2022 for examples of the types of visualizations many saw daily). As data visualizations designers, we have a duty to design in such a way that viewers with little to no formal statistical
+data visualizations an everyday phenomenon (see @bbc_2022 for examples of the types of visualizations many saw daily). As data visualizations designers, we have a duty to design in such a way that viewers with little to no formal statistical
 or data training can understand the message that visualizations are trying to convey.
 
 In this paper we present a novel visualization technique that significantly increases
@@ -337,7 +338,7 @@ and high-powered study of data visualizations.
 
 ## Why Study Scatterplots?
 
-Scatterplots, estimated in 1984 to account for between 70 and 80 percent of data visualizations
+Scatterplots, estimated in 1983 to account for between 70 and 80 percent of data visualizations
 in scientific publications [@tufte_1983], are simple representations of bivariate
 data that people generally interpret in the same way [@kay_heer_2015].
 @rensink_2014 identifies them as similar to a fruit fly for geneticists; 
@@ -364,7 +365,7 @@ the *r* value, with studies finding evidence for a systematic underestimation fo
 positive *r* values apart from 0 and 1. In several studies this effect was particularly
 pronounced for 0.2 < *r* < 0.6 [@strahan_1978; @bobko_1979; @cleveland_1982;
 @lane_1985; @lauer_1989; @collyer_1990; @meyer_1992], see Figure 
-\ref{underestimation-curve} for an approximation of the underestimation seen. In addition to studies
+\ref{underestimation-curve} for an approximation of the underestimation observed. In addition to studies
 employing discriminative judgement or direct estimation tasks, several more recent
 investigations have employed a combination of bisection tasks, in which participants
 are asked to adjust a test plot so that its correlation is halfway between two
@@ -392,8 +393,8 @@ as.tibble(my_rs) %>%
 ## What Drives Correlation Perception?
 
 Several key pieces of evidence point to correlation perception being driven
-by the shape of the probability distribution relayed by the points, which we will
-discuss below. A study investigating the effect of increasing the x and y scales on scatterplots
+by the shape of the probability distribution relayed by the points. 
+A study investigating the effect of increasing the x and y scales on scatterplots
 (thereby decreasing the size of the point cloud) [@cleveland_1982] found that 
 a viewer's judged association increased as the size of the point cloud decreased, despite
 the *r* value remaining the same between conditions. The authors suggest
@@ -447,7 +448,7 @@ much easier to discern for the user. Despite the popularity of this technique,
 little investigation has taken place into the effects of reducing point contrast
 on people's perceptions of correlation; what has been found is that correlation perception
 seems to be invariant to changes in point contrast [@rensink_2012], although this work
-took place with low sample sizes (n = 12), and using only bisection/JND methodologies.
+took place with small sample sizes (n = 12), and using only bisection/JND methodologies.
 
 @champion_2017 found participants' speed discrimination thresholds (a proxy measure
 of uncertainty in the sensory signal) to be higher for low contrast stimuli, and
@@ -536,7 +537,8 @@ Computer Science Department Panel (Ref: 2022-14660-24397). Each participant was 
 to provide their age in a free text box, and their gender identity. Following this
 they were asked to complete the 5-item Subjective Graph Literacy (SGL) test [@garcia_2016].
 Participants were then shown 7 instructional slides that can be seen in the 
-experimental repository (instructions.csv). Ad-hoc piloting with a graduate student
+experimental repository (https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments/blob/master/instructions.csv). 
+Ad-hoc piloting with a graduate student 
 in humanities suggested people might be unfamiliar with what different correlations
 looked like in scatterplots. They were therefore shown examples of *r* = 0.2, 0.5,
 0.8, and 0.95, which can be see in Figure \ref{example-plots}. Participants 
@@ -598,7 +600,7 @@ and converges.
 
 Our first experiment varied the contrast of every point on a scatterplot in a
 uniform manner. Given the effects of contrast on perception 
-described above [@champion_2017;wehrhahn_1990], we hypothesized that there would be a 
+described above [@champion_2017;@wehrhahn_1990], we hypothesized that there would be a 
 wider spread of correlation estimates for plots with lower contrast compared to plots
 with higher contrast, potentially due to the greater spatial uncertainty induced by
 lower contrast.
@@ -627,11 +629,10 @@ literacy_e1 <- distinct(E1_uniform_adjustments_tidy, participant,
 
 150 participants were recruited using the Prolific.co platform. Normal to corrected-
 to-normal vision and English fluency were required for participation. In accordance
-with guidelines published in [@peer_2021], participants were required to have 
+with guidelines published in @peer_2021, participants were required to have 
 previously completed at least 100 studies on Prolific, and were required to have
 a Prolific score of at least 100, indicating acceptance on at least 100/101 studies previously completed.
-In addition, participants who had completed an earlier, similar study  
-were prevented from participating.
+In addition, participants who had completed an earlier, similar study were prevented from participating.
 
 Data were collected from 158 participants. 8 failed more than 2 out of 6 
 attention check questions, and, as per pre-registration stipulations, were rejected
@@ -716,12 +717,14 @@ correlation judgements are shown in table \ref{sum-stats-e1}.
 # outputs summary statistics for E1 model.
 contrasts_e1 <- contrasts_extract(e1_model) %>%
   mutate(p.value = scales::pvalue(p.value))
+
 knitr::kable(contrasts_e1, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e1}This table shows the contrasts between different levels of the contrast factor in E1. A = Low contrast (alpha = 0.25), Medium contrast (alpha = 0.5), C = High contrast (alpha = 0.75), D = Full contrast (alpha = 1).")
 ```
 
 ```{r sum-stats-e1, echo=FALSE, warning=FALSE, message=FALSE, fig.align='left'}
 # outputs summary statistics for E1
 sum_stats_e1 <- sum_stats(E1_uniform_adjustments_tidy)
+
 knitr::kable(sum_stats_e1, booktabs = TRUE, digits = c(0,3,3), caption = "\\label{sum-stats-e1}This table shows means and standard errors for the contrast conditions in E1. A = Low contrast (alpha = 0.25), Medium contrast (alpha = 0.5), C = High contrast (alpha = 0.75), D = Full contrast (alpha = 1).")
 ```
 
@@ -733,6 +736,7 @@ experimental one, but includes graph literacy as a fixed effect.
 # builds model with literacy as a fixed effect
 e1_literacy <- lmer(add.terms(formula(e1_model), "literacy"),
                     data = E1_uniform_adjustments_tidy)
+
 e1_model_lit_comparison <- e1_model
 ```
 

@@ -153,7 +153,7 @@ increasingly common \citep{friendly_2005, azzam_2013}. The speed of the
 adoption of visualizations has meant rigorous scientific study of how
 they are comprehended by a viewer has often failed to keep pace. For
 many people, the COVID-19 pandemic has made data visualizations an
-everyday phenomena (see \citet{bbc_2022} for examples of the types of
+everyday phenomenon (see \citet{bbc_2022} for examples of the types of
 visualizations many saw daily). As data visualizations designers, we
 have a duty to design in such a way that viewers with little to no
 formal statistical or data training can understand the message that
@@ -172,7 +172,7 @@ effective, inexpensive, and high-powered study of data visualizations.
 \hypertarget{why-study-scatterplots}{%
 \subsection{Why Study Scatterplots?}\label{why-study-scatterplots}}
 
-Scatterplots, estimated in 1984 to account for between 70 and 80 percent
+Scatterplots, estimated in 1983 to account for between 70 and 80 percent
 of data visualizations in scientific publications \citep{tufte_1983},
 are simple representations of bivariate data that people generally
 interpret in the same way \citep{kay_heer_2015}. \citet{rensink_2014}
@@ -208,14 +208,14 @@ systematic underestimation for positive \emph{r} values apart from 0 and
 \textless{} \emph{r} \textless{} 0.6
 \citep{strahan_1978, bobko_1979, cleveland_1982, lane_1985, lauer_1989, collyer_1990, meyer_1992},
 see Figure \ref{underestimation-curve} for an approximation of the
-underestimation seen. In addition to studies employing discriminative
-judgement or direct estimation tasks, several more recent investigations
-have employed a combination of bisection tasks, in which participants
-are asked to adjust a test plot so that its correlation is halfway
-between two reference plots, and a staircase discriminative judgement
-task that allows researchers to find the just-noticeable-difference
-(JND) between scatterplots such that their correlations are
-distinguishable 75\% of the time. This novel approach
+underestimation observed. In addition to studies employing
+discriminative judgement or direct estimation tasks, several more recent
+investigations have employed a combination of bisection tasks, in which
+participants are asked to adjust a test plot so that its correlation is
+halfway between two reference plots, and a staircase discriminative
+judgement task that allows researchers to find the
+just-noticeable-difference (JND) between scatterplots such that their
+correlations are distinguishable 75\% of the time. This novel approach
 \citep{rensink_2010} allows researchers to obtain measurements for
 participants' precision and accuracy in correlation estimation, and to
 begin to fit mathematical models that describe the relationship between
@@ -237,16 +237,16 @@ Perception?}\label{what-drives-correlation-perception}}
 
 Several key pieces of evidence point to correlation perception being
 driven by the shape of the probability distribution relayed by the
-points, which we will discuss below. A study investigating the effect of
-increasing the x and y scales on scatterplots (thereby decreasing the
-size of the point cloud) \citep{cleveland_1982} found that a viewer's
-judged association increased as the size of the point cloud decreased,
-despite the \emph{r} value remaining the same between conditions. The
-authors suggest this may be due to participants using the area of the
-point cloud, or the ratio of the minor and major axes of it, to judge
-association. Decreasing the size of the point cloud here has also had
-the effect of narrowing the width of the distribution displayed, as the
-length of the minor axis has decreased.
+points. A study investigating the effect of increasing the x and y
+scales on scatterplots (thereby decreasing the size of the point cloud)
+\citep{cleveland_1982} found that a viewer's judged association
+increased as the size of the point cloud decreased, despite the \emph{r}
+value remaining the same between conditions. The authors suggest this
+may be due to participants using the area of the point cloud, or the
+ratio of the minor and major axes of it, to judge association.
+Decreasing the size of the point cloud here has also had the effect of
+narrowing the width of the distribution displayed, as the length of the
+minor axis has decreased.
 
 Furthermore, another study asked participants to provide estimates of
 correlation in scatterplots \citep{meyer_1997}. It found that the
@@ -303,7 +303,7 @@ technique, little investigation has taken place into the effects of
 reducing point contrast on people's perceptions of correlation; what has
 been found is that correlation perception seems to be invariant to
 changes in point contrast \citep{rensink_2012}, although this work took
-place with low sample sizes (n = 12), and using only bisection/JND
+place with small sample sizes (n = 12), and using only bisection/JND
 methodologies.
 
 \citet{champion_2017} found participants' speed discrimination
@@ -405,12 +405,14 @@ They were then asked to provide their age in a free text box, and their
 gender identity. Following this they were asked to complete the 5-item
 Subjective Graph Literacy (SGL) test \citep{garcia_2016}. Participants
 were then shown 7 instructional slides that can be seen in the
-experimental repository (instructions.csv). Ad-hoc piloting with a
-graduate student in humanities suggested people might be unfamiliar with
-what different correlations looked like in scatterplots. They were
-therefore shown examples of \emph{r} = 0.2, 0.5, 0.8, and 0.95, which
-can be see in Figure \ref{example-plots}. Participants were then given
-two practice trials before the experiment began.
+experimental repository
+(https://gitlab.pavlovia.org/Strain/exp\_uniform\_adjustments/blob/master/instructions.csv).
+Ad-hoc piloting with a graduate student in humanities suggested people
+might be unfamiliar with what different correlations looked like in
+scatterplots. They were therefore shown examples of \emph{r} = 0.2, 0.5,
+0.8, and 0.95, which can be see in Figure \ref{example-plots}.
+Participants were then given two practice trials before the experiment
+began.
 
 \begin{figure}
 
@@ -486,11 +488,10 @@ Points}\label{experiment-1-changing-the-contrast-of-all-points}}
 
 Our first experiment varied the contrast of every point on a scatterplot
 in a uniform manner. Given the effects of contrast on perception
-described above {[}\citet{champion_2017};wehrhahn\_1990{]}, we
-hypothesized that there would be a wider spread of correlation estimates
-for plots with lower contrast compared to plots with higher contrast,
-potentially due to the greater spatial uncertainty induced by lower
-contrast.
+described above \citep{champion_2017, wehrhahn_1990}, we hypothesized
+that there would be a wider spread of correlation estimates for plots
+with lower contrast compared to plots with higher contrast, potentially
+due to the greater spatial uncertainty induced by lower contrast.
 
 \hypertarget{method}{%
 \subsection{Method}\label{method}}
@@ -501,12 +502,11 @@ contrast.
 150 participants were recruited using the Prolific.co platform. Normal
 to corrected- to-normal vision and English fluency were required for
 participation. In accordance with guidelines published in
-\citep{peer_2021}, participants were required to have previously
+\citet{peer_2021}, participants were required to have previously
 completed at least 100 studies on Prolific, and were required to have a
 Prolific score of at least 100, indicating acceptance on at least
 100/101 studies previously completed. In addition, participants who had
-completed an earlier, similar study\\
-were prevented from participating.
+completed an earlier, similar study were prevented from participating.
 
 Data were collected from 158 participants. 8 failed more than 2 out of 6
 attention check questions, and, as per pre-registration stipulations,
@@ -636,7 +636,7 @@ alpha was set to 0.75, implying a threshold around alpha = 0.75 past
 which there is little variation in the perception of contrast, at least
 as far as it is associated with correlation estimation. This lack of
 significant difference in correlation estimation between our two highest
-contrast values fits with the logarithmic nature of contrast/ brightness
+contrast values fits with the logarithmic nature of contrast/brightness
 perception \citep{varshney_2013, fechner_1948}; despite there being
 equal linear distance between the contrast values we used, the
 perceptual distance between them was clearly non-linear.
