@@ -325,7 +325,7 @@ In the last two centuries, the use of data visualizations has become increasingl
 common [@friendly_2005; @azzam_2013]. The speed of the adoption of visualizations has 
 meant rigorous scientific study of how they are comprehended by a viewer
 has often failed to keep pace. For many people, the COVID-19 pandemic has made
-data visualizations an everyday phenomenon (see @bbc_2022 for examples of the types of visualizations many saw daily). As data visualizations designers, we have a duty to design in such a way that viewers with little to no formal statistical
+data visualizations an everyday phenomenon (see @bbc_2022 for examples of the types of visualizations many saw daily). As data visualization designers, we have a duty to design in such a way that viewers with little to no formal statistical
 or data training can understand the message that visualizations are trying to convey.
 
 In this paper we present a novel visualization technique that significantly increases
@@ -421,8 +421,7 @@ was more predictive of participants' estimates of correlation than the objective
 Bringing together work that has sought to model the relationship between objective
 and perceived *r* values, @rensink_2017 notes that equations for both
 discrimination and magnitude estimation include a parameter, termed *u* in @rensink_2017,
-that is small when *r* = 1, and increases as *r* approaches 0. The utility of this parameter in modelling
-correlation perception is indifferent to the type of data visualization used, which
+that is small when *r* = 1, and increases as *r* approaches 0. The utility of this parameter in modelling correlation perception is indifferent to the type of data visualization used, which
 implies that the width of the probability distribution, summarised by the aforementioned
 parameter, is key to how people estimate correlation. Within the context of scatterplots
 however, this parameter can also be expressed as the average distance between the points
@@ -452,7 +451,7 @@ took place with small sample sizes (n = 12), and using only bisection/JND method
 
 @champion_2017 found participants' speed discrimination thresholds (a proxy measure
 of uncertainty in the sensory signal) to be higher for low contrast stimuli, and
-@wehrhahn_1990 found participants' performances on a vernier acuity tasks to become
+@wehrhahn_1990 found participants' performances on a vernier acuity task to become
 exponentially poorer when contrast was lowered past a certain threshold. Given this
 evidence, the lack of effect of point contrast on correlation perception in @rensink_2012
 warrants further investigation.
@@ -467,12 +466,7 @@ can use contrast to reduce the salience of the points representing the widest pa
 of the probability distribution; if this is successful, and participants perceive
 a narrower distribution, we would expect this to be able to correct for a viewer's underestimation bias.
 
-Intuitively, the best way to correct for an underestimation in correlation would 
-be to simply remove outer data points until correlation perception aligned with
-what the actual correlation value was. Effectively hiding data is clearly problematic, and crucially
-our methodology allows us to begin to correct for the underestimation bias **without**
-removing data points, thereby preserving the integrity of the scatterplot for 
-numerical retrieval or cluster separation tasks, among others.
+One way to correct for an underestimation in correlation would be to simply remove outer data points until correlation perception is aligned with the actual correlation value. However, this would necessitate hiding data, thus changing the information presented to the viewer. Our proposed methodology allows us to correct for the underestimation bias without removing data points, thereby preserving the integrity of the scatterplot for numerical retrieval or cluster separation tasks, among others.
 
 Before we begin attempting to use contrast manipulations to address the underestimation
 bias, we first test what the effect of contrast is on correlation perception in
@@ -533,12 +527,10 @@ as we are measuring relative differences in both of our experiments, we do not
 consider this to be an issue.
 
 Ethical approval for both experiments was granted by the University of Manchester’s
-Computer Science Department Panel (Ref: 2022-14660-24397). Each participant was shown the participant information sheet (PIS) and provided consent through key presses in response to consent statements. They were then asked
-to provide their age in a free text box, and their gender identity. Following this
+Computer Science Department Panel (Ref: 2022-14660-24397). Each participant was shown the participant information sheet (PIS) and provided consent through key presses in response to consent statements. They were then asked to provide their age in a free text box, and their gender identity. Following this
 they were asked to complete the 5-item Subjective Graph Literacy (SGL) test [@garcia_2016].
 Participants were then shown 7 instructional slides that can be seen in the 
-experimental repository (https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments/blob/master/instructions.csv). 
-Ad-hoc piloting with a graduate student 
+experimental repository (https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments/blob/master/instructions.csv). Ad-hoc piloting with a graduate student 
 in humanities suggested people might be unfamiliar with what different correlations
 looked like in scatterplots. They were therefore shown examples of *r* = 0.2, 0.5,
 0.8, and 0.95, which can be see in Figure \ref{example-plots}. Participants 
@@ -627,12 +619,11 @@ literacy_e1 <- distinct(E1_uniform_adjustments_tidy, participant,
   summarise(mean = mean(literacy), sd = sd(literacy))
 ```
 
-150 participants were recruited using the Prolific.co platform. Normal to corrected-
-to-normal vision and English fluency were required for participation. In accordance
+150 participants were recruited using the Prolific.co platform. Normal to corrected-to-normal
+vision and English fluency were required for participation. In accordance
 with guidelines published in @peer_2021, participants were required to have 
 previously completed at least 100 studies on Prolific, and were required to have
-a Prolific score of at least 100, indicating acceptance on at least 100/101 studies previously completed.
-In addition, participants who had completed an earlier, similar study were prevented from participating.
+a Prolific score of at least 100, indicating acceptance on at least 100/101 studies previously completed. In addition, participants who had completed an earlier, similar study were prevented from participating.
 
 Data were collected from 158 participants. 8 failed more than 2 out of 6 
 attention check questions, and, as per pre-registration stipulations, were rejected
@@ -742,7 +733,7 @@ e1_model_lit_comparison <- e1_model
 
 ```{r literacy-comparison-e1, eval = TRUE, echo=FALSE, message=FALSE}
 # extracts anova statistics for comparison with literacy as a fixed effect
-f <- anova_results(e1_model_lit_comparison, e1_literacy)
+anova_results(e1_model_lit_comparison, e1_literacy)
 ```
 
 We found no significant differences between the original model and the one including
@@ -767,15 +758,14 @@ perception [@varshney_2013; @fechner_1948]; despite there being equal
 linear distance between the contrast values we used, the perceptual distance 
 between them was clearly non-linear. 
 
-As mentioned previously, @rensink_2012 and @rensink_2014 describes what is, to our knowledge, the only 
+As mentioned previously, @rensink_2012 and @rensink_2014 describe what is, to our knowledge, the only 
 other direct testing of correlation perception and point contrast, and reports 
 invariance in accuracy and precision with regards to contrast. Our results contradict
 these previously reported findings, which we argue is due to crucial differences in methodology
-and experimental power. Rensink used bisection and 
-JND tasks to fit equations for accuracy and precision. Our methodology simply
+and experimental power. Rensink used bisection and JND tasks to fit equations for accuracy and precision. Our methodology simply
 asked participants to estimate correlation, producing comparative judgements more
 suited to informing scatterplot design than the absolute relationship between
-correlation and perceived correlation illuminated upon by other methodologies. The
+correlation and perceived correlation illuminatedf upon by other methodologies. The
 major strength of this study is the large sample size (n = 150). Compared with the
 relatively small sample size in @rensink_2014 (n = 12), our study's heightened
 experimental power represents strong evidence that total contrast in a scatterplot
@@ -825,8 +815,7 @@ literacy_e2 <- distinct(E2_spatially_dependent_tidy, participant,
 Normal to corrected-to-normal vision and English fluency were required for participation. In accordance
 with guidelines published in [@peer_2021], participants were required to have 
 previously completed at least 100 studies on Prolific, and were required to have
-a Prolific score of at least 100, indicating acceptance on at least 100/101 previously completed studies.
-In addition, participants who had completed an earlier, similar study *(preprint)* or the first
+a Prolific score of at least 100, indicating acceptance on at least 100/101 previously completed studies. In addition, participants who had completed an earlier, similar study, or the first
 experiment described above were prevented from participating.
 
 Data were collected from 157 participants. 7 failed more
@@ -923,7 +912,7 @@ and **lme4** (version 1.1-30 [@bates_lme4_2015]) packages.
 ```{r e2-bar-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{e2-bar-plot}Mean error in correlation estimation across the four contrast conditions in E2.", description = "Bar plot showing mean estimation error for four contrast conditions in experiment 2, lowest mean error is for non-linear decay, followed by linear decay, full contrast, and inverted non-linear decay. Values are provided in table 4."}
 # plot bar plot for e2
 bar_plot_function(E2_spatially_dependent_tidy) +
-  scale_x_discrete(labels = c("Non-Linear Decay",
+  scale_x_discrete(labels = c("Non-Linear\nDecay",
                               "Linear Decay",
                               "Non-Linear\nInverted Decay",
                               "Full Contrast"))
@@ -1034,7 +1023,8 @@ included in the linear decay parameter condition however, it becomes clear why; 
 nature of contrast perception [@varshney_2013; @fechner_1948] means that there is
 little perceptual distance between contrasts with high (> 0.75) contrast alpha values,
 which translates in our study to no perceived differences, on average,
-between plots with linear decay parameters and full contrast. Filtering out lower
+between plots with linear decay parameters and full contrast. This apparent
+threshold for contrast effects was also found in experiment 1. Filtering out lower
 *r* values, those with naturally higher total residuals (arbitrarily *r* < 0.6),
 still produces no significant differences between correlation estimation errors 
 for linear decay and full contrast conditions ($\chi^2$(`r in_paren(e2_model_low_range.df)`)
@@ -1118,8 +1108,8 @@ E2_spatially_dependent_tidy %>%
 Our experiments contribute to a body of evidence that suggests participants
 are paying attention to the width of the probability distribution displayed in
 scatterplots. We also confirm the systematic underestimation of correlation, and 
-suggest a strategy to correct for it. Ultimately the primary contribution of this
-work is a set of recommendations for visualizations designers:
+suggest a strategy to correct for it. Through this work we do not attempt to redesign
+the scatterplot as a medium, but to provide a set of recommendations for visualization designers when designing scatterplots to support correlation perception:
 
 1. Lowering the total contrast in a scatterplot can cause people to underestimate
 correlation compared to when contrast is maximal between the points and the plot background.
