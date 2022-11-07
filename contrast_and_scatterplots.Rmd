@@ -633,7 +633,6 @@ analysis (`r printnum(gender_e1$M)`% male, `r printnum(gender_e1$F)`% female, an
 (*SD* = `r printnum(age_e1$sd)`). Mean graph literacy score was `r printnum(literacy_e1$mean)`
 (*SD* = `r printnum(literacy_e1$sd)`) out of 30.
 
-
 ### Design
 
 For each of the 45 *r* values there were 4 versions of each plot
@@ -737,8 +736,8 @@ anova_results(e1_model_lit_comparison, e1_literacy)
 ```
 
 We found no significant differences between the original model and the one including
-graph literacy as a fixed effect ($\chi^2$(`r in_paren(e1_model_lit_comparison.df)`) =
-`r printnum(e1_model_lit_comparison.Chisq)`, *p* `r printp(e1_model_lit_comparison.p, add_equals = TRUE)`).
+graph literacy as a fixed effect ($\chi^2$(`r in_paren(e1_model_lit_comparison.df)`)
+`r printp(e1_model_lit_comparison.Chisq)`, *p* `r printp(e1_model_lit_comparison.p, add_equals = TRUE)`).
 These results suggest that the effect we found was not driven by differences in graph
 literacy between participants.
 

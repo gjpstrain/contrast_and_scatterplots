@@ -154,9 +154,9 @@ adoption of visualizations has meant rigorous scientific study of how
 they are comprehended by a viewer has often failed to keep pace. For
 many people, the COVID-19 pandemic has made data visualizations an
 everyday phenomenon (see \citet{bbc_2022} for examples of the types of
-visualizations many saw daily). As data visualizations designers, we
-have a duty to design in such a way that viewers with little to no
-formal statistical or data training can understand the message that
+visualizations many saw daily). As data visualization designers, we have
+a duty to design in such a way that viewers with little to no formal
+statistical or data training can understand the message that
 visualizations are trying to convey.
 
 In this paper we present a novel visualization technique that
@@ -309,7 +309,7 @@ methodologies.
 \citet{champion_2017} found participants' speed discrimination
 thresholds (a proxy measure of uncertainty in the sensory signal) to be
 higher for low contrast stimuli, and \citet{wehrhahn_1990} found
-participants' performances on a vernier acuity tasks to become
+participants' performances on a vernier acuity task to become
 exponentially poorer when contrast was lowered past a certain threshold.
 Given this evidence, the lack of effect of point contrast on correlation
 perception in \citet{rensink_2012} warrants further investigation.
@@ -327,14 +327,14 @@ distribution; if this is successful, and participants perceive a
 narrower distribution, we would expect this to be able to correct for a
 viewer's underestimation bias.
 
-Intuitively, the best way to correct for an underestimation in
-correlation would be to simply remove outer data points until
-correlation perception aligned with what the actual correlation value
-was. Effectively hiding data is clearly problematic, and crucially our
-methodology allows us to begin to correct for the underestimation bias
-\textbf{without} removing data points, thereby preserving the integrity
-of the scatterplot for numerical retrieval or cluster separation tasks,
-among others.
+One way to correct for an underestimation in correlation would be to
+simply remove outer data points until correlation perception is aligned
+with the actual correlation value. However, this would necessitate
+hiding data, thus changing the information presented to the viewer. Our
+proposed methodology allows us to correct for the underestimation bias
+without removing data points, thereby preserving the integrity of the
+scatterplot for numerical retrieval or cluster separation tasks, among
+others.
 
 Before we begin attempting to use contrast manipulations to address the
 underestimation bias, we first test what the effect of contrast is on
@@ -500,7 +500,7 @@ due to the greater spatial uncertainty induced by lower contrast.
 \subsubsection{Participants}\label{participants}}
 
 150 participants were recruited using the Prolific.co platform. Normal
-to corrected- to-normal vision and English fluency were required for
+to corrected-to-normal vision and English fluency were required for
 participation. In accordance with guidelines published in
 \citet{peer_2021}, participants were required to have previously
 completed at least 100 studies on Prolific, and were required to have a
@@ -618,9 +618,10 @@ identical to the experimental one, but includes graph literacy as a
 fixed effect.
 
 We found no significant differences between the original model and the
-one including graph literacy as a fixed effect (\(\chi^2\)(1) = 0.00,
-\emph{p} = .995). These results suggest that the effect we found was not
-driven by differences in graph literacy between participants.
+one including graph literacy as a fixed effect (\(\chi^2\)(1)
+\textless{} .001, \emph{p} = .995). These results suggest that the
+effect we found was not driven by differences in graph literacy between
+participants.
 
 \hypertarget{discussion}{%
 \subsection{Discussion}\label{discussion}}
@@ -642,7 +643,7 @@ equal linear distance between the contrast values we used, the
 perceptual distance between them was clearly non-linear.
 
 As mentioned previously, \citet{rensink_2012} and \citet{rensink_2014}
-describes what is, to our knowledge, the only other direct testing of
+describe what is, to our knowledge, the only other direct testing of
 correlation perception and point contrast, and reports invariance in
 accuracy and precision with regards to contrast. Our results contradict
 these previously reported findings, which we argue is due to crucial
@@ -651,7 +652,7 @@ bisection and JND tasks to fit equations for accuracy and precision. Our
 methodology simply asked participants to estimate correlation, producing
 comparative judgements more suited to informing scatterplot design than
 the absolute relationship between correlation and perceived correlation
-illuminated upon by other methodologies. The major strength of this
+illuminatedf upon by other methodologies. The major strength of this
 study is the large sample size (n = 150). Compared with the relatively
 small sample size in \citet{rensink_2014} (n = 12), our study's
 heightened experimental power represents strong evidence that total
@@ -694,8 +695,8 @@ participation. In accordance with guidelines published in
 completed at least 100 studies on Prolific, and were required to have a
 Prolific score of at least 100, indicating acceptance on at least
 100/101 previously completed studies. In addition, participants who had
-completed an earlier, similar study \emph{(preprint)} or the first
-experiment described above were prevented from participating.
+completed an earlier, similar study, or the first experiment described
+above were prevented from participating.
 
 Data were collected from 157 participants. 7 failed more than 2 out of 6
 attention check questions, and, as per pre-registration stipulations,
@@ -843,9 +844,10 @@ it becomes clear why; the logarithmic nature of contrast perception
 perceptual distance between contrasts with high (\textgreater{} 0.75)
 contrast alpha values, which translates in our study to no perceived
 differences, on average, between plots with linear decay parameters and
-full contrast. Filtering out lower \emph{r} values, those with naturally
-higher total residuals (arbitrarily \emph{r} \textless{} 0.6), still
-produces no significant differences between correlation estimation
+full contrast. This apparent threshold for contrast effects was also
+found in experiment 1. Filtering out lower \emph{r} values, those with
+naturally higher total residuals (arbitrarily \emph{r} \textless{} 0.6),
+still produces no significant differences between correlation estimation
 errors for linear decay and full contrast conditions (\(\chi^2\)(1) =
 0.09, \emph{p} = .769).
 
@@ -923,8 +925,9 @@ Our experiments contribute to a body of evidence that suggests
 participants are paying attention to the width of the probability
 distribution displayed in scatterplots. We also confirm the systematic
 underestimation of correlation, and suggest a strategy to correct for
-it. Ultimately the primary contribution of this work is a set of
-recommendations for visualizations designers:
+it. Through this work we do not attempt to redesign the scatterplot as a
+medium, but to provide a set of recommendations for visualization
+designers when designing scatterplots to support correlation perception:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
