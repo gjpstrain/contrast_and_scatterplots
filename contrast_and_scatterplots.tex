@@ -114,7 +114,7 @@ United Kingdom.}
   communicate a range of ideas, primarily the correlation between two
   variables. Despite their ubiquity, people typically do not perceive
   correlations between variables accurately from scatterplots, tending
-  to underestimate the strength of relationship displayed. Here we
+  to underestimate the strength of the relationship displayed. Here we
   describe a two-experiment study in which we adjust the visual contrast
   of scatterplot points, and demonstrate a systematic approach to
   altering the bias. We find evidence that lowering the total visual
@@ -228,7 +228,7 @@ estimation paradigm.
 
 \includegraphics{contrast_and_scatterplots_files/figure-latex/underestimation-curve-1} \hfill{}
 
-\caption{\label{underestimation-curve}Using a function that relates objective to subjective \textit{r} supplied in \citep{rensink_2017} allows us to visualize the nature of the underestimation curve found in correlation perception studies. The curve represents the underestimation of correlation.}\label{fig:underestimation-curve}
+\caption{\label{underestimation-curve}Using a function that relates objective to subjective \textit{r} supplied in \cite{rensink_2017} allows us to visualize the nature of the underestimation curve found in correlation perception studies. The curve represents the underestimation of correlation.}\label{fig:underestimation-curve}
 \end{figure}
 
 \hypertarget{what-drives-correlation-perception}{%
@@ -364,8 +364,8 @@ creation in both experiments, which uses an alpha parameter to set
 contrast. Alpha here refers to the linear interpolation
 \citep{stone_2008} between foreground and background pixel values; alpha
 values of 0 (full transparency) and 1 (full opacity) result in no
-interpolation and rendering of either the background or foreground
-colour respectively. Alpha values between 0 and 1 correspond to
+interpolation and rendering of either the background or foreground pixel
+values respectively. Alpha values between 0 and 1 correspond to
 different ratios of interpolation between foreground and background
 pixel values.
 
@@ -549,7 +549,6 @@ instructions needed to run the experiment in full.
 \subsection{Results}\label{results}}
 
 All analyses were conducted using R (version 4.2.1, \citep{r_core}).
-
 Models were built using the \textbf{buildmer} (version 2.7
 \citep{voeten_buildmer_2022}) and \textbf{lme4} (version 1.1-30
 \citep{bates_lme4_2015}) packages. \textbf{buildmer} takes the most
@@ -626,13 +625,11 @@ B & 0.166 & 0.201\\
 We also generate an additional model to test whether the results we
 found could be explained by differences in graph literacy. This model is
 identical to the experimental one, but includes graph literacy as a
-fixed effect.
-
-We found no significant differences between the original model and the
-one including graph literacy as a fixed effect (\(\chi^2\)(1)
-\textless{} .001, \emph{p} = .995). These results suggest that the
-effect we found was not driven by differences in graph literacy between
-participants.
+fixed effect. We found no significant differences between the original
+model and the one including graph literacy as a fixed effect
+(\(\chi^2\)(1) \textless{} .001, \emph{p} = .995). These results suggest
+that the effect we found was not driven by differences in graph literacy
+between participants.
 
 \hypertarget{discussion}{%
 \subsection{Discussion}\label{discussion}}
@@ -726,13 +723,13 @@ graph literacy score was 21.71 (\emph{SD} = 4.06) out of 30.
 
 For each of the 45 \emph{r} values there were four versions of each
 plot, which can be seen in Figure \ref{e2-example-plots}. Three used
-functions relating point residuals to point contrast, which we
-henceforth refer to as decay parameters, with the remaining condition
-being the contrast alpha = 1 uniform contrast condition from the first
-experiment. We used the following equation to non-linearly map residuals
-to alpha values, where R is the residual of the point in question. 0.25
-was chosen as the value of \(b\), which represented an ideal balance
-between point legibility and contrast decay severity.
+functions relating point residuals to point contrast, which we refer to
+as decay parameters, with the remaining condition being the contrast
+alpha = 1 uniform contrast condition from the first experiment. We used
+the following equation to non-linearly map residuals to alpha values,
+where R is the residual of the point in question. 0.25 was chosen as the
+value of \(b\), which represented an ideal balance between point
+legibility and contrast decay severity.
 
 \begin{align}
   alpha = 1 - b^R
@@ -831,12 +828,11 @@ A & 0.086 & 0.170\\
 Again, we also generated an additional model to test whether the results
 we found could be explained by differences in graph literacy. This model
 is identical to the experimental one, but includes graph literacy as a
-fixed effect.
-
-We found no significant differences between the original model and the
-one including graph literacy as a fixed effect (\(\chi^2\)(1) = 0.24,
-\emph{p} = .623). These results suggest that the effect we found was not
-driven by differences in graph literacy between participants.
+fixed effect. We found no significant differences between the original
+model and the one including graph literacy as a fixed effect
+(\(\chi^2\)(1) = 0.24, \emph{p} = .623). These results suggest that the
+effect we found was not driven by differences in graph literacy between
+participants.
 
 \hypertarget{discussion-1}{%
 \subsection{Discussion}\label{discussion-1}}
@@ -903,7 +899,7 @@ visualizing relationships between data while minimising the error in
 perceived correlation. The majority of the studies cited in this paper
 have used small samples of participants with experience in data science
 and statistics to draw their conclusions, often graduate students in
-visualization heavy fields. We argue that this does not inform the
+visualization-heavy fields. We argue that this does not inform the
 design of commonly used data visualizations in a naturalistic way. In
 comparison, we have recruited from much more representative populations,
 and have demonstrated that a simple framework can be used with these
@@ -922,7 +918,7 @@ markedly lower levels of precision and accuracy for \emph{r} values
 further from 0 or 1.
 
 \begin{figure}
-\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-dist-plots-1} \includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-dist-plots-2} \caption{\label{e2-dist-plots}Plotting objective \textit{r} values against mean error in correlation estimates (on the left) and standard deviations of correlation estimates (on the right) shows that accuracy increases with \textit{r}.}\label{fig:e2-dist-plots}
+\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-dist-plots-1} \includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-dist-plots-2} \caption{\label{e2-dist-plots}Plotting objective \textit{r} values against mean error in correlation estimates (on the left) and standard deviations of correlation estimates (on the right) shows that accuracy and precision increase with \textit{r}.}\label{fig:e2-dist-plots}
 \end{figure}
 
 Our experiments contribute to a body of evidence that suggests

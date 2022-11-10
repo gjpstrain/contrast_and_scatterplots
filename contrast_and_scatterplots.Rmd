@@ -21,7 +21,7 @@ address:
     address: Division of Psychology, Communication and Human Neuroscience, School of Health Sciences, Faculty of Biology, Medicine, and Health, University of Manchester, Oxford Road, Manchester, M13 9PL, United Kingdom.
 abstract: |
 
-  Scatterplots are common data visualizations that can be used to communicate a range of ideas, primarily the correlation between two variables. Despite their ubiquity, people typically do not perceive correlations between variables accurately from scatterplots, tending to underestimate the strength of relationship displayed. Here we describe a two-experiment study in which we adjust the visual contrast of scatterplot points, and demonstrate a systematic approach to altering the bias. We find evidence that lowering the total visual contrast in a plot leads to increased bias in correlation estimates and show that decreasing the salience of points as a function of their distance from the regression line, by lowering their contrast, can facilitate more accurate correlation perception. We discuss the implications of these findings for visualization design, and provide a framework for online, reproducible, and large-sample-size (N = 150 per experiment) testing of the design parameters of data visualizations.
+  Scatterplots are common data visualizations that can be used to communicate a range of ideas, primarily the correlation between two variables. Despite their ubiquity, people typically do not perceive correlations between variables accurately from scatterplots, tending to underestimate the strength of the relationship displayed. Here we describe a two-experiment study in which we adjust the visual contrast of scatterplot points, and demonstrate a systematic approach to altering the bias. We find evidence that lowering the total visual contrast in a plot leads to increased bias in correlation estimates and show that decreasing the salience of points as a function of their distance from the regression line, by lowering their contrast, can facilitate more accurate correlation perception. We discuss the implications of these findings for visualization design, and provide a framework for online, reproducible, and large-sample-size (N = 150 per experiment) testing of the design parameters of data visualizations.
   
 keywords: 
   - Scatterplot
@@ -377,7 +377,7 @@ precision and accuracy in correlation estimation, and to begin to fit mathematic
 models that describe the relationship between objective and perceived correlation.
 Given that this paper seeks to provide design guidelines, and is interested in comparative, naturalistic judgements of correlation, we have elected to use a direct estimation paradigm.
 
-```{r underestimation-curve, warning=FALSE, echo=FALSE, message=FALSE, fig.cap="\\label{underestimation-curve}Using a function that relates objective to subjective \\textit{r}\ supplied in \\citep{rensink_2017}\ allows us to visualize the nature of the underestimation curve found in correlation perception studies. The curve represents the underestimation of correlation.", fig.height=3.2, fig.width=3.2, fig.align='left', description = "A line graph, with objective r value on the horizontal axis, and subjective r value on the vertical axis. A curve describes the relationship between the two variables, which are similar at r = 0 or 1. The curve shows how r is underestimated in the midrange, reaching maximum underestimation around r = 0.6."}
+```{r underestimation-curve, warning=FALSE, echo=FALSE, message=FALSE, fig.cap="\\label{underestimation-curve}Using a function that relates objective to subjective \\textit{r}\ supplied in \\cite{rensink_2017}\ allows us to visualize the nature of the underestimation curve found in correlation perception studies. The curve represents the underestimation of correlation.", fig.height=3.2, fig.width=3.2, fig.align='left', description = "A line graph, with objective r value on the horizontal axis, and subjective r value on the vertical axis. A curve describes the relationship between the two variables, which are similar at r = 0 or 1. The curve shows how r is underestimated in the midrange, reaching maximum underestimation around r = 0.6."}
 my_rs <- seq(from = 0, to = 1, length.out = 100)
 as.tibble(my_rs) %>%
   mutate(under_est = (log(1-0.88*my_rs)/log(1-0.88))) %>%
@@ -491,7 +491,7 @@ of both manipulations.
 We use the **ggplot2** [@hadley_gg2016] package for plot creation in both experiments,
 which uses an alpha parameter to set contrast. Alpha here refers to the 
 linear interpolation [@stone_2008] between foreground and background pixel values; 
-alpha values of 0 (full transparency) and 1 (full opacity) result in no interpolation and rendering of either the background or foreground colour respectively. Alpha values between 0 and 1 correspond to 
+alpha values of 0 (full transparency) and 1 (full opacity) result in no interpolation and rendering of either the background or foreground pixel values respectively. Alpha values between 0 and 1 correspond to 
 different ratios of interpolation between foreground and background pixel values.
 
 There are numerous psychophysical definitions of perceived contrast [@zuffi_2007]
@@ -650,7 +650,8 @@ For each of the 45 *r* values there were 4 versions of each plot
 corresponding to the 4 levels of point contrast, examples of which can be seen
 in Figure \ref{e1-example-plots}. 
 
-The experiment is hosted at https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments.
+The experiment is hosted at 
+https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments.
 This repository contains all the experimental code, materials, and instructions needed
 to run the experiment in full.
 
@@ -661,7 +662,6 @@ knitr::include_graphics("plot_examples/uniform_adjustments_plot_examples.png")
 ## Results
 
 All analyses were conducted using R (version 4.2.1, [@r_core]).
-
 Models were built using the **buildmer** (version 2.7 [@voeten_buildmer_2022]) and
 **lme4** (version 1.1-30 [@bates_lme4_2015]) packages. **buildmer** takes the most
 complex model, in terms of random effects intercepts for participants and items, and 
@@ -729,10 +729,6 @@ sum_stats_e1 <- sum_stats(E1_uniform_adjustments_tidy)
 knitr::kable(sum_stats_e1, booktabs = TRUE, digits = c(0,3,3), caption = "\\label{sum-stats-e1}This table shows means and standard errors for the contrast conditions in E1. A = Low contrast (alpha = 0.25), Medium contrast (alpha = 0.5), C = High contrast (alpha = 0.75), D = Full contrast (alpha = 1).")
 ```
 
-We also generate an additional model to test whether the results we found could
-be explained by differences in graph literacy. This model is identical to the 
-experimental one, but includes graph literacy as a fixed effect.
-
 ```{r e1-lit, cache=eval_models, cache.comments=FALSE, eval=eval_models, echo=FALSE, warning=FALSE, dependson="e1-model"}
 # builds model with literacy as a fixed effect
 e1_literacy <- lmer(add.terms(formula(e1_model), "literacy"),
@@ -746,6 +742,9 @@ e1_model_lit_comparison <- e1_model
 anova_results(e1_model_lit_comparison, e1_literacy)
 ```
 
+We also generate an additional model to test whether the results we found could
+be explained by differences in graph literacy. This model is identical to the 
+experimental one, but includes graph literacy as a fixed effect.
 We found no significant differences between the original model and the one including graph literacy as a fixed effect
 ($\chi^2$(`r in_paren(e1_model_lit_comparison.df)`) `r printp(e1_model_lit_comparison.Chisq)`,
 *p* `r printp(e1_model_lit_comparison.p, add_equals = TRUE)`). These results suggest that the effect we found was not driven by differences in graph literacy between participants.
@@ -841,7 +840,7 @@ in the full analysis (`r printnum(gender_e2$M)`% male, `r printnum(gender_e2$F)`
 
 For each of the 45 *r* values there were four versions
 of each plot, which can be seen in Figure \ref{e2-example-plots}. 
-Three used functions relating point residuals to point contrast, which we henceforth
+Three used functions relating point residuals to point contrast, which we
 refer to as decay parameters, with the remaining condition being the contrast alpha = 1 uniform
 contrast condition from the first experiment. We used the following equation to non-linearly
 map residuals to alpha values, where R is the residual of the point in question.
@@ -974,10 +973,6 @@ sum_stats_e2 <- sum_stats(E2_spatially_dependent_tidy)
 knitr::kable(sum_stats_e2, booktabs = TRUE, digits = c(0,3,3), caption = "\\label{sum-stats-e2}This table shows means and standard errors for the contrast conditions in E2. A = Non-linear contrast decay (a = 0.25). B = Linear decay, C = Non-linear inverted decay, D = Full contrast.")
 ```
 
-Again, we also generated an additional model to test whether the results we found 
-could be explained by differences in graph literacy. This model is identical
-to the experimental one, but includes graph literacy as a fixed effect.
-
 ```{r e2-lit, cache=eval_models, cache.comments=FALSE, eval=eval_models, echo=FALSE, warning=FALSE, dependson="e2-model"}
 # builds model with literacy as a fixed effect
 e2_literacy <- lmer(add.terms(formula(e2_model), "literacy"),
@@ -990,6 +985,9 @@ e2_model_lit_comparison <- e2_model
 anova_results(e2_model_lit_comparison, e2_literacy)
 ```
 
+Again, we also generated an additional model to test whether the results we found 
+could be explained by differences in graph literacy. This model is identical
+to the experimental one, but includes graph literacy as a fixed effect.
 We found no significant differences between the original model and the one including
 graph literacy as a fixed effect ($\chi^2$(`r in_paren(e2_model_lit_comparison.df)`) =
 `r printnum(e2_model_lit_comparison.Chisq)`, *p* `r printp(e2_model_lit_comparison.p, add_equals = TRUE)`).
@@ -1069,7 +1067,7 @@ visualizing relationships between data while minimising the error
 in perceived correlation. The majority of the studies
 cited in this paper have used small samples of participants with experience in data 
 science and statistics to draw their conclusions, often graduate students in 
-visualization heavy fields. We argue that this does not inform
+visualization-heavy fields. We argue that this does not inform
 the design of commonly used data visualizations in a naturalistic way. In comparison,
 we have recruited from much more representative populations, and have demonstrated
 that a simple framework can be used with these groups to gather high quality data
@@ -1084,7 +1082,7 @@ and standard deviation of estimates for the non-linear contrast decay condition
 in experiment 2, and illustrate, as in many studies cited, the markedly lower levels
 of precision and accuracy for *r* values further from 0 or 1.
 
-```{r e2-dist-plots, warning=FALSE, echo=FALSE, message=FALSE, fig.show='hold', out.width="50%", fig.cap="\\label{e2-dist-plots}Plotting objective \\textit{r} values against mean error in correlation estimates (on the left) and standard deviations of correlation estimates (on the right) shows that accuracy increases with \\textit{r}.", description = "Plot showing objective r value on the horizontal axis, and mean error by r value on the vertical axis (left), and standard deviation of mean errors on the vertical axis (on the right). Error is lowest when r is lowest and highest, and follows a curve reaching a zenith at around r = 0.6."}
+```{r e2-dist-plots, warning=FALSE, echo=FALSE, message=FALSE, fig.show='hold', out.width="50%", fig.cap="\\label{e2-dist-plots}Plotting objective \\textit{r} values against mean error in correlation estimates (on the left) and standard deviations of correlation estimates (on the right) shows that accuracy and precision increase with \\textit{r}.", description = "Plot showing objective r value on the horizontal axis, and mean error by r value on the vertical axis (left), and standard deviation of mean errors on the vertical axis (on the right). Error is lowest when r is lowest and highest, and follows a curve reaching a zenith at around r = 0.6."}
 # plots objective r value vs standard deviation of errors
 E2_spatially_dependent_tidy %>%
   dplyr::filter(contrast == "A") %>%
