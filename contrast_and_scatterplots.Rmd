@@ -1164,5 +1164,10 @@ the use of our non-linear inverted decay parameter will reduce the overestimatio
 bias seen in estimates of correlation for negatively correlated scatterplots. Again,
 testing this would be trivial using our framework.
 
+# Acknowledgements
+
+This work was supported by funding from the University of Manchester Department
+of Computer Science.
+
 # References {-}
 
