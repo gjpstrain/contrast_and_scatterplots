@@ -425,7 +425,7 @@ that is small when *r* = 1, and increases as *r* approaches 0. The utility of th
 implies that the width of the probability distribution, summarised by the aforementioned
 parameter, is key to how people estimate correlation. Within the context of scatterplots
 however, this parameter can also be expressed as the average distance between the points
-and the regression line (the *X* parameter in [@meyer_1997].
+and the regression line (the *X* parameter in [@meyer_1997]).
 
 None of the above is proof that people are using *only* the mean or standard 
 deviation of geometrical distances between the points and the regression line to
@@ -553,7 +553,8 @@ knitr::include_graphics("images/example-plots.png")
 Each trial was preceded by text that either told the participant "Please look at
 the following plot and use the slider to estimate the correlation" (in black,
 experimental trial), or "Please IGNORE the correlation displayed and set the slider
-to 1/0"[^1] (in red, attention check trial, n = 6). Each plot was preceded by a visual mask displayed 
+to 1"[^1] (n = 3) or "Please IGNORE the correlation displayed and set the slider
+to 0"[^1] (n = 3) (in red, attention check trial). Each plot was preceded by a visual mask displayed 
 for 2.5 seconds. Figure \ref{example-trial} shows an example of an experimental 
 trial. There was no time limit per trial, but participants were instructed to make
 their judgements as accurately and quickly as possible.
@@ -587,9 +588,16 @@ This repository contains instructions for building a Docker container that fully
 the computational environment this paper was written in, allowing for a full recreation
 of both stimulus generation and the paper itself. Both experiments
 and their related hypotheses and analysis plans were pre-registered with the OSF
-(https://osf.io/v23e9/), and there were no deviations from them. Consistent with 
-our pre-registrations, when producing models for our analyses, we aimed for the 
-most complex random effects structures. The structure of these models was identified
+(https://osf.io/v23e9/), and there were no deviations from them. We used linear mixed-effects
+models to model the relationships between our independent variables (point contrast
+in experiment 1 and the type of contrast decay function in experiment 2) and our dependent variable
+(participants' estimates of correlation). Linear mixed-effects models allow us to
+compare difference between levels of our independent variable across the full range of participant responses
+on the dependent variable, as opposed to simply analysing the differences between means
+that would be afforded to us with ANOVA. Linear mixed-effects models also allow us 
+to include random effects for both participants and experimental items in our modelling. Consistent with 
+our pre-registrations, we aimed for the most complex random effects structures when
+producing models. The structure of these models was identified
 using the **buildmer** package in R [@voeten_buildmer_2022]. This package takes the most 
 complex random effects model and subsequently removes random effects
 terms that do not substantially contribute to explaining variance in correlation ratings. This 
@@ -1033,7 +1041,7 @@ still produces no significant differences between correlation estimation errors
 for linear decay and full contrast conditions ($\chi^2$(`r in_paren(e2_model_low_range.df)`)
 = `r printnum(e2_model_low_range.Chisq)`, *p* `r printp(e2_model_low_range.p, add_equals = TRUE)`).
 
-```{r prediction-ellipse, echo=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{prediction-ellipse}Here we have drawn a 95\\% prediction ellipse over a scatterplot with an \\textit{r} value of 0.6.", description = "Scatterplot with prediction ellipse."}
+```{r prediction-ellipse, echo=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{prediction-ellipse}The above plot shows a 95\\% prediction ellipse over a scatterplot with an \\textit{r} value of 0.6.", description = "Scatterplot with prediction ellipse."}
 knitr::include_graphics("images/prediction_ellipse.png")
 ```
 
