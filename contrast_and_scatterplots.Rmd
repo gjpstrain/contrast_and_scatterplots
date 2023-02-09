@@ -71,7 +71,7 @@ library(tinylabels)
 
 
 # Comment out the following line if additional tinytex packages are already installed
-tinytex:::install_yihui_pkgs()
+#tinytex:::install_yihui_pkgs()
 ```
 
 ```{r eval-models, include=FALSE}
@@ -293,7 +293,7 @@ bar_plot_function <- function(df) {
     filter(!is.na(difference)) %>%
     filter(!is.na(contrast)) %>%
     mutate(contrast = fct_relevel(contrast, "A", "B", "C", "D")) %>%
-    ggplot(aes(x = contrast, y = difference, fill = contrast)) +
+    ggplot(aes(x = contrast, y = difference)) +
         scale_fill_brewer(type = "div", palette = "RdYlGn") +
     geom_bar(stat = "summary", fun.y = "mean") +
     stat_summary(fun.data = mean_se, geom= "errorbar", width = .3,
@@ -379,7 +379,7 @@ Given that this paper seeks to provide design guidelines, and is interested in c
 
 ```{r underestimation-curve, warning=FALSE, echo=FALSE, message=FALSE, fig.cap="\\label{underestimation-curve}Using a function that relates objective to subjective \\textit{r}\ supplied in \\cite{rensink_2017}\ allows us to visualize the nature of the underestimation curve found in correlation perception studies. The curve represents the underestimation of correlation.", fig.height=3.2, fig.width=3.2, fig.align='left', description = "A line graph, with objective r value on the horizontal axis, and subjective r value on the vertical axis. A curve describes the relationship between the two variables, which are similar at r = 0 or 1. The curve shows how r is underestimated in the midrange, reaching maximum underestimation around r = 0.6."}
 my_rs <- seq(from = 0, to = 1, length.out = 100)
-as.tibble(my_rs) %>%
+as_tibble(my_rs) %>%
   mutate(under_est = (log(1-0.88*my_rs)/log(1-0.88))) %>%
   ggplot() +
   geom_smooth(aes(x = my_rs, y = under_est)) +
@@ -663,8 +663,52 @@ https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments.
 This repository contains all the experimental code, materials, and instructions needed
 to run the experiment in full.
 
-```{r e1-example-plots, echo=FALSE, fig.align='left', out.width="100%", fig.cap="\\label{e1-example-plots}The four levels of the contrast condition in experiment 1, demonstrated with an \\textit{r} value of 0.6.", description = "An array of four scatterplots. Top left has points with low contrast and is labelled `Contrast alpha = 0.25`. Top right plot has medium contrast (contrast alpha = 0.5). Bottom right has high contrast (contrast alpha = 0.75). Bottom right has full contrast (contrast alpha = 1)."}
-knitr::include_graphics("plot_examples/uniform_adjustments_plot_examples.png")
+```{r e1-example-plots, warning = FALSE, echo=FALSE, fig.align='left', out.width="50%", fig.asp=1, fig.show='hold', fig.cap="\\label{e1-example-plots}The four levels of the contrast condition in experiment 1, demonstrated with an \\textit{r} value of 0.6.", description = "An array of four scatterplots. Top left has points with low contrast and is labelled `Contrast alpha = 0.25`. Top right plot has medium contrast (contrast alpha = 0.5). Bottom right has high contrast (contrast alpha = 0.75). Bottom right has full contrast (contrast alpha = 1)."}
+  set.seed(1234)
+  
+  my_sample_size = 128
+  
+  my_desired_r = 0.6
+  
+  mean_variable_1 = 0
+  sd_variable_1 = 1
+  
+  mean_variable_2 = 0
+  sd_variable_2 = 1
+  
+  mu <- c(mean_variable_1, mean_variable_2) 
+  
+  myr <- my_desired_r * sqrt(sd_variable_1) * sqrt(sd_variable_2)
+  
+  mysigma <- matrix(c(sd_variable_1, myr, myr, sd_variable_2), 2, 2) 
+  
+  corr_data = as_tibble(mvrnorm(my_sample_size, mu, mysigma, empirical = TRUE))
+  
+  corr_model <- lm(V2 ~ V1, data = corr_data)
+  
+  my_residuals <- abs(residuals(corr_model))
+  
+  data_with_resid <- round(cbind(corr_data, my_residuals), 2)
+  
+plot_example_function <- function (d, x, t) {
+  
+  ggplot(d, aes(x = V1, y = V2)) +
+  scale_alpha_identity() +
+  geom_point(aes(alpha = x), shape = 16, size = 3)  +
+  labs(x = "", y = "") +
+  theme_classic() +
+  theme(axis.text = element_blank(),
+        plot.margin = unit(c(0,0,0,0), "cm"),
+        legend.position = "none",
+        plot.title = element_text(size = 30)) +
+  labs(title = t)
+  
+}
+
+plot_example_function(data_with_resid, 0.25, "Alpha = 0.25")
+plot_example_function(data_with_resid, 0.5, "Alpha = 0.5")
+plot_example_function(data_with_resid, 0.75, "Alpha = 0.75")
+plot_example_function(data_with_resid, 1, "Alpha = 1")
 ```
 
 ## Results
@@ -859,8 +903,42 @@ point legibility and contrast decay severity.
   alpha = 1 - b^R
 \end{align}
 
-```{r e2-example-plots, echo=FALSE, warning=FALSE,message=FALSE, fig.align='left', out.width="100%", fig.cap="\\label{e2-example-plots}The 4 levels of the contrast condition in experiment 2, demonstrated with an \\textit{r} value of 0.6.", description = "An array of four scatterplots. Top left (non-linear decay) and top right (linear decay) plots have point contrast falling as a function of distance from the regression line, with the fall-off being more severe in the top left. The bottom left plot has contrast increasing as a function of distance from the regression line (inverted non-linear decay). Bottom right plot has full contrast for all points."}
-knitr::include_graphics("plot_examples/spatially_dependent_plot_examples.png")
+```{r e2-example-plots, echo=FALSE, warning=FALSE,message=FALSE, fig.align='left', out.width="50%", fig.asp=1, fig.show='hold', fig.cap="\\label{e2-example-plots}The 4 levels of the contrast condition in experiment 2, demonstrated with an \\textit{r} value of 0.6.", description = "An array of four scatterplots. Top left (non-linear decay) and top right (linear decay) plots have point contrast falling as a function of distance from the regression line, with the fall-off being more severe in the top left. The bottom left plot has contrast increasing as a function of distance from the regression line (inverted non-linear decay). Bottom right plot has full contrast for all points."}
+set.seed(1234)
+  
+  my_sample_size = 128
+  
+  my_desired_r = 0.6
+  
+  mean_variable_1 = 0
+  sd_variable_1 = 1
+  
+  mean_variable_2 = 0
+  sd_variable_2 = 1
+  
+  mu <- c(mean_variable_1, mean_variable_2) 
+  
+  myr <- my_desired_r * sqrt(sd_variable_1) * sqrt(sd_variable_2)
+  
+  mysigma <- matrix(c(sd_variable_1, myr, myr, sd_variable_2), 2, 2) 
+  
+  corr_data = as_tibble(mvrnorm(my_sample_size, mu, mysigma, empirical = TRUE))
+  
+  corr_model <- lm(V2 ~ V1, data = corr_data)
+  
+  my_residuals <- abs(residuals(corr_model))
+  
+  data_with_resid <- round(cbind(corr_data, my_residuals), 2)
+  
+slopes <- data_with_resid %>%
+  mutate(slope_linear = my_residuals/3.2) %>%
+  mutate(slope_0.25 = 1-(0.25)^my_residuals) %>%
+  mutate(slope_inverted = (1 + (0.25)^ my_residuals)-1)
+
+plot_example_function(slopes, (1-slopes$slope_0.25), "Non-linear Decay (b = 0.25)")
+plot_example_function(slopes, (1-slopes$slope_linear), "Linear Decay")
+plot_example_function(slopes, (1-slopes$slope_inverted), "Inverted Non-linear Decay")
+plot_example_function(slopes, 1, "No Decay")
 ```
 
 Figure \ref{decay-parameters} illustrates the relationship between the size of

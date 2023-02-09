@@ -100,16 +100,13 @@ Scatterplots}
   %
   }
    \ead{Caroline.Jay@manchester.ac.uk} 
-      \affiliation[CS]{organization = {Department of Computer Science, Faculty of Science and Engineering},
-			addressline = { University of Manchester, Oxford Road},
-			city = {Manchester},
-			postcode = {M13 9PL},
-			country = {United Kingdom.}}
-    \affiliation[SSS]{organization = {Division of Psychology, Communication, and Human Neuroscience, School of Health Sciences, Faculty of Biology, Medicine, and Health},
-			addressline = {University of Manchester, Oxford Road},
-			city =  {Manchester},
-			postcode = {M13 9PL},
-			country = {United Kingdom.}}
+      \affiliation[CS]{Department of Computer Science, Faculty of
+Science and Engineering, University of Manchester, Oxford Road,
+Manchester, M13 9PL, United Kingdom.}
+    \affiliation[SSS]{Division of Psychology, Communication and Human
+Neuroscience, School of Health Sciences, Faculty of Biology, Medicine,
+and Health, University of Manchester, Oxford Road, Manchester, M13 9PL,
+United Kingdom.}
     \cortext[cor1]{Corresponding author}
   
   \begin{abstract}
@@ -279,7 +276,7 @@ probability distribution, summarised by the aforementioned parameter, is
 key to how people estimate correlation. Within the context of
 scatterplots however, this parameter can also be expressed as the
 average distance between the points and the regression line (the
-\emph{X} parameter in \citep{meyer_1997}.
+\emph{X} parameter in \citep{meyer_1997}).
 
 None of the above is proof that people are using \emph{only} the mean or
 standard deviation of geometrical distances between the points and the
@@ -436,14 +433,18 @@ began.
 Each trial was preceded by text that either told the participant
 ``Please look at the following plot and use the slider to estimate the
 correlation'' (in black, experimental trial), or ``Please IGNORE the
-correlation displayed and set the slider to 1/0''\footnote{The word
+correlation displayed and set the slider to 1''\footnote{The word
   ``ignore'' was in lowercase in the first experiment, but was changed
   to uppercase in the second to increase the salience of attention check
-  items.} (in red, attention check trial, n = 6). Each plot was preceded
-by a visual mask displayed for 2.5 seconds. Figure \ref{example-trial}
-shows an example of an experimental trial. There was no time limit per
-trial, but participants were instructed to make their judgements as
-accurately and quickly as possible.
+  items.} (n = 3) or ``Please IGNORE the correlation displayed and set
+the slider to 0''\footnote{The word ``ignore'' was in lowercase in the
+  first experiment, but was changed to uppercase in the second to
+  increase the salience of attention check items.} (n = 3) (in red,
+attention check trial). Each plot was preceded by a visual mask
+displayed for 2.5 seconds. Figure \ref{example-trial} shows an example
+of an experimental trial. There was no time limit per trial, but
+participants were instructed to make their judgements as accurately and
+quickly as possible.
 
 Both experiments described here use a fully repeated measures,
 within-participants design. Participants saw all 180 plots,
@@ -481,9 +482,18 @@ fully reproduces the computational environment this paper was written
 in, allowing for a full recreation of both stimulus generation and the
 paper itself. Both experiments and their related hypotheses and analysis
 plans were pre-registered with the OSF (https://osf.io/v23e9/), and
-there were no deviations from them. Consistent with our
-pre-registrations, when producing models for our analyses, we aimed for
-the most complex random effects structures. The structure of these
+there were no deviations from them. We used linear mixed-effects models
+to model the relationships between our independent variables (point
+contrast in experiment 1 and the type of contrast decay function in
+experiment 2) and our dependent variable (participants' estimates of
+correlation). Linear mixed-effects models allow us to compare difference
+between levels of our independent variable across the full range of
+participant responses on the dependent variable, as opposed to simply
+analysing the differences between means that would be afforded to us
+with ANOVA. Linear mixed-effects models also allow us to include random
+effects for both participants and experimental items in our modelling.
+Consistent with our pre-registrations, we aimed for the most complex
+random effects structures when producing models. The structure of these
 models was identified using the \textbf{buildmer} package in R
 \citep{voeten_buildmer_2022}. This package takes the most complex random
 effects model and subsequently removes random effects terms that do not
@@ -543,7 +553,7 @@ instructions needed to run the experiment in full.
 
 \begin{figure}
 
-\includegraphics[width=1\linewidth]{plot_examples/uniform_adjustments_plot_examples} \hfill{}
+\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e1-example-plots-1} \includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e1-example-plots-2} \includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e1-example-plots-3} \includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e1-example-plots-4} \hfill{}
 
 \caption{\label{e1-example-plots}The four levels of the contrast condition in experiment 1, demonstrated with an \textit{r} value of 0.6.}\label{fig:e1-example-plots}
 \end{figure}
@@ -740,7 +750,7 @@ legibility and contrast decay severity.
 
 \begin{figure}
 
-\includegraphics[width=1\linewidth]{plot_examples/spatially_dependent_plot_examples} \hfill{}
+\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-example-plots-1} \includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-example-plots-2} \includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-example-plots-3} \includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-example-plots-4} \hfill{}
 
 \caption{\label{e2-example-plots}The 4 levels of the contrast condition in experiment 2, demonstrated with an \textit{r} value of 0.6.}\label{fig:e2-example-plots}
 \end{figure}
@@ -863,7 +873,7 @@ errors for linear decay and full contrast conditions (\(\chi^2\)(1) =
 
 \includegraphics[width=0.5\linewidth]{images/prediction_ellipse} \hfill{}
 
-\caption{\label{prediction-ellipse}Here we have drawn a 95\% prediction ellipse over a scatterplot with an \textit{r} value of 0.6.}\label{fig:prediction-ellipse}
+\caption{\label{prediction-ellipse}The above plot shows a 95\% prediction ellipse over a scatterplot with an \textit{r} value of 0.6.}\label{fig:prediction-ellipse}
 \end{figure}
 
 Our finding that the use of the non-linear inverted decay parameter, in
