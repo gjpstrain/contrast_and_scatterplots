@@ -34,3 +34,4 @@ RUN R -e "devtools::install_version('broom.mixed', version = '0.2.9.4', dependen
 RUN R -e "devtools::install_version('kableExtra', version = '1.3.4', dependencies = T)"
 RUN R -e "devtools::install_version('lmerTest', version = '3.1-3', dependencies = T)"
 RUN R -e "devtools::install_version('tinylabels', version = '0.2.3', dependencies = T)"
+RUN R -e "devtools::install_version('EMAtools', version = '0.1.4', dependecies = T)"

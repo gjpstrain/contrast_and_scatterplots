@@ -380,12 +380,13 @@ personal laptop or desktop computers. This meant we had no control over
 the exact luminances of our stimuli, only over the \emph{relative}
 luminance between targets (scatterplot points) and backgrounds. Given
 that we are interested in \emph{relative} differences in correlation
-perception, we do not consider this a shortcoming. In light of this
-however, it would be inappropriate to report absolute luminance values.
-Instead, we simply report the alpha value, which is representative of
-the luminance ratio. Figure \ref{formal-contrast} illustrates the
-contrasts created by alpha values between 0 and 1. For clarity, we
-henceforth refer to the alpha value as ``contrast alpha'' throughout.
+perception averaged over a series of 180 single-plot presentation
+trials, we do not consider this a shortcoming. In light of this however,
+it would be inappropriate to report absolute luminance values. Instead,
+we simply report the alpha value, which is representative of the
+luminance ratio. Figure \ref{formal-contrast} illustrates the contrasts
+created by alpha values between 0 and 1. For clarity, we henceforth
+refer to the alpha value as ``contrast alpha'' throughout.
 
 \begin{figure}
 
@@ -401,10 +402,12 @@ Experiments 1 and 2 share multiple aspects of their procedures. Both
 experiments were built using PsychoPy \citep{pierce_psychopy_2019}, and
 hosted on pavlovia.org. Both use 1-factor, 4-level designs. Participants
 were only permitted to complete the experiments on a desktop computer or
-laptop. As with the luminances of scatterplots and their points, we had
-no control over the distance participants were from their monitors.
-Again, as we are measuring relative differences in both of our
-experiments, we do not consider this to be an issue.
+laptop. As with the luminances of scatterplots and their points, our
+crowd-sourced approach renders the measurement of participant-to-monitor
+distance and the recording of exact apparatus impossible. We do not
+consider this a shortcoming however, as it allows for findings that are
+robust to various displays and viewing contexts and allows us to make
+conclusions that are of particular relevance to the HCI audience.
 
 Ethical approval for both experiments was granted by the University of
 Manchester's Computer Science Department Panel (Ref: 2022-14660-24397).
@@ -496,9 +499,13 @@ Consistent with our pre-registrations, we aimed for the most complex
 random effects structures when producing models. The structure of these
 models was identified using the \textbf{buildmer} package in R
 \citep{voeten_buildmer_2022}. This package takes the most complex random
-effects model and subsequently removes random effects terms that do not
-substantially contribute to explaining variance in correlation ratings.
-This approach does mean that the final model used is not always the most
+effects model, in terms of intercepts for participants and items and
+corresponding slopes for fixed effects terms as an input. It then
+identifies the most complex model that successfully converges, dropping
+terms that fail to explain a significant amount of variance, as assessed
+with likelihood ratio tests. This provides a simple and reproducible
+methodology for the construction of linear mixed-effects models. This
+approach does mean that the final model used is not always the most
 complex one possible, but rather is the most complex that substantially
 explains variance and converges.
 
@@ -530,7 +537,8 @@ participation. In accordance with guidelines published in
 completed at least 100 studies on Prolific, and were required to have a
 Prolific score of at least 100, indicating acceptance on at least
 100/101 studies previously completed. In addition, participants who had
-completed an earlier, similar study were prevented from participating.
+completed an earlier, similar study that was run by the authors of the
+current paper, were prevented from participating.
 
 Data were collected from 158 participants. 8 failed more than 2 out of 6
 attention check questions, and, as per pre-registration stipulations,
@@ -564,14 +572,7 @@ instructions needed to run the experiment in full.
 All analyses were conducted using R (version 4.2.1, \citep{r_core}).
 Models were built using the \textbf{buildmer} (version 2.7
 \citep{voeten_buildmer_2022}) and \textbf{lme4} (version 1.1-30
-\citep{bates_lme4_2015}) packages. \textbf{buildmer} takes the most
-complex model, in terms of random effects intercepts for participants
-and items, and corresponding slopes for fixed effects terms
-\citep{barr_random_2013} as an input. It then identifies the most
-complex model that successfully converges, and drops terms that fail to
-explain a significant amount of variance, as assessed with likelihood
-ratio tests. This provides a simple and reproducible methodology for the
-construction of linear mixed-effects models.
+\citep{bates_lme4_2015}) packages.
 
 \begin{figure}
 
@@ -598,7 +599,14 @@ Statistical testing for contrasts between the 4 levels of the contrast
 condition was performed with the \textbf{emmeans} package (version
 1.8.1-1, \citep{emmeans}) and are shown in table
 \ref{contrasts-table-e1}. Means and standard deviations of correlation
-judgements are shown in table \ref{sum-stats-e1}.
+judgements are shown in table \ref{sum-stats-e1}. The \textbf{EMAtools}
+package (version 0.1.4 \citep{ematools}) was used to calculate effect
+sizes in Cohen's d.~For the difference in correlation ratings between
+the lowest contrast (alpha = 0.25) and highest contrast plots (alpha =
+1), an effect size of d = -0.17 was obtained. While this effect is
+small, it is not insignificant, and given the lack of reported effect on
+correlation perception of global point contrast adjustments
+\citep{rensink_2012} is an unsurprising result.
 
 \begin{table}
 
@@ -678,7 +686,19 @@ study is the large sample size (n = 150). Compared with the relatively
 small sample size in \citet{rensink_2014} (n = 12), our study's
 heightened experimental power represents strong evidence that total
 contrast in a scatterplot can affect people's perceptions of
-correlation.
+correlation. Our effect size for the uniform contrast manipulation was
+small (d = -0.17), and while such a small difference may be of little
+practical relevance , it demonstrates that differences in the contrast
+of points can effect correlation estimates in scatterplots. The fact
+that this difference is present suggests that it can be used to optimise
+perception, which we start attempting to do in experiment two. We
+suggest that correlation perception functions similarly to speed
+perception \citep{champion_2017} with regards to changes in contrast;
+the greater spatial uncertainty brought on by reduced contrast, while
+not eliciting the greater spread in correlation estimates that we
+hypothesized, might be responsible for the results observed via an
+increase in the perceived width of the probability distribution in the
+plot.
 
 From our results it is clear that a scatterplot optimized for
 correlation perception should have maximum contrast between the
@@ -721,8 +741,9 @@ participation. In accordance with guidelines published in
 completed at least 100 studies on Prolific, and were required to have a
 Prolific score of at least 100, indicating acceptance on at least
 100/101 previously completed studies. In addition, participants who had
-completed an earlier, similar study, or the first experiment described
-above were prevented from participating.
+completed an earlier, similar study that was run by the authors of the
+current paper, or the first experiment described above were prevented
+from participating.
 
 Data were collected from 157 participants. 7 failed more than 2 out of 6
 attention check questions, and, as per pre-registration stipulations,
@@ -741,8 +762,13 @@ as decay parameters, with the remaining condition being the contrast
 alpha = 1 uniform contrast condition from the first experiment. We used
 the following equation to non-linearly map residuals to alpha values,
 where R is the residual of the point in question. 0.25 was chosen as the
-value of \(b\), which represented an ideal balance between point
-legibility and contrast decay severity.
+value of \(b\). Given the shape of the underestimation curve reported in
+previous literature (see figure \ref{underestimation-curve}), intuition
+suggested that we use a symmetrically opposing curve (see
+figure\{decay-parameters\}) to relate point contrast with residuals. We
+tested a number of values of \(b\), and felt that 0.25 rendered plots
+that maintained point legibility while also allowing a large enough
+range in contrast that, if an effect was present, one would be found.
 
 \begin{align}
   alpha = 1 - b^R
@@ -801,7 +827,13 @@ Statistical testing for significant contrasts between the 4 levels of
 the contrast conditions was performed with the \textbf{emmeans} package
 (version 1.8.1-1, \citep{emmeans}) and are shown in table
 \ref{contrasts-table-e2}. Means and standard deviations of correlation
-estimates are shown in table \ref{sum-stats-e2}.
+estimates are shown in table \ref{sum-stats-e2}.The \textbf{EMAtools}
+package (version 0.1.4 \citep{ematools}) was used to calculate effect
+sizes in Cohen's d.~For the difference in correlation ratings between
+full contrast and non-linear decay function plots, an effect size of d =
+-0.19 was obtained. Between full contrast and non-linear inverted decay
+conditions, an effect size of d = 0.23 was obtained. These effects sizes
+are small and medium, but again, not insignificant.
 
 \begin{table}
 
@@ -867,7 +899,12 @@ found in experiment 1. Filtering out lower \emph{r} values, those with
 naturally higher total residuals (arbitrarily \emph{r} \textless{} 0.6),
 still produces no significant differences between correlation estimation
 errors for linear decay and full contrast conditions (\(\chi^2\)(1) =
-0.09, \emph{p} = .769).
+0.09, \emph{p} = .769). Our effects sizes were again small in this
+experiment, with the largest representing the difference between full
+contrast and inverted non-linear decay conditions. This suggests that it
+is easier to induce greater bias in correlation estimates through a
+reduction in salience of the point clouds centre than it is to correct
+for the underestimation bias.
 
 \begin{figure}
 
