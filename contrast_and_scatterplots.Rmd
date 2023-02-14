@@ -292,7 +292,6 @@ get_effects_sizes <- function(model, d) {
 ```
 
 ```{r dot-plot-function, include = FALSE}
-
 dot_plot_function <- function(df) {
 
 data <- df %>%
@@ -317,6 +316,22 @@ data <- df %>%
 }
 ```
 
+```{r plot-sd-sd, include = FALSE}
+plot_sd_sd_function <- function(d, title_text){
+  d %>% 
+  summarise(ppt_sd = sd(error)) %>% 
+  drop_na() %>% 
+  group_by(contrast) %>% 
+  summarise(mean_sd = mean(ppt_sd), sd_sd = sd(ppt_sd)) %>% 
+  ggplot(aes(x = contrast, y = mean_sd)) +
+  geom_point(size = 2) + 
+  geom_errorbar(aes(ymin = mean_sd - sd_sd, ymax = mean_sd + sd_sd), width = 0, size = 1) + 
+  theme_ggdist() +
+  ylim(0, .3) +
+  lans(x = "Contrast Condition",
+       y = "Mean Standard Deviation")
+}
+```
 
 # Introduction
 
@@ -730,7 +745,7 @@ All analyses were conducted using R (version 4.2.1, [@r_core]).
 Models were built using the **buildmer** (version 2.7 [@voeten_buildmer_2022]) and
 **lme4** (version 1.1-30 [@bates_lme4_2015]) packages.
 
-```{r e1-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e1-dot-plot}Mean error in correlation estimation across the four contrast conditions in E1, with 95% confidence intervals shown.", description = "Bar plot showing mean estimation error for the four contrast conditions in experiment 1. Mean error gets smaller as we go from low to medium to high to full contrast. 95% confidence intervals are also shown. Values are provided in Table 2."}
+```{r e1-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e1-dot-plot}Mean error in correlation estimation across the four contrast conditions in E1, with 95% confidence intervals shown.", description = "Bar plot showing mean estimation error for the four contrast conditions in experiment 1. Mean error gets smaller as we go from low to medium to high to full contrast. 95% confidence intervals are also shown."}
 dot_plot_function(E1_uniform_adjustments_tidy) +
   scale_x_discrete(labels = c("Low Contrast\nalpha = 0.25",
                               "Medium Contrast\nalpha = 0.5",
@@ -774,8 +789,8 @@ difference in correlation estimates between high and full contrast plots.
 
 Statistical testing for contrasts between the 4 levels of the contrast condition
 was performed with the **emmeans** package (version 1.8.1-1, [@emmeans]) and are 
-shown in table \ref{contrasts-table-e1}. Means and standard deviations of 
-correlation judgements are shown in table \ref{sum-stats-e1}. The **EMAtools**
+shown in table \ref{contrasts-table-e1}. Means and 95\\% confidence intervals of 
+correlation judgements are shown in figure \ref{e1-dot-plot}. The **EMAtools**
 package (version 0.1.4 [@ematools]) was used to calculate effect sizes in Cohen's d. For
 the difference in correlation ratings between the lowest contrast (alpha = 0.25) and
 highest contrast plots (alpha = 1), an effect size of d = `r printnum(effects_df$d[1])`
@@ -789,13 +804,6 @@ contrasts_e1 <- contrasts_extract(e1_model) %>%
   mutate(p.value = scales::pvalue(p.value))
 
 knitr::kable(contrasts_e1, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e1}This table shows the contrasts between different levels of the contrast factor in E1. A = Low contrast (alpha = 0.25), Medium contrast (alpha = 0.5), C = High contrast (alpha = 0.75), D = Full contrast (alpha = 1).")
-```
-
-```{r sum-stats-e1, echo=FALSE, warning=FALSE, message=FALSE, fig.align='left'}
-# outputs summary statistics for E1
-sum_stats_e1 <- sum_stats(E1_uniform_adjustments_tidy)
-
-knitr::kable(sum_stats_e1, booktabs = TRUE, digits = c(0,3,3), caption = "\\label{sum-stats-e1}This table shows means and standard errors for the contrast conditions in E1. A = Low contrast (alpha = 0.25), Medium contrast (alpha = 0.5), C = High contrast (alpha = 0.75), D = Full contrast (alpha = 1).")
 ```
 
 ```{r e1-lit, cache=eval_models, cache.comments=FALSE, eval=eval_models, echo=FALSE, warning=FALSE, dependson="e1-model"}
@@ -820,10 +828,14 @@ We found no significant differences between the original model and the one inclu
 
 ## Discussion
 
+```{r e1-sd-sd-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e1-sd-sd-plot}The mean of standard deviations of participants in experiment 1, grouped by contrast condition.", description = "Dot plot showing means of standard deviations of participants in experiment 1."}
+plot_sd_sd_function(E1_uniform_adjustments_tidy %>% group_by(participant, contrast))
+```
+
 Our hypothesis was not supported in this experiment. We hypothesized that plots with 
 lower contrast would have a more variable spread of correlation estimates than plots with 
-higher contrast. As shown in table \ref{sum-stats-e1}, there was little difference
-in standard deviations between the 4 contrast conditions. Participants' errors in
+higher contrast. As shown in figure \ref{e1-sd-sd-plot}, there was little difference
+in mean standard deviations between the 4 contrast conditions. Participants' errors in
 correlation estimation were significantly higher when the contrast of all points was lower
 compared to when it was higher. This was true up until contrast alpha was set to 0.75, 
 implying a threshold around alpha = 0.75 past which there
@@ -1076,8 +1088,8 @@ and full contrast conditions.
 
 Statistical testing for significant contrasts between the 4 levels of the contrast
 conditions was performed with the **emmeans** package (version 1.8.1-1, [@emmeans])
-and are shown in table \ref{contrasts-table-e2}. Means and standard deviations of
-correlation estimates are shown in table \ref{sum-stats-e2}.The **EMAtools**
+and are shown in table \ref{contrasts-table-e2}. Means and 95% confidence intervals of
+correlation estimates are shown in figure \ref{dot-plot-e2}.The **EMAtools**
 package (version 0.1.4 [@ematools]) was used to calculate effect sizes in Cohen's d. For
 the difference in correlation ratings between full contrast and non-linear decay function
 plots, an effect size of d = `r printnum(effects_df$d[3])` was obtained. Between full contrast
@@ -1090,13 +1102,6 @@ contrasts_e2 <- contrasts_extract(e2_model) %>%
   mutate(p.value = scales::pvalue(p.value))
 
 knitr::kable(contrasts_e2, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e2}This table shows the contrasts between different levels of the contrast factor. A = Non-linear contrast decay (a = 0.25). B = Linear decay, C = Non-linear inverted decay, D = Full contrast.")
-```
-
-```{r sum-stats-e2, echo=FALSE, warning=FALSE, message=FALSE, fig.align='left'}
-# outputs summary statistics for E2
-sum_stats_e2 <- sum_stats(E2_spatially_dependent_tidy)
-
-knitr::kable(sum_stats_e2, booktabs = TRUE, digits = c(0,3,3), caption = "\\label{sum-stats-e2}This table shows means and standard errors for the contrast conditions in E2. A = Non-linear contrast decay (a = 0.25). B = Linear decay, C = Non-linear inverted decay, D = Full contrast.")
 ```
 
 ```{r e2-lit, cache=eval_models, cache.comments=FALSE, eval=eval_models, echo=FALSE, warning=FALSE, dependson="e2-model"}
@@ -1270,8 +1275,8 @@ The results in experiment 2 provide evidence that reducing the salience of point
 as they move further from the regression line can increase people's estimates
 of correlation, at least when plots like these are presented with other, conventional
 ones. Testing whether this phenomenon would exist with a plot in isolation would
-present a number of difficulties. As can be seen in tables \ref{sum-stats-e1}
-and \ref{sum-stats-e2}, and as more specifically illustrated in Figure \ref{e2-dist-plots}, 
+present a number of difficulties. As can be seen in figures \ref{dot-plot-e1}
+and \ref{dot-plot-e2}, and as more specifically illustrated in Figure \ref{e2-dist-plots}, 
 participants' estimates of correlation, especially between 0.2 and 0.7, suffer 
 from high variance. Our high numbers of trials and participants ameliorate this to an extent,
 but this does by necessity mean we are unable to comment on judgements made in isolation.
