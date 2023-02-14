@@ -69,6 +69,7 @@ library(qwraps2)
 library(lmerTest)
 library(tinylabels)
 library(EMAtools)
+library(ggdist)
 
 # Comment out the following line if additional tinytex packages are already installed
 #tinytex:::install_yihui_pkgs()
@@ -278,36 +279,6 @@ sum_stats <- function(df) {
   
 }
 ```
- 
-```{r bar-plot-function, include = FALSE}
-# this function creates the bar plot to show mean errors
-# they will need to be labelled more specifically later
-bar_plot_function <- function(df) {
-  
-  max_error <- max(df %>%
-    group_by(contrast) %>%
-    summarise(mean = mean(difference, na.rm = TRUE)) %>%
-    dplyr::select(-c("contrast"))) 
-  
-  df %>%
-    filter(!is.na(difference)) %>%
-    filter(!is.na(contrast)) %>%
-    mutate(contrast = fct_relevel(contrast, "A", "B", "C", "D")) %>%
-    ggplot(aes(x = contrast, y = difference)) +
-    geom_bar(stat = "summary", fun.y = "mean") +
-    stat_summary(fun.data = mean_se, geom= "errorbar", width = .3,
-               position = position_dodge(-.9)) +
-    theme_minimal() +
-    labs(x = "Contrast Condition",
-         y = "Mean Error") +
-    theme(axis.text.x = element_text(colour = "black", size = 14),
-          legend.position = "none",
-          axis.title = element_text(colour = "black", size = 13)) +
-    scale_y_continuous(breaks = scales::pretty_breaks(n = 8)) +
-    coord_cartesian(ylim = c(0, max_error)) 
-  
-}
-```
 
 ```{r effect-size-function, include = FALSE}
 get_effects_sizes <- function(model, d) {
@@ -323,24 +294,26 @@ get_effects_sizes <- function(model, d) {
 ```{r dot-plot-function, include = FALSE}
 
 dot_plot_function <- function(df) {
-  
-max_error <- max(df %>%
-    group_by(contrast) %>%
-    summarise(mean = mean(difference, na.rm = TRUE)) %>%
-    dplyr::select(-c("contrast"))) 
 
-data <- summarySE
-  
-  df %>%
-    filter(!is.na(difference)) %>%
-    filter(!is.na(contrast)) %>%
+data <- df %>%
+  group_by(contrast) %>%
+  filter(!is.na(difference)) %>%
+  filter(!is.na(contrast)) %>%
+  summarise(
+    mean = mean(difference),
+    lci = t.test(difference, conf.level = 0.95)$conf.int[1],
+    hci = t.test(difference, conf.level = 0.95)$conf.int[2],
+  )
+
+  data %>%
     mutate(contrast = fct_relevel(contrast, "A", "B", "C", "D")) %>%
-    summarise(mean_difference = mean(difference)) %>%
-    ggplot(aes(x = contrast, y = mean_difference)) +
-    #geom_point(stat = "summary", fun.y = "mean") +
-    coord_cartesian(ylim = c(0, max_error))
-    #geom_errorbar(aes(ymin=mean_difference-ci, ymax=mean_difference+ci), colour="black", width=.1, position=pd)
-
+    ggplot(aes(x = contrast, y = mean)) +
+    geom_point() +
+    #coord_cartesian(ylim = c(0, max_error))
+    geom_errorbar(aes(ymin=lci, ymax=hci), colour="black", width=0, linewidth =1) +
+    theme_ggdist() +
+    labs(x = "Contrast Condition",
+         y = "Mean Error")
 }
 ```
 
@@ -757,8 +730,8 @@ All analyses were conducted using R (version 4.2.1, [@r_core]).
 Models were built using the **buildmer** (version 2.7 [@voeten_buildmer_2022]) and
 **lme4** (version 1.1-30 [@bates_lme4_2015]) packages.
 
-```{r e1-bar-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e1-bar-plot}Mean error in correlation estimation across the four contrast conditions in E1.", description = "Bar plot showing mean estimation error for the four contrast conditions in experiment 1. Mean error gets smaller as we go from low to medium to high to full contrast. Values are provided in Table 2."}
-bar_plot_function(E1_uniform_adjustments_tidy) +
+```{r e1-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e1-dot-plot}Mean error in correlation estimation across the four contrast conditions in E1, with 95% confidence intervals shown.", description = "Bar plot showing mean estimation error for the four contrast conditions in experiment 1. Mean error gets smaller as we go from low to medium to high to full contrast. 95% confidence intervals are also shown. Values are provided in Table 2."}
+dot_plot_function(E1_uniform_adjustments_tidy) +
   scale_x_discrete(labels = c("Low Contrast\nalpha = 0.25",
                               "Medium Contrast\nalpha = 0.5",
                               "High Contrast\nalpha = 0.75",
@@ -787,8 +760,7 @@ anova_results(e1_model, e1_model_comparison)
 effects_df <- get_effects_sizes(e1_model, E1_uniform_adjustments_tidy)
 ```
 
-
-Figure \ref{e1-bar-plot} shows the mean error in correlation estimation for 
+Figure \ref{e1-dot-plot} shows the mean error in correlation estimation for 
 the 4 contrast conditions. A likelihood ratio test reveals that the model including
 contrast as a fixed effect explained significantly more variance than a model 
 not including contrast as a fixed effect ($\chi^2$(`r in_paren(e1_model.df)`) = 
@@ -1058,9 +1030,9 @@ All analyses were conducted using R (version 4.2.1, [@r_core])
 As in E1, models were built using the **buildmer** (version 2.7, [@voeten_buildmer_2022])
 and **lme4** (version 1.1-30 [@bates_lme4_2015]) packages.
 
-```{r e2-bar-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{e2-bar-plot}Mean error in correlation estimation across the four contrast conditions in E2.", description = "Bar plot showing mean estimation error for four contrast conditions in experiment 2, lowest mean error is for non-linear decay, followed by linear decay, full contrast, and inverted non-linear decay. Values are provided in table 4."}
+```{r e2-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{e2-dot-plot}Mean error in correlation estimation across the four contrast conditions in E2, with 95% confidence intervals shown", description = "Dot plot showing mean estimation error for four contrast conditions in experiment 2, lowest mean error is for non-linear decay, followed by linear decay, full contrast, and inverted non-linear decay. 95% confidence intervals are also shown. Values are provided in table 4."}
 # plot bar plot for e2
-bar_plot_function(E2_spatially_dependent_tidy) +
+dot_plot_function(E2_spatially_dependent_tidy) +
   scale_x_discrete(labels = c("Non-Linear\nDecay",
                               "Linear Decay",
                               "Non-Linear\nInverted Decay",
@@ -1089,7 +1061,7 @@ anova_results(e2_model, e2_model_comparison)
 effects_df <- get_effects_sizes(e2_model, E2_spatially_dependent_tidy)
 ```
 
-Figure \ref{e2-bar-plot} shows mean correlation estimation errors for the
+Figure \ref{e2-dot-plot} shows mean correlation estimation errors for the
 4 contrast conditions. A likelihood ratio test reveals that the model including
 contrast condition as a fixed effect explained significantly more variance than a model
 not including contrast as a fixed effect ($\chi^2$(`r in_paren(e2_model.df)`) =
