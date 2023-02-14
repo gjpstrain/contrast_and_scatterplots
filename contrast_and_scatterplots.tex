@@ -576,12 +576,12 @@ Models were built using the \textbf{buildmer} (version 2.7
 
 \begin{figure}
 
-\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e1-bar-plot-1} \hfill{}
+\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e1-dot-plot-1} \hfill{}
 
-\caption{\label{e1-bar-plot}Mean error in correlation estimation across the four contrast conditions in E1.}\label{fig:e1-bar-plot}
+\caption{\label{e1-dot-plot}Mean error in correlation estimation across the four contrast conditions in E1, with 95\% confidence intervals shown.}\label{fig:e1-dot-plot}
 \end{figure}
 
-Figure \ref{e1-bar-plot} shows the mean error in correlation estimation
+Figure \ref{e1-dot-plot} shows the mean error in correlation estimation
 for the 4 contrast conditions. A likelihood ratio test reveals that the
 model including contrast as a fixed effect explained significantly more
 variance than a model not including contrast as a fixed effect
@@ -598,14 +598,14 @@ contrast plots.
 Statistical testing for contrasts between the 4 levels of the contrast
 condition was performed with the \textbf{emmeans} package (version
 1.8.1-1, \citep{emmeans}) and are shown in table
-\ref{contrasts-table-e1}. Means and standard deviations of correlation
-judgements are shown in table \ref{sum-stats-e1}. The \textbf{EMAtools}
-package (version 0.1.4 \citep{ematools}) was used to calculate effect
-sizes in Cohen's d.~For the difference in correlation ratings between
-the lowest contrast (alpha = 0.25) and highest contrast plots (alpha =
-1), an effect size of d = -0.17 was obtained. While this effect is
-small, it is not insignificant, and given the lack of reported effect on
-correlation perception of global point contrast adjustments
+\ref{contrasts-table-e1}. Means and 95\% confidence intervals of
+correlation judgements are shown in figure \ref{e1-dot-plot}. The
+\textbf{EMAtools} package (version 0.1.4 \citep{ematools}) was used to
+calculate effect sizes in Cohen's d.~For the difference in correlation
+ratings between the lowest contrast (alpha = 0.25) and highest contrast
+plots (alpha = 1), an effect size of d = -0.17 was obtained. While this
+effect is small, it is not insignificant, and given the lack of reported
+effect on correlation perception of global point contrast adjustments
 \citep{rensink_2012} is an unsurprising result.
 
 \begin{table}
@@ -627,22 +627,6 @@ C - B & -5.40 & <0.001\\
 \end{tabular}
 \end{table}
 
-\begin{table}
-
-\caption{\label{tab:sum-stats-e1}\label{sum-stats-e1}This table shows means and standard errors for the contrast conditions in E1. A = Low contrast (alpha = 0.25), Medium contrast (alpha = 0.5), C = High contrast (alpha = 0.75), D = Full contrast (alpha = 1).}
-\centering
-\begin{tabular}[t]{lrr}
-\toprule
-Contrast & Mean & SD\\
-\midrule
-A & 0.183 & 0.206\\
-D & 0.149 & 0.201\\
-C & 0.152 & 0.202\\
-B & 0.166 & 0.201\\
-\bottomrule
-\end{tabular}
-\end{table}
-
 We also generate an additional model to test whether the results we
 found could be explained by differences in graph literacy. This model is
 identical to the experimental one, but includes graph literacy as a
@@ -655,21 +639,29 @@ between participants.
 \hypertarget{discussion}{%
 \subsection{Discussion}\label{discussion}}
 
+\begin{figure}
+
+\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e1-sd-sd-plot-1} \hfill{}
+
+\caption{\label{e1-sd-sd-plot}The mean of standard deviations of participants in experiment 1, grouped by contrast condition.}\label{fig:e1-sd-sd-plot}
+\end{figure}
+
 Our hypothesis was not supported in this experiment. We hypothesized
 that plots with lower contrast would have a more variable spread of
-correlation estimates than plots with higher contrast. As shown in table
-\ref{sum-stats-e1}, there was little difference in standard deviations
-between the 4 contrast conditions. Participants' errors in correlation
-estimation were significantly higher when the contrast of all points was
-lower compared to when it was higher. This was true up until contrast
-alpha was set to 0.75, implying a threshold around alpha = 0.75 past
-which there is little variation in the perception of contrast, at least
-as far as it is associated with correlation estimation. This lack of
-significant difference in correlation estimation between our two highest
-contrast values fits with the logarithmic nature of contrast/brightness
-perception \citep{varshney_2013, fechner_1948}; despite there being
-equal linear distance between the contrast values we used, the
-perceptual distance between them was clearly non-linear.
+correlation estimates than plots with higher contrast. As shown in
+figure \ref{e1-sd-sd-plot}, there was little difference in mean standard
+deviations between the 4 contrast conditions. Participants' errors in
+correlation estimation were significantly higher when the contrast of
+all points was lower compared to when it was higher. This was true up
+until contrast alpha was set to 0.75, implying a threshold around alpha
+= 0.75 past which there is little variation in the perception of
+contrast, at least as far as it is associated with correlation
+estimation. This lack of significant difference in correlation
+estimation between our two highest contrast values fits with the
+logarithmic nature of contrast/brightness perception
+\citep{varshney_2013, fechner_1948}; despite there being equal linear
+distance between the contrast values we used, the perceptual distance
+between them was clearly non-linear.
 
 As mentioned previously, \citet{rensink_2012} and \citet{rensink_2014}
 describe what is, to our knowledge, the only other direct testing of
@@ -803,12 +795,12 @@ in E1, models were built using the \textbf{buildmer} (version 2.7,
 
 \begin{figure}
 
-\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-bar-plot-1} \hfill{}
+\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-dot-plot-1} \hfill{}
 
-\caption{\label{e2-bar-plot}Mean error in correlation estimation across the four contrast conditions in E2.}\label{fig:e2-bar-plot}
+\caption{\label{e2-dot-plot}Mean error in correlation estimation across the four contrast conditions in E2, with 95\% confidence intervals shown}\label{fig:e2-dot-plot}
 \end{figure}
 
-Figure \ref{e2-bar-plot} shows mean correlation estimation errors for
+Figure \ref{e2-dot-plot} shows mean correlation estimation errors for
 the 4 contrast conditions. A likelihood ratio test reveals that the
 model including contrast condition as a fixed effect explained
 significantly more variance than a model not including contrast as a
@@ -826,14 +818,15 @@ decay and full contrast conditions.
 Statistical testing for significant contrasts between the 4 levels of
 the contrast conditions was performed with the \textbf{emmeans} package
 (version 1.8.1-1, \citep{emmeans}) and are shown in table
-\ref{contrasts-table-e2}. Means and standard deviations of correlation
-estimates are shown in table \ref{sum-stats-e2}.The \textbf{EMAtools}
-package (version 0.1.4 \citep{ematools}) was used to calculate effect
-sizes in Cohen's d.~For the difference in correlation ratings between
-full contrast and non-linear decay function plots, an effect size of d =
--0.19 was obtained. Between full contrast and non-linear inverted decay
-conditions, an effect size of d = 0.23 was obtained. These effects sizes
-are small and medium, but again, not insignificant.
+\ref{contrasts-table-e2}. Means and 95\% confidence intervals of
+correlation estimates are shown in figure \ref{e2-dot-plot}.The
+\textbf{EMAtools} package (version 0.1.4 \citep{ematools}) was used to
+calculate effect sizes in Cohen's d.~For the difference in correlation
+ratings between full contrast and non-linear decay function plots, an
+effect size of d = -0.19 was obtained. Between full contrast and
+non-linear inverted decay conditions, an effect size of d = 0.23 was
+obtained. These effects sizes are small and medium, but again, not
+insignificant.
 
 \begin{table}
 
@@ -850,22 +843,6 @@ C - B & 20.43 & <0.001\\
 C - A & 34.17 & <0.001\\
 \addlinespace
 B - A & 13.74 & <0.001\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}
-
-\caption{\label{tab:sum-stats-e2}\label{sum-stats-e2}This table shows means and standard errors for the contrast conditions in E2. A = Non-linear contrast decay (a = 0.25). B = Linear decay, C = Non-linear inverted decay, D = Full contrast.}
-\centering
-\begin{tabular}[t]{lrr}
-\toprule
-Contrast & Mean & SD\\
-\midrule
-D & 0.123 & 0.185\\
-C & 0.168 & 0.179\\
-B & 0.119 & 0.173\\
-A & 0.086 & 0.170\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1008,8 +985,8 @@ of points as they move further from the regression line can increase
 people's estimates of correlation, at least when plots like these are
 presented with other, conventional ones. Testing whether this phenomenon
 would exist with a plot in isolation would present a number of
-difficulties. As can be seen in tables \ref{sum-stats-e1} and
-\ref{sum-stats-e2}, and as more specifically illustrated in Figure
+difficulties. As can be seen in figures \ref{e1-dot-plot} and
+\ref{e2-dot-plot}, and as more specifically illustrated in Figure
 \ref{e2-dist-plots}, participants' estimates of correlation, especially
 between 0.2 and 0.7, suffer from high variance. Our high numbers of
 trials and participants ameliorate this to an extent, but this does by

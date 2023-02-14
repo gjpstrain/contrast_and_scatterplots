@@ -319,7 +319,7 @@ data <- df %>%
 ```{r plot-sd-sd, include = FALSE}
 plot_sd_sd_function <- function(d, title_text){
   d %>% 
-  summarise(ppt_sd = sd(error)) %>% 
+  summarise(ppt_sd = sd(difference)) %>% 
   drop_na() %>% 
   group_by(contrast) %>% 
   summarise(mean_sd = mean(ppt_sd), sd_sd = sd(ppt_sd)) %>% 
@@ -328,7 +328,7 @@ plot_sd_sd_function <- function(d, title_text){
   geom_errorbar(aes(ymin = mean_sd - sd_sd, ymax = mean_sd + sd_sd), width = 0, size = 1) + 
   theme_ggdist() +
   ylim(0, .3) +
-  lans(x = "Contrast Condition",
+  labs(x = "Contrast Condition",
        y = "Mean Standard Deviation")
 }
 ```
@@ -745,7 +745,7 @@ All analyses were conducted using R (version 4.2.1, [@r_core]).
 Models were built using the **buildmer** (version 2.7 [@voeten_buildmer_2022]) and
 **lme4** (version 1.1-30 [@bates_lme4_2015]) packages.
 
-```{r e1-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e1-dot-plot}Mean error in correlation estimation across the four contrast conditions in E1, with 95% confidence intervals shown.", description = "Bar plot showing mean estimation error for the four contrast conditions in experiment 1. Mean error gets smaller as we go from low to medium to high to full contrast. 95% confidence intervals are also shown."}
+```{r e1-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.show='hold', fig.align='left', out.width = "50%", fig.cap="\\label{e1-dot-plot}Mean error in correlation estimation across the four contrast conditions in E1, with 95\\% confidence intervals shown.", description = "Bar plot showing mean estimation error for the four contrast conditions in experiment 1. Mean error gets smaller as we go from low to medium to high to full contrast. 95\\% confidence intervals are also shown."}
 dot_plot_function(E1_uniform_adjustments_tidy) +
   scale_x_discrete(labels = c("Low Contrast\nalpha = 0.25",
                               "Medium Contrast\nalpha = 0.5",
@@ -789,7 +789,7 @@ difference in correlation estimates between high and full contrast plots.
 
 Statistical testing for contrasts between the 4 levels of the contrast condition
 was performed with the **emmeans** package (version 1.8.1-1, [@emmeans]) and are 
-shown in table \ref{contrasts-table-e1}. Means and 95\\% confidence intervals of 
+shown in table \ref{contrasts-table-e1}. Means and 95% confidence intervals of 
 correlation judgements are shown in figure \ref{e1-dot-plot}. The **EMAtools**
 package (version 0.1.4 [@ematools]) was used to calculate effect sizes in Cohen's d. For
 the difference in correlation ratings between the lowest contrast (alpha = 0.25) and
@@ -937,7 +937,7 @@ contrast condition from the first experiment. We used the following equation to 
 map residuals to alpha values, where R is the residual of the point in question.
 0.25 was chosen as the value of $b$. Given the shape of the underestimation
 curve reported in previous literature (see figure \ref{underestimation-curve}), intuition
-suggested that we use a symmetrically opposing curve (see figure{decay-parameters}) to
+suggested that we use a symmetrically opposing curve (see figure \ref{decay-parameters}) to
 relate point contrast with residuals. We tested a number of values of $b$, and felt
 that 0.25 rendered plots that maintained point legibility while also allowing a
 large enough range in contrast that, if an effect was present, one would be found.
@@ -1042,7 +1042,7 @@ All analyses were conducted using R (version 4.2.1, [@r_core])
 As in E1, models were built using the **buildmer** (version 2.7, [@voeten_buildmer_2022])
 and **lme4** (version 1.1-30 [@bates_lme4_2015]) packages.
 
-```{r e2-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{e2-dot-plot}Mean error in correlation estimation across the four contrast conditions in E2, with 95% confidence intervals shown", description = "Dot plot showing mean estimation error for four contrast conditions in experiment 2, lowest mean error is for non-linear decay, followed by linear decay, full contrast, and inverted non-linear decay. 95% confidence intervals are also shown. Values are provided in table 4."}
+```{r e2-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{e2-dot-plot}Mean error in correlation estimation across the four contrast conditions in E2, with 95\\% confidence intervals shown", description = "Dot plot showing mean estimation error for four contrast conditions in experiment 2, lowest mean error is for non-linear decay, followed by linear decay, full contrast, and inverted non-linear decay. 95\\% confidence intervals are also shown. Values are provided in table 4."}
 # plot bar plot for e2
 dot_plot_function(E2_spatially_dependent_tidy) +
   scale_x_discrete(labels = c("Non-Linear\nDecay",
@@ -1089,7 +1089,7 @@ and full contrast conditions.
 Statistical testing for significant contrasts between the 4 levels of the contrast
 conditions was performed with the **emmeans** package (version 1.8.1-1, [@emmeans])
 and are shown in table \ref{contrasts-table-e2}. Means and 95% confidence intervals of
-correlation estimates are shown in figure \ref{dot-plot-e2}.The **EMAtools**
+correlation estimates are shown in figure \ref{e2-dot-plot}.The **EMAtools**
 package (version 0.1.4 [@ematools]) was used to calculate effect sizes in Cohen's d. For
 the difference in correlation ratings between full contrast and non-linear decay function
 plots, an effect size of d = `r printnum(effects_df$d[3])` was obtained. Between full contrast
@@ -1275,8 +1275,8 @@ The results in experiment 2 provide evidence that reducing the salience of point
 as they move further from the regression line can increase people's estimates
 of correlation, at least when plots like these are presented with other, conventional
 ones. Testing whether this phenomenon would exist with a plot in isolation would
-present a number of difficulties. As can be seen in figures \ref{dot-plot-e1}
-and \ref{dot-plot-e2}, and as more specifically illustrated in Figure \ref{e2-dist-plots}, 
+present a number of difficulties. As can be seen in figures \ref{e1-dot-plot}
+and \ref{e2-dot-plot}, and as more specifically illustrated in Figure \ref{e2-dist-plots}, 
 participants' estimates of correlation, especially between 0.2 and 0.7, suffer 
 from high variance. Our high numbers of trials and participants ameliorate this to an extent,
 but this does by necessity mean we are unable to comment on judgements made in isolation.
