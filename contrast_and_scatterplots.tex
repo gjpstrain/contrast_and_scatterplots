@@ -185,9 +185,8 @@ visualization design and perception.
 \hypertarget{related-work}{%
 \section{Related Work}\label{related-work}}
 
-\hypertarget{testing-correlation-perception}{%
-\subsection{Testing Correlation
-Perception}\label{testing-correlation-perception}}
+\hypertarget{testing}{%
+\subsection{Testing Correlation Perception}\label{testing}}
 
 The primary concept communicated by scatterplots is correlation, (i.e
 the strength of the relationship between two variables). Throughout this
@@ -466,13 +465,21 @@ experiment. Presentation order was randomised.
 
 Scatterplots were randomly generated from bivariate normal
 distributions. All plots presented were 1200 * 1200 pixels in size, and
-included no titles, tick labels, or axis labels. Each plot contained 128
-data points. 45 \emph{r} values were generated on a uniform distribution
-between 0.2 and 0.95. We chose these boundaries due to evidence that
-very little correlation is perceived below 0.2
-\citep{bobko_1979, cleveland_1982, strahan_1978}. Scripts detailing item
-and mask creation for each experiment can be found in the
-item\_preparation folder.
+included no titles, tick labels, or axis labels. Points were 10 pixels
+in diameter on a 1280x720 resolution monitor, and 13 pixels in diameter
+on a 1920x1080 resolution monitor. Due to our crowdsourced approach we
+were unable to obtain precise monitor resolution or physical screen size
+measurements for participants, meaning we are unable to provide
+by-participant dot pitch information. We are however working on a method
+to accomplish this in future work. Each plot contained 128 data points.
+45 \emph{r} values were generated on a uniform distribution between 0.2
+and 0.95. We chose these boundaries due to evidence that very little
+correlation is perceived below 0.2
+\citep{bobko_1979, cleveland_1982, strahan_1978}. Scatterplots were
+generated according to the standard normal distribution, having a
+standard deviation of 1 in each direction. Scripts detailing item and
+mask creation for each experiment can be found in the item\_preparation
+folder.
 
 \hypertarget{open-research-statement}{%
 \section{Open Research Statement}\label{open-research-statement}}
@@ -603,26 +610,26 @@ correlation judgements are shown in figure \ref{e1-dot-plot}. The
 \textbf{EMAtools} package (version 0.1.4 \citep{ematools}) was used to
 calculate effect sizes in Cohen's d.~For the difference in correlation
 ratings between the lowest contrast (alpha = 0.25) and highest contrast
-plots (alpha = 1), an effect size of d = -0.17 was obtained. While this
+plots (alpha = 1), an effect size of d = -0.08 was obtained. While this
 effect is small, it is not insignificant, and given the lack of reported
 effect on correlation perception of global point contrast adjustments
 \citep{rensink_2012} is an unsurprising result.
 
 \begin{table}
 
-\caption{\label{tab:contrasts-table-e1}\label{contrasts-table-e1}This table shows the contrasts between different levels of the contrast factor in E1. A = Low contrast (alpha = 0.25), Medium contrast (alpha = 0.5), C = High contrast (alpha = 0.75), D = Full contrast (alpha = 1).}
+\caption{\label{tab:contrasts-table-e1}\label{contrasts-table-e1}This table shows the contrasts between different levels of the contrast factor in E1.}
 \centering
 \begin{tabular}[t]{lrl}
 \toprule
 Contrast & Z.ratio & p.value\\
 \midrule
-A - D & 13.48 & <0.001\\
-A - C & 12.12 & <0.001\\
-A - B & 6.72 & <0.001\\
-D - C & -1.35 & 0.528\\
-D - B & -6.76 & <0.001\\
+Low contrast (A) : Full contrast (D) & 13.48 & <0.001\\
+Low contrast (A) : High contrast (C) & 12.12 & <0.001\\
+Low contrast (A) : Medium contrast (B) & 6.72 & <0.001\\
+Full contrast (D) : High contrast (C) & -1.35 & 0.528\\
+Full contrast (D) : Medium contrast (B) & -6.76 & <0.001\\
 \addlinespace
-C - B & -5.40 & <0.001\\
+High contrast (C) : Medium contrast (B) & -5.40 & <0.001\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -635,6 +642,21 @@ model and the one including graph literacy as a fixed effect
 (\(\chi^2\)(1) \textless{} .001, \emph{p} = .995). These results suggest
 that the effect we found was not driven by differences in graph literacy
 between participants.
+
+\begin{figure}
+
+{\centering \includegraphics{contrast_and_scatterplots_files/figure-latex/e1-error-plot-1} 
+
+}
+
+\caption{\label{e1-error-plot}The mean of participants' estimations of \textit{r} compared with objective Pearson's \textit{r}, plotted by contrast condition. Error bars show standard deviations of mean estimates.}\label{fig:e1-error-plot}
+\end{figure}
+
+Figure \ref{e1-error-plot} shows how participants' mean estimates of
+correlation change with the objective Pearson's \emph{r} value, plotted
+separately for each contrast condition. We observe underestimation
+curves similar to those reported in previous literature (see section
+@ref\{testing\}).
 
 \hypertarget{discussion}{%
 \subsection{Discussion}\label{discussion}}
@@ -679,7 +701,7 @@ small sample size in \citet{rensink_2014} (n = 12), our study's
 heightened experimental power represents strong evidence that total
 contrast in a scatterplot can affect people's perceptions of
 correlation. Our effect size for the uniform contrast manipulation was
-small (d = -0.17), and while such a small difference may be of little
+small (d = -0.08), and while such a small difference may be of little
 practical relevance , it demonstrates that differences in the contrast
 of points can effect correlation estimates in scatterplots. The fact
 that this difference is present suggests that it can be used to optimise
@@ -756,8 +778,8 @@ the following equation to non-linearly map residuals to alpha values,
 where R is the residual of the point in question. 0.25 was chosen as the
 value of \(b\). Given the shape of the underestimation curve reported in
 previous literature (see figure \ref{underestimation-curve}), intuition
-suggested that we use a symmetrically opposing curve (see
-figure\{decay-parameters\}) to relate point contrast with residuals. We
+suggested that we use a symmetrically opposing curve (see figure
+\ref{decay-parameters}) to relate point contrast with residuals. We
 tested a number of values of \(b\), and felt that 0.25 rendered plots
 that maintained point legibility while also allowing a large enough
 range in contrast that, if an effect was present, one would be found.
@@ -823,8 +845,8 @@ correlation estimates are shown in figure \ref{e2-dot-plot}.The
 \textbf{EMAtools} package (version 0.1.4 \citep{ematools}) was used to
 calculate effect sizes in Cohen's d.~For the difference in correlation
 ratings between full contrast and non-linear decay function plots, an
-effect size of d = -0.19 was obtained. Between full contrast and
-non-linear inverted decay conditions, an effect size of d = 0.23 was
+effect size of d = 0.19 was obtained. Between full contrast and
+non-linear inverted decay conditions, an effect size of d = 0.17 was
 obtained. These effects sizes are small and medium, but again, not
 insignificant.
 
@@ -836,13 +858,13 @@ insignificant.
 \toprule
 Contrast & Z.ratio & p.value\\
 \midrule
-D - C & -18.88 & <0.001\\
-D - B & 1.55 & 0.405\\
-D - A & 15.30 & <0.001\\
-C - B & 20.43 & <0.001\\
-C - A & 34.17 & <0.001\\
+Full contrast (D) : Non-linear inverted decay (C) & -18.88 & <0.001\\
+Full contrast (D) : Linear decay (B) & 1.55 & 0.405\\
+Full contrast (D) : Non-linear contrast decay (A) & 15.30 & <0.001\\
+Non-linear inverted decay (C) : Linear decay (B) & 20.43 & <0.001\\
+Non-linear inverted decay (C) : Non-linear contrast decay (A) & 34.17 & <0.001\\
 \addlinespace
-B - A & 13.74 & <0.001\\
+Linear decay (B) : Non-linear contrast decay (A) & 13.74 & <0.001\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -855,6 +877,22 @@ model and the one including graph literacy as a fixed effect
 (\(\chi^2\)(1) = 0.24, \emph{p} = .623). These results suggest that the
 effect we found was not driven by differences in graph literacy between
 participants.
+
+\begin{figure}
+
+{\centering \includegraphics{contrast_and_scatterplots_files/figure-latex/e2-error-plot-1} 
+
+}
+
+\caption{\label{e2-error-plot}The mean of participants' estimations of \textit{r} compared with objective Pearson's \textit{r}, plotted by contrast condition}\label{fig:e2-error-plot}
+\end{figure}
+
+Figure \ref{e2-error-plot} shows how participants' mean estimates of
+correlation change with the objective Pearson's \emph{r} value, plotted
+separately for each of our contrast decay manipulation conditions. We
+again observe underestimation curves similar to those reported in
+previous literature (see section \ref{testing} and figure
+\ref{underestimation-curve}).
 
 \hypertarget{discussion-1}{%
 \subsection{Discussion}\label{discussion-1}}
@@ -885,7 +923,7 @@ for the underestimation bias.
 
 \begin{figure}
 
-\includegraphics[width=0.5\linewidth]{images/prediction_ellipse} \hfill{}
+\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/prediction-ellipse-1} \hfill{}
 
 \caption{\label{prediction-ellipse}The above plot shows a 95\% prediction ellipse over a scatterplot with an \textit{r} value of 0.6.}\label{fig:prediction-ellipse}
 \end{figure}
@@ -937,15 +975,29 @@ taken place in labs with experienced participants.
 In agreement with much previous research
 \citep{rensink_2010, rensink_2012, rensink_2014, rensink_2017, pollack_1960},
 we found that participants were more accurate and more precise when the
-\emph{r} value was higher. Figure \ref{e2-dist-plots} plots the
-objective \emph{r} value against the mean correlation estimate and
-standard deviation of estimates for the non-linear contrast decay
-condition in experiment 2, and illustrate, as in many studies cited, the
-markedly lower levels of precision and accuracy for \emph{r} values
-further from 0 or 1.
+\emph{r} value was higher. Figures \ref{e1-changes-plot} and
+\ref{e2-changes-plot} plot the objective \emph{r} value against the mean
+correlation estimates against Pearson's \emph{r} for experiments 1 and 2
+respectively. Standard deviations of estimates are shown as error
+bars.These plots illustrate, as in many studies cited, the lower levels
+of precision and accuracy for \emph{r} values further from 0 or 1.
 
 \begin{figure}
-\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-dist-plots-1} \includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-dist-plots-2} \caption{\label{e2-dist-plots}Plotting objective \textit{r} values against mean error in correlation estimates (on the left) and standard deviations of correlation estimates (on the right) shows that accuracy and precision increase with \textit{r}.}\label{fig:e2-dist-plots}
+
+{\centering \includegraphics{contrast_and_scatterplots_files/figure-latex/changes-with-r-e1-1} 
+
+}
+
+\caption{\label{e1-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \textit{r} in experiment 1. Participants were on average most accurate at estimating the \textit{r} value when presented with the full contrast scatterplots (condition D). Error bars show standard deviations of estimates.}\label{fig:changes-with-r-e1}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics{contrast_and_scatterplots_files/figure-latex/changes-with-r-e2-1} 
+
+}
+
+\caption{\label{e1-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \textit{r} in experiment 2. Participants were on average most accurate at estimating the \textit{r} value when presented with the non-linear contrast decay scatterplots (condition A). Error bars show standard deviations of estimates.}\label{fig:changes-with-r-e2}
 \end{figure}
 
 Our experiments contribute to a body of evidence that suggests

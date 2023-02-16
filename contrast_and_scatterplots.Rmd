@@ -151,6 +151,7 @@ anon_file %>%
   mutate(across(matches(c("item", "contrast")), as_factor)) %>%
   dplyr::select(-c("__participant")) %>%
   mutate(difference = my_rs - slider.response) %>%
+  mutate(contrast = fct_relevel(contrast, c('A', 'B', 'C', 'D'))) %>% 
   assign(paste0(unique(anon_file$expName), "_tidy"),
            value = ., envir = .GlobalEnv)
 }
@@ -309,29 +310,58 @@ data <- df %>%
     ggplot(aes(x = contrast, y = mean)) +
     geom_point() +
     #coord_cartesian(ylim = c(0, max_error))
-    geom_errorbar(aes(ymin=lci, ymax=hci), colour="black", width=0, linewidth =1) +
+    geom_errorbar(aes(ymin=lci, ymax=hci), colour="black", width=0.05, linewidth =1) +
     theme_ggdist() +
     labs(x = "Contrast Condition",
-         y = "Mean Error")
+         y = "Mean Error") +
+    theme(axis.text = element_text(size = 13),
+          axis.title = element_text(size = 16))
 }
 ```
 
 ```{r plot-sd-sd, include = FALSE}
-plot_sd_sd_function <- function(d, title_text){
-  d %>% 
+plot_sd_sd_function <- function(df){
+  df %>% 
   summarise(ppt_sd = sd(difference)) %>% 
   drop_na() %>% 
   group_by(contrast) %>% 
   summarise(mean_sd = mean(ppt_sd), sd_sd = sd(ppt_sd)) %>% 
   ggplot(aes(x = contrast, y = mean_sd)) +
   geom_point(size = 2) + 
-  geom_errorbar(aes(ymin = mean_sd - sd_sd, ymax = mean_sd + sd_sd), width = 0, size = 1) + 
+  geom_errorbar(aes(ymin = mean_sd - sd_sd, ymax = mean_sd + sd_sd), width = 0.05, linewidth = 1) + 
   theme_ggdist() +
   ylim(0, .3) +
   labs(x = "Contrast Condition",
-       y = "Mean Standard Deviation")
+       y = "Mean Standard Deviation") +
+        theme(axis.text = element_text(size = 13),
+              axis.title = element_text(size = 16))
 }
 ```
+
+```{r error-bar-plot, include = FALSE}
+plot_error_bars_function <- function(df, measure, l){
+  df %>% 
+  drop_na() %>% 
+  group_by(contrast, my_rs) %>% 
+  summarise(sd = sd(get(measure)), mean = mean(get(measure))) %>% 
+  ggplot(aes(x = my_rs, y = mean)) +
+  geom_point(size = 0.2) + 
+  geom_errorbar(mapping = aes(ymin = mean + sd, ymax = mean - sd),width = 0.01, size = 0.3) +
+  geom_hline(yintercept = 0, linetype = 2) +
+  theme_ggdist() +
+  theme(strip.text = element_text(size = 6, margin = margin(1,0,1,0, "mm"))) +
+  facet_wrap(contrast ~., ncol = 4, labeller = labeller(contrast = l)) +
+    labs(x = "Objective r",
+         y = "Mean r estimation")
+}
+
+```
+
+```{r labeller, include = FALSE}
+labels_e1 <- c(A = "Low Contrast", B = "Medium Contrast", C = "High Contrast", D = "Full Contrast")
+labels_e2 <- c(A = "Non-Linear Decay", B = "Linear Decay", C = "Inverted Decay", D = "No Decay")
+```
+
 
 # Introduction
 
@@ -371,7 +401,7 @@ in addition to providing us with insights into visualization design and percepti
 
 # Related Work
 
-## Testing Correlation Perception
+## Testing Correlation Perception {#testing}
 
 The primary concept communicated by scatterplots is correlation, (i.e the strength of
 the relationship between two variables). Throughout this paper we refer to an *r* value, or
@@ -496,7 +526,9 @@ can use contrast to reduce the salience of the points representing the widest pa
 of the probability distribution; if this is successful, and participants perceive
 a narrower distribution, we would expect this to be able to correct for a viewer's underestimation bias.
 
-One way to correct for an underestimation in correlation would be to simply remove outer data points until correlation perception is aligned with the actual correlation value. However, this would necessitate hiding data, thus changing the information presented to the viewer. An alternative approach is to manipulate 
+One way to correct for an underestimation in correlation would be to simply remove 
+outer data points until correlation perception is aligned with the actual correlation value. However, 
+this would necessitate hiding data, thus changing the information presented to the viewer. An alternative approach is to manipulate 
 the contrast of only some of the points; it would seem most sensible to do so for the
 points that are more extreme relative to the underlying regression line.
 
@@ -514,8 +546,10 @@ of both manipulations.
 We use the **ggplot2** [@hadley_gg2016] package for plot creation in both experiments,
 which uses an alpha parameter to set contrast. Alpha here refers to the 
 linear interpolation [@stone_2008] between foreground and background pixel values; 
-alpha values of 0 (full transparency) and 1 (full opacity) result in no interpolation and rendering of either the background or foreground pixel values respectively. Alpha values between 0 and 1 correspond to 
-different ratios of interpolation between foreground and background pixel values.
+alpha values of 0 (full transparency) and 1 (full opacity) result in no interpolation
+and rendering of either the background or foreground pixel values respectively.
+Alpha values between 0 and 1 correspond to different ratios of interpolation between
+foreground and background pixel values.
 
 There are numerous psychophysical definitions of perceived contrast [@zuffi_2007]
 based on what is being presented, for example models that take into account visibility limits (CIELAB lightness), and
@@ -563,11 +597,14 @@ viewing contexts and allows us to make conclusions that are of particular releva
 to the HCI audience.
 
 Ethical approval for both experiments was granted by the University of Manchester’s
-Computer Science Department Panel (Ref: 2022-14660-24397). Each participant was shown the participant information sheet (PIS) and provided consent through key presses in response to consent statements. They were then asked to provide their age in a free text box, and their gender identity. Following this
-they were asked to complete the 5-item Subjective Graph Literacy (SGL) test [@garcia_2016].
-Participants were then shown 7 instructional slides that can be seen in the 
-experimental repository (https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments/blob/master/instructions.csv). Ad-hoc piloting with a graduate student 
-in humanities suggested people might be unfamiliar with what different correlations
+Computer Science Department Panel (Ref: 2022-14660-24397). Each participant was shown
+the participant information sheet (PIS) and provided consent through key presses in 
+response to consent statements. They were then asked to provide their age in a free text box,
+and their gender identity. Following this they were asked to complete the 5-item Subjective
+Graph Literacy (SGL) test [@garcia_2016]. Participants were then shown 7 instructional
+slides that can be seen in the 
+experimental repository (https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments/blob/master/instructions.csv).
+Ad-hoc piloting with a graduate student in humanities suggested people might be unfamiliar with what different correlations
 looked like in scatterplots. They were therefore shown examples of *r* = 0.2, 0.5,
 0.8, and 0.95, which can be see in Figure \ref{example-plots}. Participants 
 were then given two practice trials before the experiment began.
@@ -600,9 +637,16 @@ knitr::include_graphics("images/example-trial.png")
 
 Scatterplots were randomly generated from bivariate normal distributions. All plots presented
 were 1200 * 1200 pixels in size, and included no titles, tick labels, or axis labels.
+Points were 10 pixels in diameter on a 1280x720 resolution monitor, and 13 pixels in
+diameter on a 1920x1080 resolution monitor. Due to our crowdsourced approach we were
+unable to obtain precise monitor resolution or physical screen size measurements for 
+participants, meaning we are unable to provide by-participant dot pitch information.
+We are however working on a method to accomplish this in future work. 
 Each plot contained 128 data points. 45 *r* values were generated on a uniform distribution
 between 0.2 and 0.95. We chose these boundaries due to evidence that very little
 correlation is perceived below 0.2 [@bobko_1979; @cleveland_1982; @strahan_1978].
+Scatterplots were generated according to the standard normal distribution, having
+a standard deviation of 1 in each direction.
 Scripts detailing item and mask creation for each experiment can be found in the
 item_preparation folder.
 
@@ -678,7 +722,8 @@ from the study. The remaining 150 participants' data were included in the full
 analysis (`r printnum(gender_e1$M)`% male, `r printnum(gender_e1$F)`% female, and 
 `r printnum(gender_e1$NB)`% non-binary). Mean age of participants was `r printnum(age_e1$mean)`
 (*SD* = `r printnum(age_e1$sd)`). Mean graph literacy score was `r printnum(literacy_e1$mean)`
-(*SD* = `r printnum(literacy_e1$sd)`) out of 30.
+(*SD* = `r printnum(literacy_e1$sd)`) out of 30. The average time taken to complete
+the experiment was 33 minutes (SD = 10 minutes).
 
 ### Design
 
@@ -745,12 +790,12 @@ All analyses were conducted using R (version 4.2.1, [@r_core]).
 Models were built using the **buildmer** (version 2.7 [@voeten_buildmer_2022]) and
 **lme4** (version 1.1-30 [@bates_lme4_2015]) packages.
 
-```{r e1-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.show='hold', fig.align='left', out.width = "50%", fig.cap="\\label{e1-dot-plot}Mean error in correlation estimation across the four contrast conditions in E1, with 95\\% confidence intervals shown.", description = "Bar plot showing mean estimation error for the four contrast conditions in experiment 1. Mean error gets smaller as we go from low to medium to high to full contrast. 95\\% confidence intervals are also shown."}
+```{r e1-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.show='hold', fig.align='left', out.width = "50%", fig.cap="\\label{e1-dot-plot}Mean error in correlation estimation across the four contrast conditions in E1, with 95\\% confidence intervals shown.", description = "Dot plot showing mean estimation error for the four contrast conditions in experiment 1. Mean error gets smaller as we go from low to medium to high to full contrast. 95\\% confidence intervals are also shown."}
 dot_plot_function(E1_uniform_adjustments_tidy) +
-  scale_x_discrete(labels = c("Low Contrast\nalpha = 0.25",
-                              "Medium Contrast\nalpha = 0.5",
-                              "High Contrast\nalpha = 0.75",
-                              "Full Contrast\nalpha = 1"))
+  scale_x_discrete(labels = c("Low Contrast\nalpha = 0.25 (A)",
+                              "Medium Contrast\nalpha = 0.5 (B)",
+                              "High Contrast\nalpha = 0.75 (C)",
+                              "Full Contrast\nalpha = 1 (D)"))
 ```
 
 ```{r e1-model,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
@@ -801,9 +846,16 @@ is an unsurprising result.
 ```{r contrasts-table-e1, echo=FALSE, warning=FALSE, message=FALSE, fig.align='left'}
 # outputs summary statistics for E1 model.
 contrasts_e1 <- contrasts_extract(e1_model) %>%
-  mutate(p.value = scales::pvalue(p.value))
+  mutate(p.value = scales::pvalue(p.value)) %>%
+  mutate(Contrast = recode(Contrast,
+                           "A - D" = "Low contrast (A) : Full contrast (D)",
+                           "A - C" = "Low contrast (A) : High contrast (C)",
+                           "A - B" = "Low contrast (A) : Medium contrast (B)",
+                           "D - C" = "Full contrast (D) : High contrast (C)",
+                           "D - B" = "Full contrast (D) : Medium contrast (B)",
+                           "C - B" = "High contrast (C) : Medium contrast (B)"))
 
-knitr::kable(contrasts_e1, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e1}This table shows the contrasts between different levels of the contrast factor in E1. A = Low contrast (alpha = 0.25), Medium contrast (alpha = 0.5), C = High contrast (alpha = 0.75), D = Full contrast (alpha = 1).")
+knitr::kable(contrasts_e1, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e1}This table shows the contrasts between different levels of the contrast factor in E1.")
 ```
 
 ```{r e1-lit, cache=eval_models, cache.comments=FALSE, eval=eval_models, echo=FALSE, warning=FALSE, dependson="e1-model"}
@@ -825,6 +877,15 @@ experimental one, but includes graph literacy as a fixed effect.
 We found no significant differences between the original model and the one including graph literacy as a fixed effect
 ($\chi^2$(`r in_paren(e1_model_lit_comparison.df)`) `r printp(e1_model_lit_comparison.Chisq)`,
 *p* `r printp(e1_model_lit_comparison.p, add_equals = TRUE)`). These results suggest that the effect we found was not driven by differences in graph literacy between participants.
+
+```{r e1-error-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='center',fig.show="hold",fig.asp=0.25, fig.cap="\\label{e1-error-plot}The mean of participants' estimations of \\textit{r} compared with objective Pearson's \\textit{r}, plotted by contrast condition. Error bars show standard deviations of mean estimates.", description = ""}
+plot_error_bars_function(E1_uniform_adjustments_tidy, "slider.response", labels_e1)
+```
+
+Figure \ref{e1-error-plot} shows how participants' mean estimates of correlation
+change with the objective Pearson's *r* value, plotted separately for each contrast
+condition. We observe underestimation curves
+similar to those reported in previous literature (see section \@ref{testing}).
 
 ## Discussion
 
@@ -916,8 +977,7 @@ literacy_e2 <- distinct(E2_spatially_dependent_tidy, participant,
 Normal to corrected-to-normal vision and English fluency were required for participation. In accordance
 with guidelines published in [@peer_2021], participants were required to have 
 previously completed at least 100 studies on Prolific, and were required to have
-a Prolific score of at least 100, indicating acceptance on at least 100/101 previously completed studies. In addition, participants who had completed an earlier, similar study that was run by the authors of the current paper, or the first
-experiment described above were prevented from participating.
+a Prolific score of at least 100, indicating acceptance on at least 100/101 previously completed studies. In addition, participants who had completed an earlier, similar study that was run by the authors of the current paper, or the first experiment described above were prevented from participating.
 
 Data were collected from 157 participants. 7 failed more
 than 2 out of 6 attention check questions, and, as per pre-registration stipulations, 
@@ -925,7 +985,8 @@ were rejected from the study. The remaining 150 participants data were included
 in the full analysis (`r printnum(gender_e2$M)`% male, `r printnum(gender_e2$F)`% female, and 
 `r printnum(gender_e2$NB)`% non-binary). Mean age of participants was `r printnum(age_e2$mean)`
 (*SD* = `r printnum(age_e2$sd)`). Mean graph literacy score was `r printnum(literacy_e2$mean)`
-(*SD* = `r printnum(literacy_e2$sd)`) out of 30.
+(*SD* = `r printnum(literacy_e2$sd)`) out of 30.  The average time taken to complete
+the experiment was 33 minutes (SD = 13 minutes).
 
 ### Design
 
@@ -1043,12 +1104,12 @@ As in E1, models were built using the **buildmer** (version 2.7, [@voeten_buildm
 and **lme4** (version 1.1-30 [@bates_lme4_2015]) packages.
 
 ```{r e2-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{e2-dot-plot}Mean error in correlation estimation across the four contrast conditions in E2, with 95\\% confidence intervals shown", description = "Dot plot showing mean estimation error for four contrast conditions in experiment 2, lowest mean error is for non-linear decay, followed by linear decay, full contrast, and inverted non-linear decay. 95\\% confidence intervals are also shown. Values are provided in table 4."}
-# plot bar plot for e2
+# plot dot plot for e2
 dot_plot_function(E2_spatially_dependent_tidy) +
-  scale_x_discrete(labels = c("Non-Linear\nDecay",
-                              "Linear Decay",
-                              "Non-Linear\nInverted Decay",
-                              "Full Contrast"))
+  scale_x_discrete(labels = c("Non-Linear\nDecay (A)",
+                              "Linear Decay (B)",
+                              "Non-Linear\nInverted Decay (C)",
+                              "Full Contrast (D)"))
 ```
 
 ```{r e2-model,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
@@ -1084,7 +1145,11 @@ parameter than for the linear decay parameter, non-linear inverted decay paramet
 estimates with linear decay being more accurate than estimates with non-linear inverted decay;
 and by full contrast estimates being more accurate than estimates with non-linear inverted decay.
 There was no significant difference in correlation estimates between linear decay
-and full contrast conditions.
+and full contrast conditions. Similar to the lack of significant difference between
+high and full contrast conditions in experiment 1, we hypothesise that this is due
+to the difference between these two conditions becoming smaller as objective correlation
+approaches 1; it may be that the difference is not on the whole great enough to
+produce a significant effect.
 
 Statistical testing for significant contrasts between the 4 levels of the contrast
 conditions was performed with the **emmeans** package (version 1.8.1-1, [@emmeans])
@@ -1099,7 +1164,14 @@ obtained. These effects sizes are small and medium, but again, not insignificant
 ```{r contrasts-table-e2, echo=FALSE, warning=FALSE, message=FALSE, fig.align='left'}
 # outputs significant contrasts for e1
 contrasts_e2 <- contrasts_extract(e2_model) %>%
-  mutate(p.value = scales::pvalue(p.value))
+  mutate(p.value = scales::pvalue(p.value)) %>%
+  mutate(Contrast = recode(Contrast,
+                           "D - C" = "Full contrast (D) : Non-linear inverted decay (C)",
+                           "D - B" = "Full contrast (D) : Linear decay (B)",
+                           "D - A" = "Full contrast (D) : Non-linear contrast decay (A)",
+                           "C - B" = "Non-linear inverted decay (C) : Linear decay (B)",
+                           "C - A" = "Non-linear inverted decay (C) : Non-linear contrast decay (A)",
+                           "B - A" = "Linear decay (B) : Non-linear contrast decay (A)"))
 
 knitr::kable(contrasts_e2, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e2}This table shows the contrasts between different levels of the contrast factor. A = Non-linear contrast decay (a = 0.25). B = Linear decay, C = Non-linear inverted decay, D = Full contrast.")
 ```
@@ -1124,6 +1196,16 @@ graph literacy as a fixed effect ($\chi^2$(`r in_paren(e2_model_lit_comparison.d
 `r printnum(e2_model_lit_comparison.Chisq)`, *p* `r printp(e2_model_lit_comparison.p, add_equals = TRUE)`).
 These results suggest that the effect we found was not driven by differences in graph
 literacy between participants.
+
+```{r e2-error-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='center',fig.show="hold",fig.asp=0.25, fig.cap="\\label{e2-error-plot}The mean of participants' estimations of \\textit{r} compared with objective Pearson's \\textit{r}, plotted by contrast condition", description = "Plots showing how participants' estimates of correlation vary as a function of actual correlation. Participants are most accurate around r = 0 and r = 1, as was found in previous research. Error bars show standard deviations of mean estimates."}
+plot_error_bars_function(E2_spatially_dependent_tidy, "slider.response", labels_e2)
+```
+
+Figure \ref{e2-error-plot} shows how participants' mean estimates of correlation
+change with the objective Pearson's *r* value, plotted separately for each of our
+contrast decay manipulation conditions. We again observe underestimation curves
+similar to those reported in previous literature (see section \ref{testing} and
+figure \ref{underestimation-curve}).
 
 ## Discussion
 
@@ -1169,8 +1251,9 @@ suggests that it is easier to induce greater bias in correlation estimates throu
 reduction in salience of the point clouds centre than it is to correct for the 
 underestimation bias. 
 
-```{r prediction-ellipse, echo=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{prediction-ellipse}The above plot shows a 95\\% prediction ellipse over a scatterplot with an \\textit{r} value of 0.6.", description = "Scatterplot with prediction ellipse."}
-knitr::include_graphics("images/prediction_ellipse.png")
+```{r prediction-ellipse, echo=FALSE, fig.align='left', out.width="50%", fig.asp=1, fig.cap="\\label{prediction-ellipse}The above plot shows a 95\\% prediction ellipse over a scatterplot with an \\textit{r} value of 0.6.", description = "Scatterplot with prediction ellipse."}
+plot_example_function(data_with_resid, 1, "") +
+  stat_ellipse(type = "norm")
 ```
 
 Our finding that the use of the non-linear inverted decay parameter, in which contrast was increased
@@ -1212,41 +1295,20 @@ than studies that have taken place in labs with experienced participants.
 
 In agreement with much previous research [@rensink_2010; @rensink_2012; 
 @rensink_2014; @rensink_2017; @pollack_1960], we found that participants were
-more accurate and more precise when the *r* value was higher. Figure \ref{e2-dist-plots} 
-plots the objective *r* value against the mean correlation estimate
-and standard deviation of estimates for the non-linear contrast decay condition
-in experiment 2, and illustrate, as in many studies cited, the markedly lower levels
-of precision and accuracy for *r* values further from 0 or 1.
+more accurate and more precise when the *r* value was higher. Figures \ref{e1-changes-plot}
+and \ref{e2-changes-plot} plot the objective *r* value against the mean correlation estimates
+against Pearson's *r* for experiments 1 and 2 respectively. Standard deviations of 
+estimates are shown as error bars.These plots illustrate, as in many studies cited, 
+the lower levels of precision and accuracy for *r* values further from 0 or 1.
 
-```{r e2-dist-plots, warning=FALSE, echo=FALSE, message=FALSE, fig.show='hold', out.width="50%", fig.cap="\\label{e2-dist-plots}Plotting objective \\textit{r} values against mean error in correlation estimates (on the left) and standard deviations of correlation estimates (on the right) shows that accuracy and precision increase with \\textit{r}.", description = "Plot showing objective r value on the horizontal axis, and mean error by r value on the vertical axis (left), and standard deviation of mean errors on the vertical axis (on the right). Error is lowest when r is lowest and highest, and follows a curve reaching a zenith at around r = 0.6."}
-# plots objective r value vs standard deviation of errors
-E2_spatially_dependent_tidy %>%
-  dplyr::filter(contrast == "A") %>%
-  filter(!is.na(difference)) %>%  
-  mutate(my_rs = as.character(round(my_rs, digits = 2))) %>%
-  group_by(my_rs) %>%
-  summarise(mean = mean(difference)) %>%
-  ggplot(aes(x = my_rs, y = mean)) +
-    geom_point() +
-    theme_minimal() +
-    theme(axis.text.x = element_text(angle = -60)) +
-    labs(x = "Objective Pearson's r",
-         y = "Mean Error") 
+```{r changes-with-r-e1, warning=FALSE, echo=FALSE, message=FALSE, fig.align='center',fig.show="hold",fig.asp=0.25, fig.cap="\\label{e1-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \\textit{r} in experiment 1. Participants were on average most accurate at estimating the \\textit{r} value when presented with the full contrast scatterplots (condition D). Error bars show standard deviations of estimates.", description ="Series of 4 plots showing how participants' mean correlation estimates vary as a function of the actual r value, over the 4 conditions in experiment 1. Error bars show standard deviations for mean estimates over the 45 r values."}
+plot_error_bars_function(E1_uniform_adjustments_tidy, "difference", labels_e1) +
+  labs(y = "Mean r estimation\nerror")
+```
 
-# plots objective r value vs standard deviation of errors
-E2_spatially_dependent_tidy %>%
-  dplyr::filter(contrast == "A") %>%
-  filter(!is.na(difference)) %>%  
-  mutate(my_rs = as.character(round(my_rs, digits = 2))) %>%
-  group_by(my_rs) %>%
-  summarise(sd = sd(difference)) %>%
-  ggplot(aes(x = my_rs, y = sd)) +
-    geom_point() +
-    theme_minimal() +
-    theme(axis.text.x = element_text(angle = -60)) +
-    labs(x = "Objective Pearson's r",
-         y = "Standard Deviation of Errors")
-
+```{r changes-with-r-e2, warning=FALSE, echo=FALSE, message=FALSE, fig.align='center',fig.show="hold",fig.asp=0.25, fig.cap="\\label{e2-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \\textit{r} in experiment 2. Participants were on average most accurate at estimating the \\textit{r} value when presented with the non-linear contrast decay scatterplots (condition A). Error bars show standard deviations of estimates.", description ="Series of 4 plots showing how participants' mean correlation estimates vary as a function of the actual r value, over the 4 conditions in experiment 2. Error bars show standard deviations for mean estimates over the 45 r values."}
+plot_error_bars_function(E2_spatially_dependent_tidy, "difference", labels_e2) +
+  labs(y = "Mean r estimation\nerror")
 ```
 
 Our experiments contribute to a body of evidence that suggests participants
@@ -1276,29 +1338,30 @@ as they move further from the regression line can increase people's estimates
 of correlation, at least when plots like these are presented with other, conventional
 ones. Testing whether this phenomenon would exist with a plot in isolation would
 present a number of difficulties. As can be seen in figures \ref{e1-dot-plot}
-and \ref{e2-dot-plot}, and as more specifically illustrated in Figure \ref{e2-dist-plots}, 
-participants' estimates of correlation, especially between 0.2 and 0.7, suffer 
+and \ref{e2-dot-plot}, and as more specifically illustrated in Figures \ref{e1-changes-plot}
+and \ref{e2-changes-plot}, participants' estimates of correlation, especially between 0.2 and 0.7, suffer 
 from high variance. Our high numbers of trials and participants ameliorate this to an extent,
-but this does by necessity mean we are unable to comment on judgements made in isolation.
+but this does by necessity mean we are unable to comment on judgements made on single
+plots.
+
+We have made an important first step in the utilization of contrast changes to 
+optimise perception of correlation in scatterplots, however there remains much to do.
+We were unable to quantitatively determine if 0.25 is indeed the most optimal value
+for $b$ in equation 1, for example. It may well be the case that changing the value of
+$b$ as a function of the objective Pearson's *r* value could produce more accurate correlation
+estimates in participants; our finding that participants were more accurate in correlation
+estimation when *r* was nearer 0 or 1 would suggest that the use of a decay parameter 
+for these correlations is unnecessary.
 
 # Future Work
 
-Although we have presented a novel visualization technique that has resulted in
-participants' estimates of correlation in scatterplots being more accurate, we have 
-not completely solved the problem. In our experiments, the underestimation bias
-was reduced, but it was still present. It may be the case that the value of $b$
-we have used in equation 1 is not optimised. Conducting
-further research using a variety of $b$ values for equation 1
-would be trivial following the framework we have established in this paper.
-
 In this paper we worked strictly with positive *r* values, primarily because that
 is what has been investigated in the majority of the research that informed ours.
-Given, however, previous work [@sher_2017] which found evidence for people overestimating
+Given, however, given previous work [@sher_2017] which found evidence for people overestimating
 negative correlation values, it would be reasonable to expect that the technique
 we have developed here could also be used to address this bias also. We predict that
 the use of our non-linear inverted decay parameter will reduce the overestimation
-bias seen in estimates of correlation for negatively correlated scatterplots. Again,
-testing this would be trivial using our framework.
+bias seen in estimates of correlation for negatively correlated scatterplots. 
 
 # Acknowledgements
 
