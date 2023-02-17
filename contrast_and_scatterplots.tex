@@ -552,7 +552,8 @@ attention check questions, and, as per pre-registration stipulations,
 were rejected from the study. The remaining 150 participants' data were
 included in the full analysis (51.01\% male, 47.65\% female, and 1.34\%
 non-binary). Mean age of participants was 28.29 (\emph{SD} = 8.59). Mean
-graph literacy score was 21.76 (\emph{SD} = 4.47) out of 30.
+graph literacy score was 21.76 (\emph{SD} = 4.47) out of 30. The average
+time taken to complete the experiment was 33 minutes (SD = 10 minutes).
 
 \hypertarget{design}{%
 \subsubsection{Design}\label{design}}
@@ -656,7 +657,7 @@ Figure \ref{e1-error-plot} shows how participants' mean estimates of
 correlation change with the objective Pearson's \emph{r} value, plotted
 separately for each contrast condition. We observe underestimation
 curves similar to those reported in previous literature (see section
-@ref\{testing\}).
+\ref{testing}).
 
 \hypertarget{discussion}{%
 \subsection{Discussion}\label{discussion}}
@@ -764,7 +765,8 @@ attention check questions, and, as per pre-registration stipulations,
 were rejected from the study. The remaining 150 participants data were
 included in the full analysis (51.33\% male, 46.00\% female, and 2.67\%
 non-binary). Mean age of participants was 27.05 (\emph{SD} = 7.37). Mean
-graph literacy score was 21.71 (\emph{SD} = 4.06) out of 30.
+graph literacy score was 21.71 (\emph{SD} = 4.06) out of 30. The average
+time taken to complete the experiment was 33 minutes (SD = 13 minutes).
 
 \hypertarget{design-1}{%
 \subsubsection{Design}\label{design-1}}
@@ -835,7 +837,12 @@ conditions; by estimates with linear decay being more accurate than
 estimates with non-linear inverted decay; and by full contrast estimates
 being more accurate than estimates with non-linear inverted decay. There
 was no significant difference in correlation estimates between linear
-decay and full contrast conditions.
+decay and full contrast conditions. Similar to the lack of significant
+difference between high and full contrast conditions in experiment 1, we
+hypothesise that this is due to the difference between these two
+conditions becoming smaller as objective correlation approaches 1; it
+may be that the difference is not on the whole great enough to produce a
+significant effect.
 
 Statistical testing for significant contrasts between the 4 levels of
 the contrast conditions was performed with the \textbf{emmeans} package
@@ -997,7 +1004,7 @@ of precision and accuracy for \emph{r} values further from 0 or 1.
 
 }
 
-\caption{\label{e1-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \textit{r} in experiment 2. Participants were on average most accurate at estimating the \textit{r} value when presented with the non-linear contrast decay scatterplots (condition A). Error bars show standard deviations of estimates.}\label{fig:changes-with-r-e2}
+\caption{\label{e2-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \textit{r} in experiment 2. Participants were on average most accurate at estimating the \textit{r} value when presented with the non-linear contrast decay scatterplots (condition A). Error bars show standard deviations of estimates.}\label{fig:changes-with-r-e2}
 \end{figure}
 
 Our experiments contribute to a body of evidence that suggests
@@ -1025,9 +1032,37 @@ to support correlation perception:
 Scatterplots, being as widely used as they are, are designed often with
 a number of communicative concepts in mind. When one of these concepts
 is illustrating to people the degree of association between two
-variables, we would argue that designers should utilise the technique we
+variables, we would argue that designers should utilize the technique we
 have described here to give visualization viewers the best chance of
 interpreting the correlation displayed as accurately as possible.
+
+\hypertarget{training}{%
+\section{Training}\label{training}}
+
+Both experiments described in the current work tested lay participants
+with varying levels of graph literacy. Because of this, participants
+first saw four plots depicting several correlations (see figure
+\ref{example-plots}) to familiarize them with the concept. To test if
+the patterns we observed in correlation perception were as a result of
+this training, we built a model including the half of the session (first
+or second) as a predictor. Comparing this to the original models not
+including session half as a predictor revealed a significant effect in
+experiment 1 (\(\chi^2\)(1) = 7.13, \emph{p} = 0.01), but not experiment
+2 (\(\chi^2\)(1) = 2.20, \emph{p} = 0.14). In experiment 1, participants
+errors in correlation estimation were on average higher in the second
+half of the experiment, suggesting that having recently viewed correctly
+labelled scatterplots helped participants make more accurate judgements
+of correlation. That we did not observe this effect in experiment 2
+suggests that the influence of our manipulation (the contrast decay
+function) had a greater influence on correlation estimation than any
+effect of training.
+
+Future work might examine correlation estimation when no training is
+offered, or when training is incorrect. Given the quick and intuitive
+nature of correlation perception reported in the literature
+\citep{rensink_2014}, we would expect only a small effect of training,
+although the boundary conditions of such a manipulation are currently
+unknown.
 
 \hypertarget{limitations}{%
 \section{Limitations}\label{limitations}}
@@ -1038,34 +1073,48 @@ people's estimates of correlation, at least when plots like these are
 presented with other, conventional ones. Testing whether this phenomenon
 would exist with a plot in isolation would present a number of
 difficulties. As can be seen in figures \ref{e1-dot-plot} and
-\ref{e2-dot-plot}, and as more specifically illustrated in Figure
-\ref{e2-dist-plots}, participants' estimates of correlation, especially
-between 0.2 and 0.7, suffer from high variance. Our high numbers of
-trials and participants ameliorate this to an extent, but this does by
-necessity mean we are unable to comment on judgements made in isolation.
+\ref{e2-dot-plot}, and as more specifically illustrated in Figures
+\ref{e1-changes-plot} and \ref{e2-changes-plot}, participants' estimates
+of correlation, especially between 0.2 and 0.7, suffer from high
+variance. Our high numbers of trials and participants ameliorate this to
+an extent, but this does by necessity mean we are unable to comment on
+judgements made on single plots.
+
+We have made an important first step in the utilization of contrast
+changes to optimize perception of correlation in scatterplots, however
+there remains much to do. We were unable to quantitatively determine if
+0.25 is indeed the most optimal value for \(b\) in equation 1, for
+example. It may well be the case that changing the value of \(b\) as a
+function of the objective Pearson's \emph{r} value could produce more
+accurate correlation estimates in participants; our finding that
+participants were more accurate in correlation estimation when \emph{r}
+was nearer 0 or 1 would suggest that the use of a decay parameter for
+these correlations is unnecessary.
 
 \hypertarget{future-work}{%
 \section{Future Work}\label{future-work}}
 
-Although we have presented a novel visualization technique that has
-resulted in participants' estimates of correlation in scatterplots being
-more accurate, we have not completely solved the problem. In our
-experiments, the underestimation bias was reduced, but it was still
-present. It may be the case that the value of \(b\) we have used in
-equation 1 is not optimised. Conducting further research using a variety
-of \(b\) values for equation 1 would be trivial following the framework
-we have established in this paper.
-
 In this paper we worked strictly with positive \emph{r} values,
 primarily because that is what has been investigated in the majority of
-the research that informed ours. Given, however, previous work
+the research that informed ours. However, given previous work
 \citep{sher_2017} which found evidence for people overestimating
 negative correlation values, it would be reasonable to expect that the
 technique we have developed here could also be used to address this bias
 also. We predict that the use of our non-linear inverted decay parameter
 will reduce the overestimation bias seen in estimates of correlation for
-negatively correlated scatterplots. Again, testing this would be trivial
-using our framework.
+negatively correlated scatterplots.
+
+Our manipulations have used only the vertical distance between a
+particular point and the regression line to set contrast. Previous work,
+some of which has been inconclusive \citep{meyer_1997}, has generally
+suggested that the perpendicular distance between a point and the
+regression line may be a more accurate predictor of performance on
+correlation estimation tasks
+\citep{cleveland_1982, yang_2019, rensink_2017}. Future work
+investigating if a difference in correlation estimation accuracy might
+be found between contrast decay functions using vertical (residual)
+point-line distances or perpendicular ones could further hone the
+manipulation.
 
 \hypertarget{acknowledgements}{%
 \section{Acknowledgements}\label{acknowledgements}}

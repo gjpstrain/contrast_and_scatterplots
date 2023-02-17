@@ -78,7 +78,7 @@ library(ggdist)
 ```{r eval-models, include=FALSE}
 # in this script, models are cached. If eval_models <- FALSE, script will load
 # cached models. Set eval_models <- TRUE to rebuild models from scratch
-eval_models <- FALSE
+eval_models <- TRUE
 
 if (eval_models == FALSE){
   lazyload_cache_dir('contrast_and_scatterplots_cache/latex')
@@ -144,14 +144,19 @@ anon_file %>%
                   "my_rs",
                   "total_residuals",
                   "unique_item_no",
+                  "trials.thisN",
                   "session")) %>%
+  mutate(half = case_when(
+    trials.thisN < 93 ~ "First",
+    trials.thisN > 92 ~ "Second" )) %>%
   filter(unique_item_no < 181) %>%
   inner_join(literacy, by = "participant") %>%
   inner_join(demographics, by = "participant") %>%
-  mutate(across(matches(c("item", "contrast")), as_factor)) %>%
+  mutate(across(c("item", "contrast", "half"), as_factor)) %>%
   dplyr::select(-c("__participant")) %>%
   mutate(difference = my_rs - slider.response) %>%
   mutate(contrast = fct_relevel(contrast, c('A', 'B', 'C', 'D'))) %>% 
+
   assign(paste0(unique(anon_file$expName), "_tidy"),
            value = ., envir = .GlobalEnv)
 }
@@ -362,7 +367,6 @@ labels_e1 <- c(A = "Low Contrast", B = "Medium Contrast", C = "High Contrast", D
 labels_e2 <- c(A = "Non-Linear Decay", B = "Linear Decay", C = "Inverted Decay", D = "No Decay")
 ```
 
-
 # Introduction
 
 In one form or another, data visualizations have been used for thousands of years
@@ -474,7 +478,8 @@ was more predictive of participants' estimates of correlation than the objective
 Bringing together work that has sought to model the relationship between objective
 and perceived *r* values, @rensink_2017 notes that equations for both
 discrimination and magnitude estimation include a parameter, termed *u* in @rensink_2017,
-that is small when *r* = 1, and increases as *r* approaches 0. The utility of this parameter in modelling correlation perception is indifferent to the type of data visualization used, which
+that is small when *r* = 1, and increases as *r* approaches 0. The utility of this 
+parameter in modelling correlation perception is indifferent to the type of data visualization used, which
 implies that the width of the probability distribution, summarised by the aforementioned
 parameter, is key to how people estimate correlation. Within the context of scatterplots
 however, this parameter can also be expressed as the average distance between the points
@@ -528,8 +533,9 @@ a narrower distribution, we would expect this to be able to correct for a viewer
 
 One way to correct for an underestimation in correlation would be to simply remove 
 outer data points until correlation perception is aligned with the actual correlation value. However, 
-this would necessitate hiding data, thus changing the information presented to the viewer. An alternative approach is to manipulate 
-the contrast of only some of the points; it would seem most sensible to do so for the
+this would necessitate hiding data, thus changing the information presented to the viewer.
+An alternative approach is to manipulate the contrast of only some of the points;
+it would seem most sensible to do so for the
 points that are more extreme relative to the underlying regression line.
 
 In the present study we address the issues raised above in two online experiments
@@ -885,7 +891,7 @@ plot_error_bars_function(E1_uniform_adjustments_tidy, "slider.response", labels_
 Figure \ref{e1-error-plot} shows how participants' mean estimates of correlation
 change with the objective Pearson's *r* value, plotted separately for each contrast
 condition. We observe underestimation curves
-similar to those reported in previous literature (see section \@ref{testing}).
+similar to those reported in previous literature (see section \ref{testing}).
 
 ## Discussion
 
@@ -1316,7 +1322,8 @@ are paying attention to the width of the probability distribution displayed in
 scatterplots (e.g @cleveland_1982; @meyer_1997; @yang_2019; @rensink_2017). 
 We also confirm the systematic underestimation of correlation, and 
 suggest a strategy to correct for it. Through this work we do not attempt to redesign
-the scatterplot as a medium, but to provide a set of recommendations for visualization designers when designing scatterplots to support correlation perception:
+the scatterplot as a medium, but to provide a set of recommendations for visualization
+designers when designing scatterplots to support correlation perception:
 
 1. Lowering the total contrast in a scatterplot can cause people to underestimate
 correlation compared to when contrast is maximal between the points and the plot background.
@@ -1328,8 +1335,54 @@ correlation estimation in scatterplots.
 Scatterplots, being as widely used as they are, are designed often with a number
 of communicative concepts in mind. When one of these concepts is illustrating to
 people the degree of association between two variables, we would argue that designers
-should utilise the technique we have described here to give visualization viewers
+should utilize the technique we have described here to give visualization viewers
 the best chance of interpreting the correlation displayed as accurately as possible.
+
+# Training
+
+```{r training-models-e1,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, warning=FALSE, dependson="e1-model"}
+e1_training_model <- lmer(add.terms(formula(e1_model), "half"),
+                          data = E1_uniform_adjustments_tidy)
+
+e1_training_comparison <- e1_model
+```
+
+```{r training-comparison-e1, eval = TRUE, echo = FALSE, message=FALSE}
+anova_results(e1_training_comparison, e1_training_model)
+```
+
+```{r training-models-e2,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, warning=FALSE, dependson="e2-model"}
+e2_training_model <- lmer(add.terms(formula(e2_model), "half"),
+                          data = E2_spatially_dependent_tidy)
+
+e2_training_comparison <- e2_model
+```
+
+```{r training-comparison-e2, eval = TRUE, echo = FALSE, message=FALSE}
+anova_results(e2_training_comparison, e2_training_model)
+```
+
+Both experiments described in the current work tested lay participants with
+varying levels of graph literacy. Because of this, participants first saw four
+plots depicting several correlations (see figure \ref{example-plots}) to familiarize them
+with the concept. To test if the patterns we observed in correlation perception were as a result of this training,
+we built a model including the half of the session (first or second) as a predictor.
+Comparing this to the original models not including session half as a predictor revealed
+a significant effect in experiment 1 ($\chi^2$(`r in_paren(e1_training_comparison.df)`) =
+`r printnum(e1_training_comparison.Chisq)`, *p* `r printnum(e1_training_comparison.p, add_equals = TRUE)`),
+but not experiment 2 ($\chi^2$(`r in_paren(e2_training_comparison.df)`) = `r printnum(e2_training_comparison.Chisq)`, *p* `r printnum(e2_training_comparison.p, add_equals = TRUE)`). In experiment 1, participants
+errors in correlation estimation were on average higher in the second half of the experiment,
+suggesting that having recently viewed correctly labelled scatterplots helped
+participants make more accurate judgements of correlation. That we did not observe 
+this effect in experiment 2 suggests that the influence of our manipulation (the contrast
+decay function) had a greater influence on correlation estimation than any effect of
+training.
+
+Future work might examine correlation estimation when no training is offered, or
+when training is incorrect. Given the quick and intuitive nature of correlation 
+perception reported in the literature [@rensink_2014], we would expect only a small
+effect of training, although the boundary conditions of such a manipulation are 
+currently unknown.
 
 # Limitations
 
@@ -1345,7 +1398,7 @@ but this does by necessity mean we are unable to comment on judgements made on s
 plots.
 
 We have made an important first step in the utilization of contrast changes to 
-optimise perception of correlation in scatterplots, however there remains much to do.
+optimize perception of correlation in scatterplots, however there remains much to do.
 We were unable to quantitatively determine if 0.25 is indeed the most optimal value
 for $b$ in equation 1, for example. It may well be the case that changing the value of
 $b$ as a function of the objective Pearson's *r* value could produce more accurate correlation
@@ -1357,11 +1410,22 @@ for these correlations is unnecessary.
 
 In this paper we worked strictly with positive *r* values, primarily because that
 is what has been investigated in the majority of the research that informed ours.
-Given, however, given previous work [@sher_2017] which found evidence for people overestimating
+However, given previous work [@sher_2017] which found evidence for people overestimating
 negative correlation values, it would be reasonable to expect that the technique
 we have developed here could also be used to address this bias also. We predict that
 the use of our non-linear inverted decay parameter will reduce the overestimation
 bias seen in estimates of correlation for negatively correlated scatterplots. 
+
+Our manipulations have used only the vertical distance between
+a particular point and the regression line to set contrast. Previous work, some of which
+has been inconclusive [@meyer_1997], has generally suggested that the perpendicular
+distance between a point and the regression line may be a more accurate predictor
+of performance on correlation estimation tasks [@cleveland_1982; @yang_2019; @rensink_2017].
+Future work investigating if a difference in correlation estimation accuracy might
+be found between contrast decay functions using vertical (residual) point-line distances
+or perpendicular ones could further hone the manipulation.
+
+
 
 # Acknowledgements
 
