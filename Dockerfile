@@ -36,3 +36,4 @@ RUN R -e "devtools::install_version('lmerTest', version = '3.1-3', dependencies 
 RUN R -e "devtools::install_version('tinylabels', version = '0.2.3', dependencies = T)"
 RUN R -e "devtools::install_version('EMAtools', version = '0.1.4', dependecies = T)"
 RUN R -e "devtools::install_version('ggdist', version = '3.2.1', dependecies = T)"
+RUN R -e "devtools::install_version('ggpubr', version = '0.4.0', dependecies = T)"

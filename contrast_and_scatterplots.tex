@@ -180,7 +180,13 @@ identifies them as similar to a fruit fly for geneticists; simple enough
 to be easily studied, but complex enough to provide interesting
 insights. These features make them ideal candidates for controlled,
 empirical study, in addition to providing us with insights into
-visualization design and perception.
+visualization design and perception. Designers of data visualizations
+have a duty to design in such a way that viewers with limited
+statistical, data, or graph training can be expected to correctly
+interpret the messages that visualizations are trying to display. It is
+for this reason that we have chosen our population; lay participants
+with varying levels of statistical training and graph literacy, as these
+are the people that we should be designing for.
 
 \hypertarget{related-work}{%
 \section{Related Work}\label{related-work}}
@@ -188,10 +194,13 @@ visualization design and perception.
 \hypertarget{testing}{%
 \subsection{Testing Correlation Perception}\label{testing}}
 
-The primary concept communicated by scatterplots is correlation, (i.e
-the strength of the relationship between two variables). Throughout this
-paper we refer to an \emph{r} value, or the Pearson product moment
-correlation coefficient. Pearson's \emph{r} takes a value between 0 and
+The most intensively studied aspect of scatterplots is correlation
+perception, (i.e the strength of the relationship between two
+variables), although they are used for a wide variety of other tasks,
+including cluster separation, outlier detection, and trend
+identification \citep{behrisch_2021}. Throughout this paper we refer to
+an \emph{r} value, or the Pearson product moment correlation
+coefficient. Pearson's \emph{r} takes a value between 0 and
 \textbar1\textbar, and is positive or negative depending on the
 direction of the relationship between the two variables in question.
 
@@ -289,21 +298,34 @@ people's perceptions of correlation is changing the perceived width of
 this probability distribution by changing the perceived distance between
 points and the regression line.
 
+\hypertarget{transparency}{%
+\subsection{Transparency}\label{transparency}}
+
+Adjusting the contrast in scatterplots has been used extensively to
+solve problems of overplotting or clutter
+\citep{matejka_2015, bertini_2004}, in which scatterplots with very
+large numbers of data points suffer from visibility issues caused by
+excessive point density. Lowering the contrast of all points makes the
+underlying distributions and trends much easier to discern for the user.
+Reducing the contrast of all points in such a way increases their levels
+of transparency, meaning the colour intensity of regions with more
+overlapping points sum. Our stimuli had only 128 small points, meaning
+the majority of points were clearly visible at all times. For this
+reason, and due to the fundamentality of contrast as a feature of human
+visual perception \citep{ginsburg_2003} we elected to use the term
+contrast to describe our point manipulations. The approach we describe
+may not be useful with much larger datasets where clutter becomes
+problematic.
+
 \hypertarget{contrast}{%
 \subsection{Contrast}\label{contrast}}
 
-Adjusting the contrast in scatterplots has been used extensively to
-solve problems of overplotting \citep{matejka_2015, bertini_2004}, in
-which scatterplots with very large numbers of data points suffer from
-visibility issues caused by excessive point density. Lowering the
-contrast of all points makes the underlying distributions and trends
-much easier to discern for the user. Despite the popularity of this
-technique, little investigation has taken place into the effects of
-reducing point contrast on people's perceptions of correlation; what has
-been found is that correlation perception seems to be invariant to
-changes in point contrast \citep{rensink_2012}, although this work took
-place with small sample sizes (n = 12), and using only bisection/JND
-methodologies.
+Despite the popularity of the , little investigation has taken place
+into the effects of reducing point contrast on people's perceptions of
+correlation; what has been found is that correlation perception seems to
+be invariant to changes in point contrast \citep{rensink_2012}, although
+this work took place with small sample sizes (n = 12), and using only
+bisection/JND methodologies.
 
 Changing the contrast of a visual stimulus effectively reduces the
 strength of that signal. A likely consequence of this is increased
@@ -516,6 +538,22 @@ approach does mean that the final model used is not always the most
 complex one possible, but rather is the most complex that substantially
 explains variance and converges.
 
+\hypertarget{normality}{%
+\section{Normality}\label{normality}}
+
+\begin{figure}
+
+\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/normality-plots-1} \includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/normality-plots-2} \hfill{}
+
+\caption{\label{normality-plots}qqplots showing the distribution of errors in experiments 1 and 2.}\label{fig:normality-plots}
+\end{figure}
+
+Figure \ref{normality-plots} shows qqplots testing the normality of
+participants' errors in correlation estimation for both experiments.
+While error is not entirely normally distributed, the size of our sample
+renders this a non-issue with regards to statistical testing
+\citep{ghasemi_2012}, so no transform was used.
+
 \hypertarget{experiment-1-changing-the-contrast-of-all-points}{%
 \section{Experiment 1: Changing the Contrast of All
 Points}\label{experiment-1-changing-the-contrast-of-all-points}}
@@ -611,7 +649,7 @@ correlation judgements are shown in figure \ref{e1-dot-plot}. The
 \textbf{EMAtools} package (version 0.1.4 \citep{ematools}) was used to
 calculate effect sizes in Cohen's d.~For the difference in correlation
 ratings between the lowest contrast (alpha = 0.25) and highest contrast
-plots (alpha = 1), an effect size of d = -0.08 was obtained. While this
+plots (alpha = 1), an effect size of d = -0.17 was obtained. While this
 effect is small, it is not insignificant, and given the lack of reported
 effect on correlation perception of global point contrast adjustments
 \citep{rensink_2012} is an unsurprising result.
@@ -689,31 +727,31 @@ between them was clearly non-linear.
 As mentioned previously, \citet{rensink_2012} and \citet{rensink_2014}
 describe what is, to our knowledge, the only other direct testing of
 correlation perception and point contrast, and reports invariance in
-accuracy and precision with regards to contrast. Our results contradict
-these previously reported findings, which we argue is due to crucial
-differences in methodology and experimental power. Rensink used
-bisection and JND tasks to fit equations for accuracy and precision. Our
-methodology simply asked participants to estimate correlation, producing
-comparative judgements more suited to informing scatterplot design than
-the absolute relationship between correlation and perceived correlation
-illuminated upon by other methodologies. The major strength of this
-study is the large sample size (n = 150). Compared with the relatively
-small sample size in \citet{rensink_2014} (n = 12), our study's
-heightened experimental power represents strong evidence that total
-contrast in a scatterplot can affect people's perceptions of
-correlation. Our effect size for the uniform contrast manipulation was
-small (d = -0.08), and while such a small difference may be of little
-practical relevance , it demonstrates that differences in the contrast
-of points can effect correlation estimates in scatterplots. The fact
-that this difference is present suggests that it can be used to optimise
-perception, which we start attempting to do in experiment two. We
-suggest that correlation perception functions similarly to speed
-perception \citep{champion_2017} with regards to changes in contrast;
-the greater spatial uncertainty brought on by reduced contrast, while
-not eliciting the greater spread in correlation estimates that we
-hypothesized, might be responsible for the results observed via an
-increase in the perceived width of the probability distribution in the
-plot.
+accuracy and precision with regards to contrast. Our results, in
+comparison to these previously reported findings, do find an effect,
+which we argue is due to differences in methodology and experimental
+power. Rensink used bisection and JND tasks to fit equations for
+accuracy and precision. Our methodology simply asked participants to
+estimate correlation, producing comparative judgements more suited to
+informing scatterplot design than investigating a mathematical
+relationship between correlation and perceived correlation allowed by
+other methodologies. The major strength of this study is the large
+sample size (n = 150). Compared with the relatively small sample size in
+\citet{rensink_2014} (n = 12), our study's heightened experimental power
+represents strong evidence that total contrast in a scatterplot can
+affect people's perceptions of correlation. Our effect size for the
+uniform contrast manipulation was small (d = -0.08), and while such a
+small difference may be of little practical relevance , it demonstrates
+that differences in the contrast of points can effect correlation
+estimates in scatterplots. The fact that this difference is present
+suggests that it can be used to optimise perception, which we start
+attempting to do in experiment two. We suggest that correlation
+perception functions similarly to speed perception \citep{champion_2017}
+with regards to changes in contrast; the greater spatial uncertainty
+brought on by reduced contrast, while not eliciting the greater spread
+in correlation estimates that we hypothesized, might be responsible for
+the results observed via an increase in the perceived width of the
+probability distribution in the plot.
 
 From our results it is clear that a scatterplot optimized for
 correlation perception should have maximum contrast between the
@@ -853,7 +891,7 @@ correlation estimates are shown in figure \ref{e2-dot-plot}.The
 calculate effect sizes in Cohen's d.~For the difference in correlation
 ratings between full contrast and non-linear decay function plots, an
 effect size of d = 0.19 was obtained. Between full contrast and
-non-linear inverted decay conditions, an effect size of d = 0.17 was
+non-linear inverted decay conditions, an effect size of d = 0.23 was
 obtained. These effects sizes are small and medium, but again, not
 insignificant.
 
@@ -904,6 +942,13 @@ previous literature (see section \ref{testing} and figure
 \hypertarget{discussion-1}{%
 \subsection{Discussion}\label{discussion-1}}
 
+\begin{figure}
+
+\includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e2-sd-sd-plot-1} \hfill{}
+
+\caption{\label{e2-sd-sd-plot}The mean of standard deviations of participants in experiment 2, grouped by contrast condition.}\label{fig:e2-sd-sd-plot}
+\end{figure}
+
 Our hypotheses were fully supported in this experiment. Participants'
 errors in correlation estimation were lower when the non-linear decay
 parameter was used, and were highest when the non-linear inverted decay
@@ -927,6 +972,9 @@ contrast and inverted non-linear decay conditions. This suggests that it
 is easier to induce greater bias in correlation estimates through a
 reduction in salience of the point clouds centre than it is to correct
 for the underestimation bias.
+
+Figure \ref{e2-sd-sd-plot} shows how participant standard deviations
+vary with contrast condition.
 
 \begin{figure}
 
@@ -1090,6 +1138,20 @@ accurate correlation estimates in participants; our finding that
 participants were more accurate in correlation estimation when \emph{r}
 was nearer 0 or 1 would suggest that the use of a decay parameter for
 these correlations is unnecessary.
+
+The simplicity of the direct estimation task we have used does confer
+some limitations on the conclusions we can draw, although these
+limitations do not prevent that data we have gathered from being
+practically useful. We cannot comment on absolute perceptions of
+correlation in the same way that studies employing JND/bisection tasks
+can. Telling of this is the finding that participants' mean errors in
+judgements of correlation for the full contrast conditions were
+different in experiment 1 (0.149) vs experiment 2 (0.123). We suggest
+that this is due to our direct estimation paradigms, in which,
+indirectly, participants are making comparative correlation judgements.
+While this is a limitation with regards to studying the perception of
+scatterplots from a psychophysical point of view, it still allows us to
+inform design research.
 
 \hypertarget{future-work}{%
 \section{Future Work}\label{future-work}}
