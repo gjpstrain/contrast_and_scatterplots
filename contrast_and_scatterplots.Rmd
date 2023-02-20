@@ -831,8 +831,8 @@ plot_example_function(data_with_resid, 1, "Contrast Alpha = 1")
 ## Results
 
 All analyses were conducted using R (version 4.2.1, \citealp{r_core}).
-Models were built using the **buildmer** (version 2.7 \citealp{voeten_buildmer_2022}) and
-**lme4** (version 1.1-30 \citealp{bates_lme4_2015}) packages, with contrast condition
+Models were built using the **buildmer** (version 2.7, \citealp{voeten_buildmer_2022}) and
+**lme4** (version 1.1-30, \citealp{bates_lme4_2015}) packages, with contrast condition
 being set as the predictor for participants' error in correlation estimates.
 
 ```{r e1-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.show='hold', fig.align='left', out.width = "50%", fig.cap="\\label{e1-dot-plot}Mean error in correlation estimation across the four contrast conditions in E1, with 95\\% confidence intervals shown.", description = "Dot plot showing mean estimation error for the four contrast conditions in experiment 1. Mean error gets smaller as we go from low to medium to high to full contrast. 95\\% confidence intervals are also shown."}
@@ -944,7 +944,7 @@ plot_sd_sd_function(E1_uniform_adjustments_tidy %>% group_by(participant, contra
 ```
 
 Our hypothesis was not supported in this experiment. We hypothesized that plots with 
-lower contrast would have a more variable spread of correlation estimates than plots with 
+lower contrast would have a wider spread of correlation estimates than plots with 
 higher contrast. As shown in Figure \ref{e1-sd-sd-plot}, there was little difference
 in mean standard deviations between the 4 contrast conditions. Participants' errors in
 correlation estimation were significantly higher when the contrast of all points was lower
@@ -963,17 +963,17 @@ no difference in either bias or variability in correlation perception with regar
 to contrast manipulations. Our results, in comparison 
 to these previously reported findings, do find an effect, which we argue is due to 
 differences in methodology and experimental power. Rensink used bisection and JND tasks to fit equations for accuracy and precision. Our methodology simply asked participants to estimate correlation, producing comparative judgements more
-suited to informing scatterplot design than investigating a mathematical relationship between
+suited to informing scatterplot design than investigating the mathematical relationship between
 correlation and perceived correlation allowed by other methodologies. The
 major strength of this study is the large sample size (n = 150). Compared with the
 relatively small sample size in @rensink_2014 (n = 12), our study's heightened
-experimental power represents strong evidence that total contrast in a scatterplot
+experimental power allows us to present strong evidence that total contrast in a scatterplot
 can affect people's perceptions of correlation. Our effect size for the uniform
-contrast manipulation was small (d = `r printnum(effects_df$d[1])`), and while such
-a small difference may be of little practical relevance , it demonstrates that
-differences in the contrast of points can effect correlation estimates in scatterplots.
+contrast manipulation was small (d = `r printnum(effects_df$d[3])`), and while such
+a small difference may be of little practical relevance, it demonstrates that
+differences in the contrasts of points can effect correlation estimates in scatterplots.
 The fact that this difference is present suggests that it can be used to optimise perception,
-which we start attempting to do in experiment two. We suggest that correlation perception
+which we start attempting to do in experiment 2. We suggest that correlation perception
 functions similarly to speed perception [@champion_2017] with regards to changes in contrast;
 the greater spatial uncertainty brought on by reduced contrast, while not eliciting
 the greater spread in correlation estimates that we hypothesized, might be responsible
@@ -1150,9 +1150,9 @@ slopes %>%
 
 ## Results
 
-All analyses were conducted using R (version 4.2.1, [@r_core])
-As in E1, models were built using the **buildmer** (version 2.7, [@voeten_buildmer_2022])
-and **lme4** (version 1.1-30 [@bates_lme4_2015]) packages, with contrast decay function
+All analyses were conducted using R (version 4.2.1, \citealp{r_core})
+As in E1, models were built using the **buildmer** (version 2.7, \citealp{voeten_buildmer_2022})
+and **lme4** (version 1.1-30, \citealp{bates_lme4_2015}) packages, with contrast decay function
 being set as the predictor for participants' error in correlation estimates.
 
 ```{r e2-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{e2-dot-plot}Mean error in correlation estimation across the four contrast conditions in E2, with 95\\% confidence intervals shown", description = "Dot plot showing mean estimation error for four contrast conditions in experiment 2, lowest mean error is for non-linear decay, followed by linear decay, full contrast, and inverted non-linear decay. 95\\% confidence intervals are also shown. Values are provided in table 4."}
@@ -1198,16 +1198,16 @@ estimates with linear decay being more accurate than estimates with non-linear i
 and by full contrast estimates being more accurate than estimates with non-linear inverted decay.
 There was no significant difference in correlation estimates between linear decay
 and full contrast conditions. Similar to the lack of significant difference between
-high and full contrast conditions in experiment 1, we hypothesise that this is due
+high and full contrast conditions in experiment 1, we hypothesize that this is due
 to the difference between these two conditions becoming smaller as objective correlation
 approaches 1; it may be that the difference is not on the whole great enough to
 produce a significant effect.
 
 Statistical testing for significant contrasts between the 4 levels of the contrast
-conditions was performed with the **emmeans** package (version 1.8.1-1, [@emmeans])
-and are shown in table \ref{contrasts-table-e2}. Means and 95% confidence intervals of
+conditions was performed with the **emmeans** package (version 1.8.1-1, \citealp{emmeans})
+and are shown in Table \ref{contrasts-table-e2}. Means and 95% confidence intervals of
 correlation estimates are shown in Figure \ref{e2-dot-plot}.The **EMAtools**
-package (version 0.1.4 [@ematools]) was used to calculate effect sizes in Cohen's d. For
+package (version 0.1.4, \citealp{ematools}) was used to calculate effect sizes in Cohen's d. For
 the difference in correlation ratings between full contrast and non-linear decay function
 plots, an effect size of d = `r printnum(effects_df$d[3])` was obtained. Between full contrast
 and non-linear inverted decay conditions, an effect size of d = `r printnum(effects_df$d[2]-(effects_df$d[3]))` was 
@@ -1225,7 +1225,7 @@ contrasts_e2 <- contrasts_extract(e2_model) %>%
                            "C - A" = "Non-linear inverted decay (C) : Non-linear contrast decay (A)",
                            "B - A" = "Linear decay (B) : Non-linear contrast decay (A)"))
 
-knitr::kable(contrasts_e2, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e2}This table shows the contrasts between different levels of the contrast factor. A = Non-linear contrast decay (a = 0.25). B = Linear decay, C = Non-linear inverted decay, D = Full contrast.")
+knitr::kable(contrasts_e2, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e2}Table showing the contrasts between different levels of the contrast condition factor.")
 ```
 
 ```{r e2-lit, cache=eval_models, cache.comments=FALSE, eval=eval_models, echo=FALSE, warning=FALSE, dependson="e2-model"}
@@ -1250,7 +1250,11 @@ These results suggest that the effect we found was not driven by differences in 
 literacy between participants.
 
 ```{r e2-error-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='center',fig.show="hold",fig.asp=0.25, fig.cap="\\label{e2-error-plot}The mean of participants' estimations of \\textit{r} compared with objective Pearson's \\textit{r}, plotted by contrast condition", description = "Plots showing how participants' estimates of correlation vary as a function of actual correlation. Participants are most accurate around r = 0 and r = 1, as was found in previous research. Error bars show standard deviations of mean estimates."}
-plot_error_bars_function(E2_spatially_dependent_tidy, "slider.response", labels_e2)
+plot_error_bars_function(E2_spatially_dependent_tidy, "slider.response", labels_e2) +
+    scale_x_discrete(labels = c("Non-Linear\nDecay (A)",
+                              "Linear Decay (B)",
+                              "Non-Linear\nInverted Decay (C)",
+                              "Full Contrast (D)"))
 ```
 
 Figure \ref{e2-error-plot} shows how participants' mean estimates of correlation
@@ -1301,13 +1305,11 @@ threshold for contrast effects was also found in experiment 1. Filtering out low
 still produces no significant differences between correlation estimation errors 
 for linear decay and full contrast conditions ($\chi^2$(`r in_paren(e2_model_low_range.df)`)
 = `r printnum(e2_model_low_range.Chisq)`, *p* `r printp(e2_model_low_range.p, add_equals = TRUE)`).
-Our effects sizes were again small in this experiment, with the largest representing
-the difference between full contrast and inverted non-linear decay conditions. This
+Our effects sizes were again small in this experiment, with the largest when compared
+to full contrast being for the inverted non-linear decay condition. This
 suggests that it is easier to induce greater bias in correlation estimates through a 
-reduction in salience of the point clouds centre than it is to correct for the 
-underestimation bias. 
-
-Figure \ref{e2-sd-sd-plot} shows how participant standard deviations vary
+reduction in salience of the point clouds center than it is to correct for the 
+underestimation bias. Figure \ref{e2-sd-sd-plot} shows how participant standard deviations vary
 with contrast condition. 
 
 ```{r prediction-ellipse, echo=FALSE, fig.align='left', out.width="50%", fig.asp=1, fig.cap="\\label{prediction-ellipse}The above plot shows a 95\\% prediction ellipse over a scatterplot with an \\textit{r} value of 0.6.", description = "Scatterplot with prediction ellipse."}
@@ -1355,8 +1357,8 @@ than studies that have taken place in labs with experienced participants.
 In agreement with much previous research [@rensink_2010; @rensink_2012; 
 @rensink_2014; @rensink_2017; @pollack_1960], we found that participants were
 more accurate and more precise when the *r* value was higher. Figures \ref{e1-changes-plot}
-and \ref{e2-changes-plot} plot the objective *r* value against the mean correlation estimates
-against Pearson's *r* for experiments 1 and 2 respectively. Standard deviations of 
+and \ref{e2-changes-plot} plot objective Pearson's *r* against the mean errors in correlation
+estimates for experiments 1 and 2 respectively. Standard deviations of 
 estimates are shown as error bars.These plots illustrate, as in many studies cited, 
 the lower levels of precision and accuracy for *r* values further from 0 or 1.
 
@@ -1372,8 +1374,8 @@ plot_error_bars_function(E2_spatially_dependent_tidy, "difference", labels_e2) +
 
 Our experiments contribute to a body of evidence that suggests participants
 are paying attention to the width of the probability distribution displayed in
-scatterplots (e.g @cleveland_1982; @meyer_1997; @yang_2019; @rensink_2017). 
-We also confirm the systematic underestimation of correlation, and 
+scatterplots (e.g \citealp{cleveland_1982}; \citealp{meyer_1997}; \citealp{yang_2019}; \citealp{rensink_2017}). 
+We also confirm the systematic underestimation of correlation and 
 suggest a strategy to correct for it. Through this work we do not attempt to redesign
 the scatterplot as a medium, but to provide a set of recommendations for visualization
 designers when designing scatterplots to support correlation perception:
@@ -1418,17 +1420,17 @@ anova_results(e2_training_comparison, e2_training_model)
 Both experiments described in the current work tested lay participants with
 varying levels of graph literacy. Because of this, participants first saw four
 plots depicting several correlations (see Figure \ref{example-plots}) to familiarize them
-with the concept. To test if the patterns we observed in correlation perception were as a result of this training,
-we built a model including the half of the session (first or second) as a predictor.
-Comparing this to the original models not including session half as a predictor revealed
+with the concept. To test if the patterns we observed in correlation estimation  were as a result of this training,
+we built models including the half of the session (first or second) as a predictor.
+Comparing these to the original models not including session half as a predictor revealed
 a significant effect in experiment 1 ($\chi^2$(`r in_paren(e1_training_comparison.df)`) =
 `r printnum(e1_training_comparison.Chisq)`, *p* `r printnum(e1_training_comparison.p, add_equals = TRUE)`),
-but not experiment 2 ($\chi^2$(`r in_paren(e2_training_comparison.df)`) = `r printnum(e2_training_comparison.Chisq)`, *p* `r printnum(e2_training_comparison.p, add_equals = TRUE)`). In experiment 1, participants
+but not experiment 2 ($\chi^2$(`r in_paren(e2_training_comparison.df)`) = `r printnum(e2_training_comparison.Chisq)`, *p* `r printnum(e2_training_comparison.p, add_equals = TRUE)`). In experiment 1, participants'
 errors in correlation estimation were on average higher in the second half of the experiment,
 suggesting that having recently viewed correctly labelled scatterplots helped
 participants make more accurate judgements of correlation. That we did not observe 
 this effect in experiment 2 suggests that the influence of our manipulation (the contrast
-decay function) had a greater influence on correlation estimation than any effect of
+decay function) had a greater effect on correlation estimation than any effect of
 training.
 
 Future work might examine correlation estimation when no training is offered, or
@@ -1448,7 +1450,7 @@ more accurate and less variable when *r* was closer to 0 and 1, may be partially
 due to the effects of range restriction. Given the variability of estimates, ratings
 of correlation may begin to truncate towards 0 or 1 as correlation gets towards 
 0 or 1. This may also be a result of scatterplots tending towards certain 
-patterns when *r* is close to one (scatterplot tends towards a single line of points)
+patterns when *r* is close to 1 (scatterplot tends towards a single line of points)
 and 0 (scatterplot tends towards an even random distribution). Range restriction
 cannot however, explain the results we found, particularly in experiment 2, in which
 the use of the non-linear decay parameter significantly reduced participants'
@@ -1491,9 +1493,9 @@ it still allows us to inform design research.
 
 In this paper we worked strictly with positive *r* values, primarily because that
 is what has been investigated in the majority of the research that informed ours.
-However, given previous work [@sher_2017] which found evidence for people overestimating
+However, given previous work [@sher_2017] that found evidence for people overestimating
 negative correlation values, it would be reasonable to expect that the technique
-we have developed here could also be used to address this bias also. We predict that
+we have developed here could also be used to address this bias. We predict that
 the use of our non-linear inverted decay parameter will reduce the overestimation
 bias seen in estimates of correlation for negatively correlated scatterplots. 
 
@@ -1513,14 +1515,14 @@ and a number of other measurements have been proposed [@laarne_2021]. The techni
 we have used in the current paper could be extended for use with non-linear correlations
 in the future.
 
-Perhaps the most interesting avenue for future work is the possibility of combining
+The final and perhaps most exciting avenue for future work is the possibility of combining
 the technique we have used here with other novel scatterplot techniques that have
 a basis in the literature. @liu_2021 used triangular scatterplot points of different
 orientations to support the interactive fitting of a trend line. They found that 
 the use of point orientations consistent with the regression line could reduce
 participants' errors in visual estimation. Combining this point orientation technique
 with the contrast decay function described here could be used to support both correlation
-and trend perception.
+and trend perception in scatterplots.
 
 
 # Acknowledgements
