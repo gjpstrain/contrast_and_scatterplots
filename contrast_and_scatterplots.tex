@@ -136,8 +136,6 @@ United Kingdom.}
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-\citealp{azzam_2013}
-
 In one form or another, data visualizations have been used for thousands
 of years to aid analysis, to supplement narrative prose, and to
 communicate ideas \citep{azzam_2013}. Where once they were the preserve
@@ -185,7 +183,7 @@ empirical study, in addition to providing us with insights into
 visualization design and perception. Designers of data visualizations
 have a duty to design in such a way that viewers with limited
 statistical, data, or graph training can be expected to correctly
-interpret the messages that visualizations are trying to display. It is
+interpret the messages that visualizations are trying to convey. It is
 for this reason that we have chosen our population; lay participants
 with varying levels of statistical training and graph literacy, as these
 are the people that we should be designing for.
@@ -218,19 +216,19 @@ systematic underestimation for positive \emph{r} values apart from 0 and
 \textless{} \emph{r} \textless{} 0.6
 \citep{strahan_1978, bobko_1979, cleveland_1982, lane_1985, lauer_1989, collyer_1990, meyer_1992},
 see Figure \ref{underestimation-curve} for an approximation of the
-underestimation observed. \citet{micallef_2017} test an automated system
-for varying scatterplot aspect ratio, point size, and point contrast,
-finding that a 1:1 aspect ratio produces the best performance on a
-correlation estimation task, and reporting no effect of adjusting point
-size or contrast, although this was carried out uniformly to do deal
-with overplotting issues.In addition to studies employing discriminative
-judgement or direct estimation tasks, several more recent investigations
-have employed a combination of bisection tasks, in which participants
-are asked to adjust a test plot so that its correlation is halfway
-between two reference plots, and a staircase discriminative judgement
-task that allows researchers to find the just-noticeable-difference
-(JND) between scatterplots such that their correlations are
-distinguishable 75\% of the time. This novel approach
+underestimation observed. \citealp{micallef_2017} test an automated
+system for varying scatterplot aspect ratio, point size, and point
+contrast, finding that a 1:1 aspect ratio produces the best performance
+on a correlation estimation task, and reporting no effect of adjusting
+point size or contrast, although this was carried out uniformly to do
+deal with overplotting issues. In addition to studies employing
+discriminative judgement or direct estimation tasks, several more recent
+investigations have employed a combination of bisection tasks, in which
+participants are asked to adjust a test plot so that its correlation is
+halfway between two reference plots, and a staircase discriminative
+judgement task that allows researchers to find the
+just-noticeable-difference (JND) between scatterplots such that their
+correlations are distinguishable 75\% of the time. This novel approach
 \citep{rensink_2010} allowed researchers to obtain measurements for
 participants' precision and accuracy in correlation estimation, and to
 begin to fit mathematical models that describe the relationship between
@@ -252,24 +250,24 @@ Perception?}\label{what-drives-correlation-perception}}
 
 Several key pieces of evidence point to correlation perception being
 driven by the shape of the probability distribution relayed by the
-points. A study investigating the effect of increasing the x and y
-scales on scatterplots (thereby decreasing the size of the point cloud)
-\citep{cleveland_1982} found that a viewer's judged association
-increased as the size of the point cloud decreased, despite the \emph{r}
-value remaining the same between conditions. The authors suggest this
-may be due to participants using the area of the point cloud, or the
-ratio of the minor and major axes of it, to judge association.
-Decreasing the size of the point cloud here also had the effect of
-narrowing the width of the distribution displayed, as the length of the
-minor axis decreased.
+points. A study investigating the effect of increasing the \(x\) and
+\(y\) scales on scatterplots (thereby decreasing the size of the point
+cloud, \citealp{cleveland_1982}) found that a viewer's judged
+association increased as the size of the point cloud decreased, despite
+the \emph{r} value remaining the same between conditions. The authors
+suggest this may be due to participants using the area of the point
+cloud, or the ratio of the minor and major axes of it, to judge
+association. Decreasing the size of the point cloud here also had the
+effect of narrowing the width of the distribution displayed, as the
+length of the minor axis decreased.
 
 Another study asked participants to provide estimates of correlation in
 scatterplots \citep{meyer_1997}. It found that the relationship between
 objective and perceived \emph{r} values could be accurately described by
 a function that included the mean of the geometrical distances between
 the points and the regression line. This is intuitive, as scatterplots
-with higher correlation will generally have lower distances between
-their points and the regression line.
+with higher correlation will generally have lower average distances
+between their points and the regression line.
 
 A more recent study investigating the hypothesis that people use visual
 features to judge correlation \citep{yang_2019} found evidence that
@@ -291,7 +289,7 @@ probability distribution, summarised by the aforementioned parameter, is
 key to how people estimate correlation. Within the context of
 scatterplots however, this parameter can also be expressed as the
 average distance between the points and the regression line (the
-\emph{X} parameter in \citep{meyer_1997}).
+\emph{X} parameter in \citealp{meyer_1997}).
 
 None of the above is proof that people are using \emph{only} the mean or
 standard deviation of geometrical distances between the points and the
@@ -451,9 +449,10 @@ experimental repository
 Ad-hoc piloting with a graduate student in humanities suggested people
 might be unfamiliar with what different correlations looked like in
 scatterplots. They were therefore shown examples of \emph{r} = 0.2, 0.5,
-0.8, and 0.95, which can be see in Figure \ref{example-plots}.
-Participants were then given two practice trials before the experiment
-began.
+0.8, and 0.95, which can be see in Figure \ref{example-plots}. See
+Section \ref{training} for a discussion of the potential effects of
+this. Participants were then given two practice trials before the
+experiment began.
 
 \begin{figure}
 
@@ -469,14 +468,11 @@ correlation displayed and set the slider to 1''\footnote{The word
   ``ignore'' was in lowercase in the first experiment, but was changed
   to uppercase in the second to increase the salience of attention check
   items.} (n = 3) or ``Please IGNORE the correlation displayed and set
-the slider to 0''\footnote{The word ``ignore'' was in lowercase in the
-  first experiment, but was changed to uppercase in the second to
-  increase the salience of attention check items.} (n = 3) (in red,
-attention check trial). Each plot was preceded by a visual mask
-displayed for 2.5 seconds. Figure \ref{example-trial} shows an example
-of an experimental trial. There was no time limit per trial, but
-participants were instructed to make their judgements as accurately and
-quickly as possible.
+the slider to 0'' (n = 3) (in red, attention check trial). Each plot was
+preceded by a visual mask displayed for 2.5 seconds. Figure
+\ref{example-trial} shows an example of an experimental trial. There was
+no time limit per trial, but participants were instructed to make their
+judgements as accurately and quickly as possible.
 
 Both experiments described here use a fully repeated measures,
 within-participants design. Participants saw all 180 plots,
@@ -525,15 +521,15 @@ there were no deviations from them. We used linear mixed-effects models
 to model the relationships between our independent variables (point
 contrast in experiment 1 and the type of contrast decay function in
 experiment 2) and our dependent variable (participants' estimates of
-correlation). Linear mixed-effects models allow us to compare difference
-between levels of our independent variable across the full range of
-participant responses on the dependent variable, as opposed to simply
-analysing the differences between means that would be afforded to us
-with ANOVA. Linear mixed-effects models also allow us to include random
-effects for both participants and experimental items in our modelling.
-Consistent with our pre-registrations, we aimed for the most complex
-random effects structures when producing models. The structure of these
-models was identified using the \textbf{buildmer} package in R
+correlation). Linear mixed-effects models allow us to compare
+differences between levels of our independent variable across the full
+range of participant responses on the dependent variable, as opposed to
+simply analysing the differences between means that would be afforded to
+us with ANOVA. Linear mixed-effects models also allow us to include
+random effects for both participants and experimental items in our
+modelling. Consistent with our pre-registrations, we aimed for the most
+complex random effects structures when producing models. The structure
+of these models was identified using the \textbf{buildmer} package in R
 \citep{voeten_buildmer_2022}. This package takes the most complex random
 effects model, in terms of intercepts for participants and items and
 corresponding slopes for fixed effects terms as an input. It then
@@ -622,11 +618,11 @@ instructions needed to run the experiment in full.
 \hypertarget{results}{%
 \subsection{Results}\label{results}}
 
-All analyses were conducted using R (version 4.2.1, \citep{r_core}).
+All analyses were conducted using R (version 4.2.1, \citealp{r_core}).
 Models were built using the \textbf{buildmer} (version 2.7
-\citep{voeten_buildmer_2022}) and \textbf{lme4} (version 1.1-30
-\citep{bates_lme4_2015}) packages, with contrast condition being set as
-the predictor for participants' error in correlation estimates.
+\citealp{voeten_buildmer_2022}) and \textbf{lme4} (version 1.1-30
+\citealp{bates_lme4_2015}) packages, with contrast condition being set
+as the predictor for participants' error in correlation estimates.
 
 \begin{figure}
 
@@ -636,7 +632,7 @@ the predictor for participants' error in correlation estimates.
 \end{figure}
 
 Figure \ref{e1-dot-plot} shows the mean error in correlation estimation
-for the 4 contrast conditions. A likelihood ratio test reveals that the
+for the 4 contrast conditions. A likelihood ratio test revealed that the
 model including contrast as a fixed effect explained significantly more
 variance than a model not including contrast as a fixed effect
 (\(\chi^2\)(3) = 224.25, \emph{p} \textless{} .001). This model has
@@ -651,20 +647,21 @@ contrast plots.
 
 Statistical testing for contrasts between the 4 levels of the contrast
 condition was performed with the \textbf{emmeans} package (version
-1.8.1-1, \citep{emmeans}) and are shown in table
+1.8.1-1, \citealp{emmeans}) and are shown in table
 \ref{contrasts-table-e1}. Means and 95\% confidence intervals of
 correlation judgements are shown in Figure \ref{e1-dot-plot}. The
-\textbf{EMAtools} package (version 0.1.4 \citep{ematools}) was used to
-calculate effect sizes in Cohen's d.~For the difference in correlation
-ratings between the lowest contrast (alpha = 0.25) and highest contrast
-plots (alpha = 1), an effect size of d = -0.17 was obtained. While this
-effect is small, it is not insignificant, and given the lack of reported
-effect on correlation perception of global point contrast adjustments
-\citep{rensink_2012} is an unsurprising result.
+\textbf{EMAtools} package (version 0.1.4, \citealp{ematools}) was used
+to calculate effect sizes in Cohen's d.~For the difference in
+correlation ratings between the lowest contrast (contrast alpha = 0.25)
+and highest contrast plots (contrast alpha = 1), an effect size of d =
+-0.17 was obtained. While this effect is small, it is not insignificant,
+and given the lack of reported effect on correlation perception of
+global point contrast adjustments \citep{rensink_2012} is an
+unsurprising result.
 
 \begin{table}
 
-\caption{\label{tab:contrasts-table-e1}\label{contrasts-table-e1}This table shows the contrasts between different levels of the contrast factor in E1.}
+\caption{\label{tab:contrasts-table-e1}\label{contrasts-table-e1}Table showing the contrasts between different levels of the contrast factor in E1.}
 \centering
 \begin{tabular}[t]{lrl}
 \toprule
@@ -722,12 +719,12 @@ Figure \ref{e1-sd-sd-plot}, there was little difference in mean standard
 deviations between the 4 contrast conditions. Participants' errors in
 correlation estimation were significantly higher when the contrast of
 all points was lower compared to when it was higher. This was true up
-until contrast alpha was set to 0.75, implying a threshold around alpha
-= 0.75 past which there is little variation in the perception of
-contrast, at least as far as it is associated with correlation
-estimation. This lack of significant difference in correlation
-estimation between our two highest contrast values fits with the
-logarithmic nature of contrast/brightness perception
+until contrast alpha was set to 0.75, implying a threshold around
+contrast alpha = 0.75 past which there is little variation in the
+perception of contrast, at least as far as it is associated with
+correlation estimation. This lack of significant difference in
+correlation estimation between our two highest contrast values fits with
+the logarithmic nature of contrast/brightness perception
 \citep{varshney_2013, fechner_1948}; despite there being equal linear
 distance between the contrast values we used, the perceptual distance
 between them was clearly non-linear.
@@ -834,7 +831,7 @@ that maintained point legibility while also allowing a large enough
 range in contrast that, if an effect was present, one would be found.
 
 \begin{align}
-  alpha = 1 - b^R
+  contrast alpha = 1 - b^R
 \end{align}
 
 \begin{figure}

@@ -364,8 +364,8 @@ plot_error_bars_function <- function(df, measure, l){
 ```
 
 ```{r labeller, include = FALSE}
-labels_e1 <- c(A = "Low Contrast", B = "Medium Contrast", C = "High Contrast", D = "Full Contrast")
-labels_e2 <- c(A = "Non-Linear Decay", B = "Linear Decay", C = "Inverted Decay", D = "No Decay")
+labels_e1 <- c(A = "Low Contrast (A)", B = "Medium Contrast (B)", C = "High Contrast (C)", D = "Full Contrast (D)")
+labels_e2 <- c(A = "Non-Linear Decay (A)", B = "Linear Decay (B)", C = "Inverted Decay (C)", D = "No Decay (D)")
 ```
 
 # Introduction
@@ -430,7 +430,7 @@ positive *r* values apart from 0 and 1. In several studies this effect was parti
 pronounced for 0.2 < *r* < 0.6 [@strahan_1978; @bobko_1979; @cleveland_1982;
 @lane_1985; @lauer_1989; @collyer_1990; @meyer_1992], see Figure 
 \ref{underestimation-curve} for an approximation of the underestimation observed.
-@micallef_2017 test an automated system for varying scatterplot aspect ratio, point size, 
+\citealp{micallef_2017} test an automated system for varying scatterplot aspect ratio, point size, 
 and point contrast, finding that a 1:1 aspect ratio produces the best performance on
 a correlation estimation task, and reporting no effect of adjusting point size or contrast,
 although this was carried out uniformly to do deal with overplotting issues. In addition to studies
@@ -462,9 +462,9 @@ as_tibble(my_rs) %>%
 ## What Drives Correlation Perception?
 
 Several key pieces of evidence point to correlation perception being driven
-by the shape of the probability distribution relayed by the points. 
-A study investigating the effect of increasing the x and y scales on scatterplots
-(thereby decreasing the size of the point cloud) [@cleveland_1982] found that 
+by the shape of the probability distribution relayed by the points.
+A study investigating the effect of increasing the $x$ and $y$ scales on scatterplots
+(thereby decreasing the size of the point cloud, \citealp{cleveland_1982}) found that 
 a viewer's judged association increased as the size of the point cloud decreased, despite
 the *r* value remaining the same between conditions. The authors suggest
 this may be due to participants using the area of the point cloud, or the ratio
@@ -476,7 +476,7 @@ Another study asked participants to provide estimates of correlation in scatterp
 [@meyer_1997]. It found that the relationship between objective and perceived
 *r* values could be accurately described by a function that included the mean
 of the geometrical distances between the points and the regression line. This
-is intuitive, as scatterplots with higher correlation will generally have lower 
+is intuitive, as scatterplots with higher correlation will generally have lower average
 distances between their points and the regression line. 
 
 A more recent study investigating the hypothesis that people use visual features
@@ -495,7 +495,7 @@ parameter in modelling correlation perception is indifferent to the type of data
 implies that the width of the probability distribution, summarised by the aforementioned
 parameter, is key to how people estimate correlation. Within the context of scatterplots
 however, this parameter can also be expressed as the average distance between the points
-and the regression line (the *X* parameter in [@meyer_1997]).
+and the regression line (the *X* parameter in \citealp{meyer_1997}).
 
 None of the above is proof that people are using *only* the mean or standard 
 deviation of geometrical distances between the points and the regression line to
@@ -634,7 +634,8 @@ slides that can be seen in the
 experimental repository (https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments/blob/master/instructions.csv).
 Ad-hoc piloting with a graduate student in humanities suggested people might be unfamiliar with what different correlations
 looked like in scatterplots. They were therefore shown examples of *r* = 0.2, 0.5,
-0.8, and 0.95, which can be see in Figure \ref{example-plots}. Participants 
+0.8, and 0.95, which can be see in Figure \ref{example-plots}. See Section \ref{training} for
+a discussion of the potential effects of this. Participants 
 were then given two practice trials before the experiment began.
 
 ```{r example-plots,echo = FALSE,fig.cap="\\label{example-plots}Participants viewed this for at least 8 seconds before being allowed to continue onto the practice trials.", fig.align='left', out.width="50%", description = "Sample of experiment 1 showing example scatterplots. Four plots are shown, with r values of 0.2, 0.5, 0.8, and 0.95."}
@@ -645,7 +646,7 @@ Each trial was preceded by text that either told the participant "Please look at
 the following plot and use the slider to estimate the correlation" (in black,
 experimental trial), or "Please IGNORE the correlation displayed and set the slider
 to 1"[^1] (n = 3) or "Please IGNORE the correlation displayed and set the slider
-to 0"[^1] (n = 3) (in red, attention check trial). Each plot was preceded by a visual mask displayed 
+to 0" (n = 3) (in red, attention check trial). Each plot was preceded by a visual mask displayed 
 for 2.5 seconds. Figure \ref{example-trial} shows an example of an experimental 
 trial. There was no time limit per trial, but participants were instructed to make
 their judgements as accurately and quickly as possible.
@@ -690,7 +691,7 @@ and their related hypotheses and analysis plans were pre-registered with the OSF
 models to model the relationships between our independent variables (point contrast
 in experiment 1 and the type of contrast decay function in experiment 2) and our dependent variable
 (participants' estimates of correlation). Linear mixed-effects models allow us to
-compare difference between levels of our independent variable across the full range of participant responses
+compare differences between levels of our independent variable across the full range of participant responses
 on the dependent variable, as opposed to simply analysing the differences between means
 that would be afforded to us with ANOVA. Linear mixed-effects models also allow us 
 to include random effects for both participants and experimental items in our modelling. Consistent with 
@@ -709,10 +710,10 @@ and converges.
 
 ```{r normality-plots, warning = FALSE, echo = FALSE, message = FALSE, fig.show = 'hold', fig.align='left', out.width="50%", fig.cap = "\\label{normality-plots}qqplots showing the distribution of errors in experiments 1 and 2."}
 ggqqplot(E1_uniform_adjustments_tidy$difference, size = 0.75) + ggtitle("Experiment 1: Uniform Adjustments") +
-  theme(plot.title = element_text(size = 20))
+  theme(plot.title = element_text(size = 18))
 
 ggqqplot(E2_spatially_dependent_tidy$difference, size = 0.75) + ggtitle("Experiment 2: Spatially Dependent Adjustments") +
-  theme(plot.title = element_text(size = 20))
+  theme(plot.title = element_text(size = 18))
 ```
 
 Figure \ref{normality-plots} shows qqplots testing the normality of participants' errors
@@ -821,17 +822,17 @@ plot_example_function <- function (d, x, t) {
   
 }
 
-plot_example_function(data_with_resid, 0.25, "Alpha = 0.25")
-plot_example_function(data_with_resid, 0.5, "Alpha = 0.5")
-plot_example_function(data_with_resid, 0.75, "Alpha = 0.75")
-plot_example_function(data_with_resid, 1, "Alpha = 1")
+plot_example_function(data_with_resid, 0.25, "Contrast Alpha = 0.25")
+plot_example_function(data_with_resid, 0.5, "Contrast Alpha = 0.5")
+plot_example_function(data_with_resid, 0.75, "Contrast Alpha = 0.75")
+plot_example_function(data_with_resid, 1, "Contrast Alpha = 1")
 ```
 
 ## Results
 
-All analyses were conducted using R (version 4.2.1, [@r_core]).
-Models were built using the **buildmer** (version 2.7 [@voeten_buildmer_2022]) and
-**lme4** (version 1.1-30 [@bates_lme4_2015]) packages, with contrast condition
+All analyses were conducted using R (version 4.2.1, \citealp{r_core}).
+Models were built using the **buildmer** (version 2.7 \citealp{voeten_buildmer_2022}) and
+**lme4** (version 1.1-30 \citealp{bates_lme4_2015}) packages, with contrast condition
 being set as the predictor for participants' error in correlation estimates.
 
 ```{r e1-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.show='hold', fig.align='left', out.width = "50%", fig.cap="\\label{e1-dot-plot}Mean error in correlation estimation across the four contrast conditions in E1, with 95\\% confidence intervals shown.", description = "Dot plot showing mean estimation error for the four contrast conditions in experiment 1. Mean error gets smaller as we go from low to medium to high to full contrast. 95\\% confidence intervals are also shown."}
@@ -865,7 +866,7 @@ effects_df <- get_effects_sizes(e1_model, E1_uniform_adjustments_tidy)
 ```
 
 Figure \ref{e1-dot-plot} shows the mean error in correlation estimation for 
-the 4 contrast conditions. A likelihood ratio test reveals that the model including
+the 4 contrast conditions. A likelihood ratio test revealed that the model including
 contrast as a fixed effect explained significantly more variance than a model 
 not including contrast as a fixed effect ($\chi^2$(`r in_paren(e1_model.df)`) = 
 `r printnum(e1_model.Chisq)`, *p* `r printp(e1_model.p, add_equals = TRUE)`).
@@ -877,12 +878,12 @@ having lower correlation than high and full contrast plots. There was no signifi
 difference in correlation estimates between high and full contrast plots.
 
 Statistical testing for contrasts between the 4 levels of the contrast condition
-was performed with the **emmeans** package (version 1.8.1-1, [@emmeans]) and are 
+was performed with the **emmeans** package (version 1.8.1-1, \citealp{emmeans}) and are 
 shown in table \ref{contrasts-table-e1}. Means and 95% confidence intervals of 
 correlation judgements are shown in Figure \ref{e1-dot-plot}. The **EMAtools**
-package (version 0.1.4 [@ematools]) was used to calculate effect sizes in Cohen's d. For
-the difference in correlation ratings between the lowest contrast (alpha = 0.25) and
-highest contrast plots (alpha = 1), an effect size of d = `r printnum(effects_df$d[3])`
+package (version 0.1.4, \citealp{ematools}) was used to calculate effect sizes in Cohen's d. For
+the difference in correlation ratings between the lowest contrast (contrast alpha = 0.25) and
+highest contrast plots (contrast alpha = 1), an effect size of d = `r printnum(effects_df$d[3])`
 was obtained. While this effect is small, it is not insignificant, and given the lack
 of reported effect on correlation perception of global point contrast adjustments [@rensink_2012]
 is an unsurprising result. 
@@ -899,7 +900,7 @@ contrasts_e1 <- contrasts_extract(e1_model) %>%
                            "D - B" = "Full contrast (D) : Medium contrast (B)",
                            "C - B" = "High contrast (C) : Medium contrast (B)"))
 
-knitr::kable(contrasts_e1, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e1}This table shows the contrasts between different levels of the contrast factor in E1.")
+knitr::kable(contrasts_e1, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e1}Table showing the contrasts between different levels of the contrast factor in E1.")
 ```
 
 ```{r e1-lit, cache=eval_models, cache.comments=FALSE, eval=eval_models, echo=FALSE, warning=FALSE, dependson="e1-model"}
@@ -934,7 +935,12 @@ similar to those reported in previous literature (see section \ref{testing}).
 ## Discussion
 
 ```{r e1-sd-sd-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e1-sd-sd-plot}The mean of standard deviations of participants in experiment 1, grouped by contrast condition.", description = "Dot plot showing means of standard deviations of participants in experiment 1."}
-plot_sd_sd_function(E1_uniform_adjustments_tidy %>% group_by(participant, contrast))
+plot_sd_sd_function(E1_uniform_adjustments_tidy %>% group_by(participant, contrast)) +
+    scale_x_discrete(labels = c(
+                           "Low\ncontrast (A)",
+                           "Medium\ncontrast (B)",
+                           "High\ncontrast (C)",
+                           "Full\ncontrast (D)"))
 ```
 
 Our hypothesis was not supported in this experiment. We hypothesized that plots with 
@@ -943,7 +949,7 @@ higher contrast. As shown in Figure \ref{e1-sd-sd-plot}, there was little differ
 in mean standard deviations between the 4 contrast conditions. Participants' errors in
 correlation estimation were significantly higher when the contrast of all points was lower
 compared to when it was higher. This was true up until contrast alpha was set to 0.75, 
-implying a threshold around alpha = 0.75 past which there
+implying a threshold around contrast alpha = 0.75 past which there
 is little variation in the perception of contrast, at least as far as it is associated
 with correlation estimation. This lack of significant difference in correlation estimation
 between our two highest contrast values fits with the logarithmic nature of contrast/brightness
@@ -1385,7 +1391,7 @@ people the degree of association between two variables, we would argue that desi
 should utilize the technique we have described here to give visualization viewers
 the best chance of interpreting the correlation displayed as accurately as possible.
 
-## Training
+## Training {#training}
 
 ```{r training-models-e1,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, warning=FALSE, dependson="e1-model"}
 e1_training_model <- lmer(add.terms(formula(e1_model), "half"),
