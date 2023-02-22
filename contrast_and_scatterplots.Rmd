@@ -285,23 +285,6 @@ contrasts_extract <- function(model) {
 }
 ```
 
-```{r sum-stats-extract, echo = FALSE}
-# generates summary statistics (mean and standard deviation)
-sum_stats <- function(df) {
-  
-  stats <- df %>%
-    filter(!is.na(difference)) %>%
-    group_by(contrast) %>%
-    summarise(mean = mean(difference),
-              sd = sd(difference)) %>%
-    rename_with(str_to_title) %>%
-    rename_with(str_to_upper, starts_with("S"))
-  
-  return(stats)
-  
-}
-```
-
 ```{r effect-size-function, include = FALSE}
 get_effects_sizes <- function(model, d) {
   
@@ -379,8 +362,8 @@ plot_error_bars_function <- function(df, measure, l){
 ```
 
 ```{r labeller, include = FALSE}
-labels_e1 <- c(A = "Low Contrast (A)", B = "Medium Contrast (B)", C = "High Contrast (C)", D = "Full Contrast (D)")
-labels_e2 <- c(A = "Non-Linear Decay (A)", B = "Linear Decay (B)", C = "Inverted Decay (C)", D = "No Decay (D)")
+labels_e1 <- c(A = "Low Contrast", B = "Medium Contrast", C = "High Contrast", D = "Full Contrast")
+labels_e2 <- c(A = "Non-Linear Decay", B = "Linear Decay", C = "Inverted Decay", D = "No Decay")
 ```
 
 # Introduction
@@ -556,7 +539,7 @@ becomes exponentially worse as contrast is reduced (as measured by vernier acuit
 this is only true for a narrow range of low contrasts just above the detection threshold.
 For higher contrasts vernier acuity appears largely robust to such changes. Nonetheless,
 there is clear evidence that other perceptual estimates become more uncertain with
-reduced contrast, for example speed perception in @champion_2017. With this in mind,
+reduced contrast, for example speed perception [@champion_2017]. With this in mind,
 and the relatively small sample size used in @rensink_2012, we suggest that the effects
 of contrast on perceived correlation warrant further investigation.
 
@@ -854,10 +837,10 @@ being set as the predictor for participants' error in correlation estimates.
 
 ```{r e1-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.show='hold', fig.align='left', out.width = "50%", fig.cap="\\label{e1-dot-plot}Mean error in correlation estimation across the four contrast conditions in E1, with 95\\% confidence intervals shown.", description = "Dot plot showing mean estimation error for the four contrast conditions in experiment 1. Mean error gets smaller as we go from low to medium to high to full contrast. 95\\% confidence intervals are also shown."}
 dot_plot_function(E1_uniform_adjustments_tidy) +
-  scale_x_discrete(labels = c("Low Contrast\nalpha = 0.25 (A)",
-                              "Medium Contrast\nalpha = 0.5 (B)",
-                              "High Contrast\nalpha = 0.75 (C)",
-                              "Full Contrast\nalpha = 1 (D)"))
+  scale_x_discrete(labels = c("Low Contrast\nalpha = 0.25",
+                              "Medium Contrast\nalpha = 0.5",
+                              "High Contrast\nalpha = 0.75",
+                              "Full Contrast\nalpha = 1"))
 ```
 
 ```{r e1-model,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
@@ -910,12 +893,12 @@ is an unsurprising result.
 contrasts_e1 <- contrasts_extract(e1_model) %>%
   mutate(p.value = scales::pvalue(p.value)) %>%
   mutate(Contrast = recode(Contrast,
-                           "A - D" = "Low contrast (A) : Full contrast (D)",
-                           "A - C" = "Low contrast (A) : High contrast (C)",
-                           "A - B" = "Low contrast (A) : Medium contrast (B)",
-                           "D - C" = "Full contrast (D) : High contrast (C)",
-                           "D - B" = "Full contrast (D) : Medium contrast (B)",
-                           "C - B" = "High contrast (C) : Medium contrast (B)"))
+                           "A - D" = "Low contrast : Full contrast",
+                           "A - C" = "Low contrast : High contrast",
+                           "A - B" = "Low contrast: Medium contrast",
+                           "D - C" = "Full contrast : High contrast",
+                           "D - B" = "Full contrast : Medium contrast",
+                           "C - B" = "High contrast : Medium contrast"))
 
 knitr::kable(contrasts_e1, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e1}Table showing the contrasts between different levels of the contrast factor in E1.")
 ```
@@ -951,13 +934,13 @@ similar to those reported in previous literature (see section \ref{testing}).
 
 ## Discussion
 
-```{r e1-sd-sd-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e1-sd-sd-plot}The mean of standard deviations of participants in experiment 1, grouped by contrast condition.", description = "Dot plot showing means of standard deviations of participants in experiment 1."}
+```{r e1-sd-sd-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e1-sd-sd-plot}The mean of standard deviations of participants in experiment 1, grouped by contrast condition. Error bars show spreads of standard deviations.", description = "Dot plot showing means of standard deviations of participants in experiment 1."}
 plot_sd_sd_function(E1_uniform_adjustments_tidy %>% group_by(participant, contrast)) +
     scale_x_discrete(labels = c(
-                           "Low\ncontrast (A)",
-                           "Medium\ncontrast (B)",
-                           "High\ncontrast (C)",
-                           "Full\ncontrast (D)"))
+                           "Low\ncontrast",
+                           "Medium\ncontrast",
+                           "High\ncontrast",
+                           "Full\ncontrast"))
 ```
 
 Our hypothesis was not supported in this experiment. We hypothesized that plots with 
@@ -1178,10 +1161,10 @@ being set as the predictor for participants' error in correlation estimates.
 ```{r e2-dot-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width="50%", fig.cap="\\label{e2-dot-plot}Mean error in correlation estimation across the four contrast conditions in E2, with 95\\% confidence intervals shown", description = "Dot plot showing mean estimation error for four contrast conditions in experiment 2, lowest mean error is for non-linear decay, followed by linear decay, full contrast, and inverted non-linear decay. 95\\% confidence intervals are also shown. Values are provided in table 4."}
 # plot dot plot for e2
 dot_plot_function(E2_spatially_dependent_tidy) +
-  scale_x_discrete(labels = c("Non-Linear\nDecay (A)",
-                              "Linear Decay (B)",
-                              "Non-Linear\nInverted Decay (C)",
-                              "Full Contrast (D)"))
+  scale_x_discrete(labels = c("Non-Linear\nDecay",
+                              "Linear Decay",
+                              "Non-Linear\nInverted Decay",
+                              "Full Contrast"))
 ```
 
 ```{r e2-model,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
@@ -1238,12 +1221,12 @@ obtained. These effects sizes are small and medium, but again, not insignificant
 contrasts_e2 <- contrasts_extract(e2_model) %>%
   mutate(p.value = scales::pvalue(p.value)) %>%
   mutate(Contrast = recode(Contrast,
-                           "D - C" = "Full contrast (D) : Non-linear inverted decay (C)",
-                           "D - B" = "Full contrast (D) : Linear decay (B)",
-                           "D - A" = "Full contrast (D) : Non-linear contrast decay (A)",
-                           "C - B" = "Non-linear inverted decay (C) : Linear decay (B)",
-                           "C - A" = "Non-linear inverted decay (C) : Non-linear contrast decay (A)",
-                           "B - A" = "Linear decay (B) : Non-linear contrast decay (A)"))
+                           "D - C" = "Full contrast : Non-linear inverted decay",
+                           "D - B" = "Full contrast : Linear decay",
+                           "D - A" = "Full contrast : Non-linear contrast decay",
+                           "C - B" = "Non-linear inverted decay : Linear decay",
+                           "C - A" = "Non-linear inverted decay : Non-linear contrast decay",
+                           "B - A" = "Linear decay : Non-linear contrast decay"))
 
 knitr::kable(contrasts_e2, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e2}Table showing the contrasts between different levels of the contrast condition factor.")
 ```
@@ -1302,7 +1285,7 @@ e2_model_comparison_low_range <- comparison(e2_model_low_range)
 anova_results(e2_model_low_range, e2_model_comparison_low_range)
 ```
 
-```{r e2-sd-sd-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e2-sd-sd-plot}The mean of standard deviations of participants in experiment 2, grouped by contrast condition.", description = "Dot plot showing means of standard deviations of participants in experiment 2."}
+```{r e2-sd-sd-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e2-sd-sd-plot}The mean of standard deviations of participants in experiment 2, grouped by contrast condition. Error bars show spreads of standard deviations", description = "Dot plot showing means of standard deviations of participants in experiment 2."}
 plot_sd_sd_function(E2_spatially_dependent_tidy %>% group_by(participant, contrast))
 ```
 
