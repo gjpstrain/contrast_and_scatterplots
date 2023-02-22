@@ -92,7 +92,7 @@ Scatterplots}
   %
   }
    \ead{Andrew.J.Stewart@manchester.ac.uk} 
-    \author[SSS]{Paul Warren%
+    \author[DOP]{Paul Warren%
   %
   }
    \ead{Paul.Warren@manchester.ac.uk} 
@@ -100,31 +100,37 @@ Scatterplots}
   %
   }
    \ead{Caroline.Jay@manchester.ac.uk} 
-      \affiliation[CS]{Department of Computer Science, Faculty of
-Science and Engineering, University of Manchester, Oxford Road,
-Manchester, M13 9PL, United Kingdom.}
-    \affiliation[SSS]{Division of Psychology, Communication and Human
-Neuroscience, School of Health Sciences, Faculty of Biology, Medicine,
-and Health, University of Manchester, Oxford Road, Manchester, M13 9PL,
-United Kingdom.}
+      \affiliation[CS]{organization={Department of Computer Science, Faculty of Science and Engineering},
+addressline={University of Manchester},
+city={Oxford Road},
+state={Manchester},
+postcode={M13 9PL},
+country={United Kingdom}}
+    \affiliation[DOP]{organization ={Division of Psychology, Communication and Human Neuroscience, School of Health Sciences, Faculty of Biology, Medicine, and Health},
+addressline ={University of Manchester},
+city={Oxford Road},
+state={Manchester},
+postcode={M13 9PL},
+country={United Kingdom}}
     \cortext[cor1]{Corresponding author}
   
   \begin{abstract}
   Scatterplots are common data visualizations that can be used to
-  communicate a range of ideas, primarily the correlation between two
-  variables. Despite their ubiquity, people typically do not perceive
-  correlations between variables accurately from scatterplots, tending
-  to underestimate the strength of the relationship displayed. Here we
-  describe a two-experiment study in which we adjust the visual contrast
-  of scatterplot points, and demonstrate a systematic approach to
-  altering the bias. We find evidence that lowering the total visual
-  contrast in a plot leads to increased bias in correlation estimates
-  and show that decreasing the salience of points as a function of their
-  distance from the regression line, by lowering their contrast, can
-  facilitate more accurate correlation perception. We discuss the
-  implications of these findings for visualization design, and provide a
-  framework for online, reproducible, and large-sample-size (N = 150 per
-  experiment) testing of the design parameters of data visualizations.
+  communicate a range of ideas, the most intensively studied being the
+  correlation between two variables. Despite their ubiquity, people
+  typically do not perceive correlations between variables accurately
+  from scatterplots, tending to underestimate the strength of the
+  relationship displayed. Here we describe a two-experiment study in
+  which we adjust the visual contrast of scatterplot points, and
+  demonstrate a systematic approach to altering the bias. We find
+  evidence that lowering the total visual contrast in a plot leads to
+  increased bias in correlation estimates and show that decreasing the
+  salience of points as a function of their distance from the regression
+  line, by lowering their contrast, can facilitate more accurate
+  correlation perception. We discuss the implications of these findings
+  for visualization design, and provide a framework for online,
+  reproducible, and large-sample-size (N = 150 per experiment) testing
+  of the design parameters of data visualizations.
   \end{abstract}
     \begin{keyword}
     Scatterplot \sep Correlation Perception \sep Crowdsourced \sep 
@@ -216,19 +222,19 @@ systematic underestimation for positive \emph{r} values apart from 0 and
 \textless{} \emph{r} \textless{} 0.6
 \citep{strahan_1978, bobko_1979, cleveland_1982, lane_1985, lauer_1989, collyer_1990, meyer_1992},
 see Figure \ref{underestimation-curve} for an approximation of the
-underestimation observed. \citealp{micallef_2017} test an automated
-system for varying scatterplot aspect ratio, point size, and point
-contrast, finding that a 1:1 aspect ratio produces the best performance
-on a correlation estimation task, and reporting no effect of adjusting
-point size or contrast, although this was carried out uniformly to do
-deal with overplotting issues. In addition to studies employing
-discriminative judgement or direct estimation tasks, several more recent
-investigations have employed a combination of bisection tasks, in which
-participants are asked to adjust a test plot so that its correlation is
-halfway between two reference plots, and a staircase discriminative
-judgement task that allows researchers to find the
-just-noticeable-difference (JND) between scatterplots such that their
-correlations are distinguishable 75\% of the time. This novel approach
+underestimation observed. \citet{micallef_2017} test an automated system
+for varying scatterplot aspect ratio, point size, and point contrast,
+finding that a 1:1 aspect ratio produces the best performance on a
+correlation estimation task, and reporting no effect of adjusting point
+size or contrast, although this was carried out uniformly to deal with
+overplotting issues. In addition to studies employing discriminative
+judgement or direct estimation tasks, several more recent investigations
+have employed a combination of bisection tasks, in which participants
+are asked to adjust a test plot so that its correlation is halfway
+between two reference plots, and a staircase discriminative judgement
+task that allows researchers to find the just-noticeable-difference
+(JND) between scatterplots such that their correlations are
+distinguishable 75\% of the time. This novel approach
 \citep{rensink_2010} allowed researchers to obtain measurements for
 participants' precision and accuracy in correlation estimation, and to
 begin to fit mathematical models that describe the relationship between
@@ -281,15 +287,15 @@ predictive of participants' estimates of correlation than the objective
 Bringing together work that has sought to model the relationship between
 objective and perceived \emph{r} values, \citet{rensink_2017} notes that
 equations for both discrimination and magnitude estimation include a
-parameter, termed \emph{u} in \citet{rensink_2017}, that is small when
-\emph{r} = 1, and increases as \emph{r} approaches 0. The utility of
-this parameter in modelling correlation perception is indifferent to the
-type of data visualization used, which implies that the width of the
-probability distribution, summarised by the aforementioned parameter, is
-key to how people estimate correlation. Within the context of
-scatterplots however, this parameter can also be expressed as the
-average distance between the points and the regression line (the
-\emph{X} parameter in \citealp{meyer_1997}).
+parameter, termed \emph{u}, that is small when \emph{r} = 1, and
+increases as \emph{r} approaches 0. The utility of this parameter in
+modelling correlation perception is indifferent to the type of data
+visualization used, which implies that the width of the probability
+distribution, summarised by the aforementioned parameter, is key to how
+people estimate correlation. Within the context of scatterplots however,
+this parameter can also be expressed as the average distance between the
+points and the regression line (the \emph{X} parameter in
+\citealp{meyer_1997}).
 
 None of the above is proof that people are using \emph{only} the mean or
 standard deviation of geometrical distances between the points and the
@@ -367,9 +373,9 @@ viewer's underestimation bias.
 One way to correct for an underestimation in correlation would be to
 simply remove outer data points until correlation perception is aligned
 with the actual correlation value. However, this would necessitate
-hiding data, thus changing the information presented to the viewer. An
-alternative approach is to manipulate the contrast of only some of the
-points; it would seem most sensible to do so for the points that are
+hiding data and thus changing the information presented to the viewer.
+An alternative approach is to manipulate the contrast of only some of
+the points; it would seem most sensible to do so for the points that are
 more extreme relative to the underlying regression line.
 
 In the present study we address the issues raised above in two online
@@ -618,9 +624,9 @@ instructions needed to run the experiment in full.
 \hypertarget{results}{%
 \subsection{Results}\label{results}}
 
-All analyses were conducted using R (version 4.2.1, \citealp{r_core}).
-Models were built using the \textbf{buildmer} (version 2.7,
-\citealp{voeten_buildmer_2022}) and \textbf{lme4} (version 1.1-30,
+All analyses were conducted using R (version 4.2.2, \citealp{r_core}).
+Models were built using the \textbf{buildmer} (version 2.8,
+\citealp{voeten_buildmer_2022}) and \textbf{lme4} (version 1.1-31,
 \citealp{bates_lme4_2015}) packages, with contrast condition being set
 as the predictor for participants' error in correlation estimates.
 
@@ -647,17 +653,17 @@ contrast plots.
 
 Statistical testing for contrasts between the 4 levels of the contrast
 condition was performed with the \textbf{emmeans} package (version
-1.8.1-1, \citealp{emmeans}) and are shown in table
+1.8.4-1, \citealp{emmeans}) and are shown in table
 \ref{contrasts-table-e1}. Means and 95\% confidence intervals of
 correlation judgements are shown in Figure \ref{e1-dot-plot}. The
 \textbf{EMAtools} package (version 0.1.4, \citealp{ematools}) was used
 to calculate effect sizes in Cohen's d.~For the difference in
 correlation ratings between the lowest contrast (contrast alpha = 0.25)
 and highest contrast plots (contrast alpha = 1), an effect size of d =
--0.17 was obtained. While this effect is small, it is not insignificant,
-and given the lack of reported effect on correlation perception of
-global point contrast adjustments \citep{rensink_2012} is an
-unsurprising result.
+-0.17 was obtained. While this effect is small, it is not statistically
+insignificant, and given the lack of reported effect on correlation
+perception of global point contrast adjustments \citep{rensink_2012} is
+an unsurprising result.
 
 \begin{table}
 
@@ -747,17 +753,18 @@ study's heightened experimental power allows us to present strong
 evidence that total contrast in a scatterplot can affect people's
 perceptions of correlation. Our effect size for the uniform contrast
 manipulation was small (d = -0.17), and while such a small difference
-may be of little practical relevance, it demonstrates that differences
-in the contrasts of points can effect correlation estimates in
-scatterplots. The fact that this difference is present suggests that it
-can be used to optimise perception, which we start attempting to do in
-experiment 2. We suggest that correlation perception functions similarly
-to speed perception \citep{champion_2017} with regards to changes in
-contrast; the greater spatial uncertainty brought on by reduced
-contrast, while not eliciting the greater spread in correlation
-estimates that we hypothesized, might be responsible for the results
-observed via an increase in the perceived width of the probability
-distribution in the plot.
+may be of little practical relevance with regards to correcting for the
+correlation underestimation effect in scatterplots, it demonstrates that
+differences in the contrasts of points \emph{can} effect correlation
+estimates in scatterplots. The fact that this difference is present
+suggests that it can be used to optimise perception, which we start
+attempting to do in experiment 2. We suggest that correlation perception
+functions similarly to speed perception \citep{champion_2017} with
+regards to changes in contrast; the greater spatial uncertainty brought
+on by reduced contrast, while not eliciting the greater spread in
+correlation estimates that we hypothesized, might be responsible for the
+results observed via an increase in the perceived width of the
+probability distribution in the plot.
 
 From our results it is clear that a scatterplot optimized for
 correlation perception should have maximum contrast between the
@@ -856,9 +863,9 @@ instructions needed to run the experiment in full.
 \hypertarget{results-1}{%
 \subsection{Results}\label{results-1}}
 
-All analyses were conducted using R (version 4.2.1, \citealp{r_core}) As
-in E1, models were built using the \textbf{buildmer} (version 2.7,
-\citealp{voeten_buildmer_2022}) and \textbf{lme4} (version 1.1-30,
+All analyses were conducted using R (version 4.2.2, \citealp{r_core}) As
+in E1, models were built using the \textbf{buildmer} (version 2.8,
+\citealp{voeten_buildmer_2022}) and \textbf{lme4} (version 1.1-31,
 \citealp{bates_lme4_2015}) packages, with contrast decay function being
 set as the predictor for participants' error in correlation estimates.
 
@@ -891,7 +898,7 @@ significant effect.
 
 Statistical testing for significant contrasts between the 4 levels of
 the contrast conditions was performed with the \textbf{emmeans} package
-(version 1.8.1-1, \citealp{emmeans}) and are shown in Table
+(version 1.8.4-1, \citealp{emmeans}) and are shown in Table
 \ref{contrasts-table-e2}. Means and 95\% confidence intervals of
 correlation estimates are shown in Figure \ref{e2-dot-plot}.The
 \textbf{EMAtools} package (version 0.1.4, \citealp{ematools}) was used
