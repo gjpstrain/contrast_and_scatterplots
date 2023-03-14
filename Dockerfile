@@ -36,3 +36,5 @@ RUN R -e "devtools::install_version('tinylabels', version = '0.2.3', dependencie
 RUN R -e "devtools::install_version('EMAtools', version = '0.1.4', dependecies = T)"
 RUN R -e "devtools::install_version('ggdist', version = '3.2.1', dependecies = T)"
 RUN R -e "devtools::install_version('ggpubr', version = '0.6.0', dependecies = T)"
+RUN R -e "devtools::install_version('pwr', version = '1.3-0', dependecies = T)"
+RUN R -e "devtools::install_version('geomtextpath', version = '0.1.1', dependecies = T)"

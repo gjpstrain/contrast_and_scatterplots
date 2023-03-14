@@ -86,6 +86,8 @@ library(tinylabels)
 library(EMAtools)
 library(ggdist)
 library(ggpubr)
+library(pwr)
+library(geomtextpath)
 
 # Comment out the following line if additional tinytex packages are already installed
 #tinytex:::install_yihui_pkgs()
@@ -363,8 +365,10 @@ plot_error_bars_function <- function(df, measure, l){
 
 ```{r labeller, include = FALSE}
 labels_e1 <- c(A = "Low Contrast", B = "Medium Contrast", C = "High Contrast", D = "Full Contrast")
-labels_e2 <- c(A = "Non-Linear Decay", B = "Linear Decay", C = "Inverted Decay", D = "No Decay")
+labels_e2 <- c(A = "Non-Linear Decay", B = "Linear Decay", C = "Inverted Decay", D = "Full Contrast")
 ```
+
+This submission is approximately 7700 words.
 
 # Introduction
 
@@ -413,7 +417,7 @@ training and graph literacy, as these are the people that we should be designing
 
 ## Testing Correlation Perception {#testing}
 
-The most intensively studied aspect of scatterplots is correlation perception, (i.e the strength of
+The most intensively studied aspect of scatterplots is correlation perception, (i.e. the strength of
 the relationship between two variables), although they are used for a wide variety of
 other tasks, including cluster separation, outlier detection, and trend identification [@behrisch_2021].
 Throughout this paper we refer to an *r* value, or the Pearson product moment correlation coefficient. Pearson's *r* takes a 
@@ -513,10 +517,9 @@ Adjusting the contrast in scatterplots has been used extensively to solve
 problems of overplotting or clutter [@matejka_2015; @bertini_2004], in which scatterplots with very large numbers 
 of data points suffer from visibility issues caused by excessive point density. 
 Lowering the contrast of all points makes the underlying distributions and trends
-much easier to discern for the user. Reducing the contrast of all points in such
-a way increases their levels of transparency, meaning the colour intensity of 
-regions with more overlapping points sum. Our stimuli had only 128 small points, meaning
-the majority of points were clearly visible at all times. For this reason, and due to
+much easier to discern for the user. Increasing the transparency leads to a reduction of the contrast of isolated points with the background, and for regions with overlapping points color intensities are summed. Our stimuli had only 128 small points, meaning
+the majority of points were clearly visible at all times, and we do not consider the 
+small degree of overlap problematic. For this reason, and due to
 the fundamentality of contrast as a feature of human visual perception [@ginsburg_2003] we
 elected to use the term contrast to describe our point manipulations. The approach we
 describe may not be useful with much larger datasets where clutter becomes problematic.
@@ -665,16 +668,16 @@ knitr::include_graphics("images/example-trial.png")
 ## Plot Generation
 
 Scatterplots were randomly generated from bivariate normal distributions, having a
-standard deviations of 1 in each direction. All plots presented
+standard deviation of 1 in each direction. All plots presented
 were 1200 * 1200 pixels in size, and included no titles, tick labels, or axis labels.
 Points were 10 pixels in diameter on a 1280x720 resolution monitor, and 13 pixels in
 diameter on a 1920x1080 resolution monitor. All plots displayed in both experiments
 had a 1:1 aspect ratio. Due to our crowdsourced approach we were
-unable to obtain precise monitor resolution or physical screen size measurements for 
-participants, meaning we are unable to provide by-participant dot pitch information.
+unable to obtain monitor resolution or physical screen size measurements for 
 We are however working on a method to accomplish this in future work. 
 Each plot contained 128 data points. 45 *r* values were generated on a uniform distribution
-between 0.2 and 0.95. We chose these boundaries due to evidence that very little
+between 0.2 and 0.95. The same dataset was used for plot
+generation in both experiments. We chose these boundaries due to evidence that very little
 correlation is perceived below 0.2 [@bobko_1979; @cleveland_1982; @strahan_1978].
 Scripts detailing item and mask creation for each experiment can be found in the
 item_preparation folder.
@@ -780,7 +783,7 @@ https://gitlab.pavlovia.org/Strain/exp_uniform_adjustments.
 This repository contains all the experimental code, materials, and instructions needed
 to run the experiment in full.
 
-```{r e1-example-plots, warning = FALSE, echo=FALSE, fig.align='left', out.width="50%", fig.asp=1, fig.show='hold', fig.cap="\\label{e1-example-plots}The four levels of the contrast condition in experiment 1, demonstrated with an \\textit{r} value of 0.6.", description = "An array of four scatterplots. Top left has points with low contrast and is labelled `Contrast alpha = 0.25`. Top right plot has medium contrast (contrast alpha = 0.5). Bottom right has high contrast (contrast alpha = 0.75). Bottom right has full contrast (contrast alpha = 1)."}
+```{r e1-example-plots, warning = FALSE, echo=FALSE, fig.align='left', out.width="50%", fig.asp=1, fig.show='hold', fig.cap="\\label{e1-example-plots}The four levels of the contrast condition in experiment 1, demonstrated with an \\textit{r} value of 0.6. Some points overlap, resulting in increased contrast in those areas.", description = "An array of four scatterplots. Top left has points with low contrast and is labelled `Contrast alpha = 0.25`. Top right plot has medium contrast (contrast alpha = 0.5). Bottom right has high contrast (contrast alpha = 0.75). Bottom right has full contrast (contrast alpha = 1)."}
   set.seed(1234)
   
   my_sample_size = 128
@@ -809,23 +812,25 @@ to run the experiment in full.
   
 plot_example_function <- function (d, x, t) {
   
+  set.seed(1234)
+  
   ggplot(d, aes(x = V1, y = V2)) +
   scale_alpha_identity() +
-  geom_point(aes(alpha = x), shape = 16, size = 3)  +
+  geom_point(aes(alpha = x), shape = 16, size = 1)  +
   labs(x = "", y = "") +
   theme_classic() +
   theme(axis.text = element_blank(),
         plot.margin = unit(c(0,0,0,0), "cm"),
         legend.position = "none",
-        plot.title = element_text(size = 30)) +
+        plot.title = element_text(size = 15)) +
   labs(title = t)
   
 }
 
-plot_example_function(data_with_resid, 0.25, "Contrast Alpha = 0.25")
-plot_example_function(data_with_resid, 0.5, "Contrast Alpha = 0.5")
-plot_example_function(data_with_resid, 0.75, "Contrast Alpha = 0.75")
-plot_example_function(data_with_resid, 1, "Contrast Alpha = 1")
+ggarrange(plot_example_function(data_with_resid, 0.25, "Contrast Alpha = 0.25"),
+          plot_example_function(data_with_resid, 0.5, "Contrast Alpha = 0.5"),
+          plot_example_function(data_with_resid, 0.75, "Contrast Alpha = 0.75"),
+          plot_example_function(data_with_resid, 1, "Contrast Alpha = 1"))
 ```
 
 ## Results
@@ -927,6 +932,11 @@ We found no significant differences between the original model and the one inclu
 plot_error_bars_function(E1_uniform_adjustments_tidy, "slider.response", labels_e1)
 ```
 
+```{r changes-with-r-e1, warning=FALSE, echo=FALSE, message=FALSE, fig.align='center',fig.show="hold",fig.asp=0.25, fig.cap="\\label{e1-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \\textit{r} in experiment 1. Participants were on average most accurate at estimating the \\textit{r} value when presented with the full contrast scatterplots (condition D). Error bars show standard deviations of estimates.", description ="Series of 4 plots showing how participants' mean correlation estimates vary as a function of the actual r value, over the 4 conditions in experiment 1. Error bars show standard deviations for mean estimates over the 45 r values."}
+plot_error_bars_function(E1_uniform_adjustments_tidy, "difference", labels_e1) +
+  labs(y = "Mean r estimation\nerror")
+```
+
 Figure \ref{e1-error-plot} shows how participants' mean estimates of correlation
 change with the objective Pearson's *r* value, plotted separately for each contrast
 condition. We observe underestimation curves
@@ -957,22 +967,25 @@ perception [@varshney_2013; @fechner_1948]; despite there being equal
 linear distance between the contrast values we used, the perceptual distance 
 between them was clearly non-linear. 
 
+```{r power-analysis, include = FALSE}
+pwr.t.test(n = 150, d = 0.17, sig.level = 0.05, power = NULL, type = "paired")
+pwr.t.test(n = 12, d = 0.17, sig.level = 0.05, power = NULL, type = "paired")
+```
+
 As mentioned previously, @rensink_2012 and @rensink_2014 describe what is, to our knowledge, the only 
 other direct testing of correlation perception and point contrast, and reports 
 no difference in either bias or variability in correlation perception with regards
 to contrast manipulations. Our results, in comparison 
-to these previously reported findings, do find an effect, which we argue is due to 
-differences in methodology and experimental power. Rensink used bisection and JND tasks 
-to fit equations for accuracy and precision. Our methodology simply asked participants 
-to estimate correlation, producing comparative judgements more
-suited to informing scatterplot design than investigating the mathematical relationship between
-correlation and perceived correlation allowed by other methodologies. The
-major strength of this study is the large sample size (n = 150). Compared with the
-relatively small sample size in @rensink_2014 (n = 12), our study's heightened
-experimental power allows us to present strong evidence that total contrast in a scatterplot
-can affect people's perceptions of correlation. Our effect size for the uniform
-contrast manipulation was small (d = `r printnum(effects_df$d[3])`), and while such
-a small difference may be of little practical relevance with regards to correcting
+to these previously reported findings, do find an effect, which can be quantitatively explained by 
+differences in experimental power, although we argue that methodological differences may
+have played a role also. Given the small effect size (d = `r printnum(effects_df$d[3])`),
+the small sample in @rensink_2014 (n = 12) would have made finding the effect very unlikely, having
+a power of only .08. The current study, having a power of 0.54 and large sample of n = 150, has found the effect however.
+While differences in power can explain this discrepancy, we also argue that our methodology is
+more representative of the normal usage of scatterplots, and is therefore more suited
+to informing scatterplot design than investigating the mathematical relationship 
+between correlation and perceived correlation. While our effect size is small, and
+may be of little practical relevance with regards to correcting
 for the correlation underestimation effect in scatterplots, it demonstrates that
 differences in the contrasts of points *can* effect correlation estimates in scatterplots.
 The fact that this difference is present suggests that it can be used to optimise perception,
@@ -1093,10 +1106,10 @@ slopes <- data_with_resid %>%
   mutate(slope_0.25 = 1-(0.25)^my_residuals) %>%
   mutate(slope_inverted = (1 + (0.25)^ my_residuals)-1)
 
-plot_example_function(slopes, (1-slopes$slope_0.25), "Non-linear Decay (b = 0.25)")
-plot_example_function(slopes, (1-slopes$slope_linear), "Linear Decay")
-plot_example_function(slopes, (1-slopes$slope_inverted), "Inverted Non-linear Decay")
-plot_example_function(slopes, 1, "No Decay")
+ggarrange(plot_example_function(slopes, (1-slopes$slope_0.25), "Non-linear Decay (b = 0.25)"),
+          plot_example_function(slopes, (1-slopes$slope_linear), "Linear Decay"),
+          plot_example_function(slopes, (1-slopes$slope_inverted), "Inverted Non-linear Decay"),
+          plot_example_function(slopes, 1, "Full Contrast"))
 ```
 
 Figure \ref{decay-parameters} illustrates the relationship between the size of
@@ -1106,7 +1119,7 @@ The experiment is hosted at https://gitlab.pavlovia.org/Strain/exp_spatially_dep
 This repository contains all the experimental code, materials, and instructions needed
 to run the experiment in full.
 
-```{r decay-parameters, echo=FALSE, message=FALSE, warning=FALSE, results='hide', fig.cap="\\label{decay-parameters}Here we use an \\textit{r} value of 0.2 to demonstrate the relationship between the size of a point's residual and the contrast alpha value that translates to.", description="A line plot with three lines relating the size of a point's residual to its alpha value. There are lines for the non-linear decay, non-linear inverted decay, and linear decay", out.width="100%"}
+```{r decay-parameters, echo=FALSE, message=FALSE, warning=FALSE, results='hide', out.width="50%", fig.asp=1, fig.align='left', fig.show='hold', fig.cap="\\label{decay-parameters}Here we use an \\textit{r} value of 0.2 to demonstrate the relationship between the size of a point's residual and the contrast alpha value that translates to.", description="A line plot with three lines relating the size of a point's residual to its alpha value. There are lines for the non-linear decay, non-linear inverted decay, and linear decay."}
 
 library(MASS)
 set.seed(1234)
@@ -1136,19 +1149,17 @@ slopes <- data_with_resid %>%
 slopes %>%
   mutate(decay = str_replace_all(decay, pattern = "_", replacement = " ")) %>%
   mutate(decay = str_to_title(decay)) %>%
+  group_by(decay) %>%
   ggplot(aes(x = my_residuals, y = transformed_residual)) +
-  geom_line(aes(colour = decay)) +
+  geom_textline(aes(colour = decay,label = decay, size = 15, hjust = 0.62, vjust = -0.6)) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 20), limits = c(0,2.6)) +
   labs(x = "Residual",
-       y = "Contrast Alpha",
-       title = "Relationship between residual and contrast alpha value") +
-  theme_minimal() +
+       y = "Contrast Alpha") +
+  theme_ggdist() +
   theme(legend.title = element_blank(),
         legend.position = "none") +
-  annotate(geom = "text", x  = 1.3, y = 0.12, label = "Non-Linear Decay", angle = -20) +
-  annotate(geom = "text", x  = 1.3, y = 0.44, label = "Linear Decay", angle = -30) +
-  annotate(geom = "text", x  = 2, y = 0.88, label = "Non-Linear Inverted Decay", angle = 8)
-  coord_cartesian(xlim = c(0,2.6), ylim = c(0,1))
+  coord_cartesian(xlim = c(0,2.6), ylim = c(0,1)) +
+  scale_colour_manual(values = c("black", "black", "black"))
 ```
 
 ## Results
@@ -1256,6 +1267,11 @@ literacy between participants.
 plot_error_bars_function(E2_spatially_dependent_tidy, "slider.response", labels_e2)
 ```
 
+```{r changes-with-r-e2, warning=FALSE, echo=FALSE, message=FALSE, fig.align='center',fig.show="hold",fig.asp=0.25, fig.cap="\\label{e2-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \\textit{r} in experiment 2. Participants were on average most accurate at estimating the \\textit{r} value when presented with the non-linear contrast decay scatterplots (condition A). Error bars show standard deviations of estimates.", description ="Series of 4 plots showing how participants' mean correlation estimates vary as a function of the actual r value, over the 4 conditions in experiment 2. Error bars show standard deviations for mean estimates over the 45 r values."}
+plot_error_bars_function(E2_spatially_dependent_tidy, "difference", labels_e2) +
+  labs(y = "Mean r estimation\nerror")
+```
+
 Figure \ref{e2-error-plot} shows how participants' mean estimates of correlation
 change with the objective Pearson's *r* value, plotted separately for each of our
 contrast decay manipulation conditions. We again observe underestimation curves
@@ -1286,14 +1302,18 @@ anova_results(e2_model_low_range, e2_model_comparison_low_range)
 ```
 
 ```{r e2-sd-sd-plot, warning=FALSE, echo=FALSE, message=FALSE, fig.align='left', out.width = "50%", fig.cap="\\label{e2-sd-sd-plot}The mean of standard deviations of participants in experiment 2, grouped by contrast condition. Error bars show spreads of standard deviations", description = "Dot plot showing means of standard deviations of participants in experiment 2."}
-plot_sd_sd_function(E2_spatially_dependent_tidy %>% group_by(participant, contrast))
+plot_sd_sd_function(E2_spatially_dependent_tidy %>% group_by(participant, contrast)) +
+    scale_x_discrete(labels = c("Non-Linear\nDecay",
+                              "Linear Decay",
+                              "Non-Linear\nInverted Decay",
+                              "Full Contrast"))
 ```
 
 Our hypotheses were fully supported in this experiment. Participants' errors in
 correlation estimation were lower when the non-linear decay parameter was used, and 
 were highest when the non-linear inverted decay parameter was used. The only surprising result
 was the lack of significant difference in correlation estimates between the linear
-decay parameter and the full-contrast condition. On closer inspection of the scatterplots
+decay parameter and the full contrast condition. On closer inspection of the scatterplots
 included in the linear decay parameter condition however, it becomes clear why; the logarithmic
 nature of contrast perception [@varshney_2013; @fechner_1948] means that there is
 little perceptual distance between contrasts with high (> 0.75) contrast alpha values,
@@ -1316,8 +1336,20 @@ plot_example_function(data_with_resid, 1, "") +
   stat_ellipse(type = "norm")
 ```
 
+Looking at the standard deviations of participants' *r* estimates in
+Figure \ref{e2-error-plot}, we can see that, as in experiment 1 (see Figure \ref{e1-error-plot}),
+aside from for the inverted non-linear decay condition, participants became more precise as *r* approached
+1. This is in line with previous research. In the inverted non-linear decay condition, as
+*r* approaches 1 and correspondingly point residuals approach 0, the contrast of 
+points also approaches 0. Just as the standard deviation of correlation judgements for 
+the low contrast condition in experiment 1 was higher than for the other conditions
+(see Figure \ref{e1-sd-sd-plot}), having lower contrast points at the high *r* end
+of the non-linear inverted condition in experiment 2 resulted in fairly constant
+standard deviations across *r* values, as the usual reduction towards *r* = 1 was not seen.
+
 Our finding that the use of the non-linear inverted decay parameter, in which contrast was increased
-with distance from the regression line, adds perspective to suggestions [@yang_2019]
+with distance from the regression line, produces lower correlation estimation errors,
+adds perspective to suggestions [@yang_2019]
 that, among other visual features, the area of a prediction ellipse [@yang_2019; @cleveland_1982],
 a region used to predict new observations assuming a bivariate normal distribution 
 (see Figure \ref{prediction-ellipse} for an example) was a better predictor of
@@ -1348,7 +1380,8 @@ cited in this paper have used small samples of participants with experience in d
 science and statistics to draw their conclusions, often graduate students in 
 visualization-heavy fields. We argue that this does not inform
 the design of commonly used data visualizations in a naturalistic way. In comparison,
-we have recruited from much more representative populations, and have demonstrated
+we have recruited from much more representative populations, including people from a variety
+of educational and national backgrounds, and have demonstrated
 that a simple framework can be used with these groups to gather high quality data
 and provide conclusions that can, by design, be thought of as far more naturalistic 
 than studies that have taken place in labs with experienced participants.
@@ -1360,16 +1393,6 @@ and \ref{e2-changes-plot} plot objective Pearson's *r* against the mean errors i
 estimates for experiments 1 and 2 respectively. Standard deviations of 
 estimates are shown as error bars.These plots illustrate, as in many studies cited, 
 the lower levels of precision and accuracy for *r* values further from 0 or 1.
-
-```{r changes-with-r-e1, warning=FALSE, echo=FALSE, message=FALSE, fig.align='center',fig.show="hold",fig.asp=0.25, fig.cap="\\label{e1-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \\textit{r} in experiment 1. Participants were on average most accurate at estimating the \\textit{r} value when presented with the full contrast scatterplots (condition D). Error bars show standard deviations of estimates.", description ="Series of 4 plots showing how participants' mean correlation estimates vary as a function of the actual r value, over the 4 conditions in experiment 1. Error bars show standard deviations for mean estimates over the 45 r values."}
-plot_error_bars_function(E1_uniform_adjustments_tidy, "difference", labels_e1) +
-  labs(y = "Mean r estimation\nerror")
-```
-
-```{r changes-with-r-e2, warning=FALSE, echo=FALSE, message=FALSE, fig.align='center',fig.show="hold",fig.asp=0.25, fig.cap="\\label{e2-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \\textit{r} in experiment 2. Participants were on average most accurate at estimating the \\textit{r} value when presented with the non-linear contrast decay scatterplots (condition A). Error bars show standard deviations of estimates.", description ="Series of 4 plots showing how participants' mean correlation estimates vary as a function of the actual r value, over the 4 conditions in experiment 2. Error bars show standard deviations for mean estimates over the 45 r values."}
-plot_error_bars_function(E2_spatially_dependent_tidy, "difference", labels_e2) +
-  labs(y = "Mean r estimation\nerror")
-```
 
 Our experiments contribute to a body of evidence that suggests participants
 are paying attention to the width of the probability distribution displayed in
@@ -1486,7 +1509,11 @@ full contrast conditions were different in experiment 1 (0.149) vs experiment 2
 (0.123). We suggest that this is due to our direct estimation paradigms, in which, indirectly,
 participants are making comparative correlation judgements. While this is a limitation with
 regards to studying the perception of scatterplots from a psychophysical point of view,
-it still allows us to inform design research.
+it still allows us to inform design research. We also found that standard deviations
+between these two conditions were not similar, which we suggest may be due to context;
+viewing full contrast plots in the context of plots exhibiting spatially-dependent
+contrast manipulations corresponded with more precise correlation estimates when
+compared to viewing them in the context of experiment 1.
 
 # Future Work
 
