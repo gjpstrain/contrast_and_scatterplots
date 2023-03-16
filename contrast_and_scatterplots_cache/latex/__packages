@@ -25,3 +25,6 @@ knitr
 rticles
 EMAtools
 ggdist
+ggpubr
+pwr
+geomtextpath

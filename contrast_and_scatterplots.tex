@@ -159,11 +159,11 @@ In the last two centuries, the use of data visualizations has become
 increasingly common \citep{friendly_2005, azzam_2013}. The speed of the
 adoption of visualizations has meant rigorous scientific study of how
 they are comprehended by a viewer has often failed to keep pace. For
-many people, the COVID-19 pandemic has made data visualizations an
-everyday phenomenon (see \citealp{bbc_2022}, for examples of the types
-of visualizations many saw daily). As data visualization designers, we
-have a duty to design in such a way that viewers with little to no
-formal statistical or data training can understand the message that
+many people, the COVID-19 pandemic made data visualizations an everyday
+phenomenon (see \citealp{bbc_2022}, for examples of the types of
+visualizations many saw daily). As data visualization designers, we have
+a duty to design in such a way that viewers with little to no formal
+statistical or data training can understand the message that
 visualizations are trying to convey.
 
 In this paper we present a novel visualization technique that
@@ -218,8 +218,8 @@ correlations, and found that people were more easily able to
 discriminate as the magnitude of the \emph{r} value increased.
 Subsequent work focused on asking participants to provide a numerical
 estimate of the \emph{r} value, with studies finding evidence for a
-systematic underestimation for positive \emph{r} values apart from 0 and
-1. In several studies this effect was particularly pronounced for 0.2
+systematic underestimation for positive \emph{r} values besides 0 and 1.
+In several studies this effect was particularly pronounced for 0.2
 \textless{} \emph{r} \textless{} 0.6
 \citep{strahan_1978, bobko_1979, cleveland_1982, lane_1985, lauer_1989, collyer_1990, meyer_1992},
 see Figure \ref{underestimation-curve} for an approximation of the
@@ -328,7 +328,7 @@ For this reason, and due to the fundamentality of contrast as a feature
 of human visual perception \citep{ginsburg_2003} we elected to use the
 term contrast to describe our point manipulations. The approach we
 describe may not be useful with much larger datasets where clutter
-becomes problematic.
+becomes an issue.
 
 \hypertarget{contrast}{%
 \subsection{Contrast}\label{contrast}}
@@ -364,13 +364,13 @@ third variable in trivariate scatterplots. The authors then asked
 participants to use a mouse to click on the average position of all the
 points displayed. They found that participants' estimates of average
 point position were biased towards larger or darker points, which the
-authors term the \emph{weighted average illusion}. Together with
-evidence that darker and larger points are more salient
-\citep{healey_2012}, the implication is that we can use contrast to
-reduce the salience of the points representing the widest parts of the
-probability distribution; if this is successful, and participants
-perceive a narrower distribution, we would expect this to be able to
-correct for a viewer's underestimation bias.
+they termed the \emph{weighted average illusion}. Together with evidence
+that darker and larger points are more salient \citep{healey_2012}, the
+implication is that we can use contrast to reduce the salience of the
+points representing the widest parts of the probability distribution; if
+this is successful, and participants perceive a narrower distribution,
+we would expect this to be able to correct for a viewer's
+underestimation bias.
 
 One way to correct for an underestimation in correlation would be to
 simply remove outer data points until correlation perception is aligned
@@ -451,13 +451,13 @@ provided consent through key presses in response to consent statements.
 They were then asked to provide their age in a free text box, and their
 gender identity. Following this they were asked to complete the 5-item
 Subjective Graph Literacy (SGL) test \citep{garcia_2016}. Participants
-were then shown 7 instructional slides, the text for which can be seen
-in the experimental repository
+were then shown seven instructional slides, the text for which can be
+seen in the experimental repository
 (https://gitlab.pavlovia.org/Strain/exp\_uniform\_adjustments/blob/master/instructions.csv).
 Ad-hoc piloting with a graduate student in humanities suggested people
 might be unfamiliar with what different correlations looked like in
 scatterplots. They were therefore shown examples of \emph{r} = 0.2, 0.5,
-0.8, and 0.95, which can be see in Figure \ref{example-plots}. See
+0.8, and 0.95, which can be seen in Figure \ref{example-plots}. See
 Section \ref{training} for a discussion of the potential effects of
 this. Participants were then given two practice trials before the
 experiment began.
@@ -509,7 +509,7 @@ Due to our crowdsourced approach we were unable to obtain monitor
 resolution or physical screen size measurements for participants,
 however we are working on a method to accomplish this in future work.
 Each plot contained 128 data points. 45 \emph{r} values were generated
-on a uniform distribution between 0.2 and 0.95. The same dataset was
+on a uniform distribution between 0.2 and 0.99. The same dataset was
 used for plot generation in both experiments. We chose these boundaries
 due to evidence that very little correlation is perceived below 0.2
 \citep{bobko_1979, cleveland_1982, strahan_1978}. Scripts detailing item
@@ -523,11 +523,11 @@ Both experiments were conducted according to the principles of open and
 reproducible research. All data and analysis code are available at
 https://github.com/gjpstrain/contrast\_and\_scatterplots. This
 repository contains instructions for building a Docker container that
-fully reproduces the computational environment this paper was written
-in, allowing for a full replications of stimulus generation, analyses,
-and the paper itself. Both experiments and their related hypotheses and
-analysis plans were pre-registered with the OSF (https://osf.io/v23e9/),
-and there were no deviations from them.
+fully reproduces the computational environment in which this paper was
+written, allowing for full replications of stimulus generation,
+analyses, and the paper itself. Both experiments and their related
+hypotheses and analysis plans were pre-registered with the OSF
+(https://osf.io/v23e9/), and there were no deviations from them.
 
 \hypertarget{modelling}{%
 \subsection{Modelling}\label{modelling}}
@@ -616,8 +616,10 @@ time taken to complete the experiment was 33 minutes (SD = 10 minutes).
 
 For each of the 45 \emph{r} values there were four versions of each plot
 corresponding to the four levels of point contrast, examples of which
-can be seen in Figure \ref{e1-example-plots}. The experiment is hosted
-at https://gitlab.pavlovia.org/Strain/exp\_uniform\_adjustments. This
+can be seen in Figure \ref{e1-example-plots}.
+
+The experiment is hosted at
+https://gitlab.pavlovia.org/Strain/exp\_uniform\_adjustments. This
 repository contains all the experimental code, materials, and
 instructions needed to run the experiment in full.
 
@@ -662,7 +664,7 @@ Statistical tests for contrasts between the four levels of the contrast
 condition were performed with the \textbf{emmeans} package (version
 1.8.4-1, \citealp{emmeans}) and are shown in Table
 \ref{contrasts-table-e1}. Means and 95\% confidence intervals of
-correlation judgements are shown in Figure \ref{e1-dot-plot}. The
+correlation estimates are shown in Figure \ref{e1-dot-plot}. The
 \textbf{EMAtools} package (version 0.1.4, \citealp{ematools}) was used
 to calculate effect sizes in Cohen's d.~For the difference in
 correlation ratings between the lowest contrast (contrast alpha = 0.25)
@@ -710,7 +712,7 @@ between participants.
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{contrast_and_scatterplots_files/figure-latex/changes-with-r-e1-1} \caption{\label{e1-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \textit{r} in experiment 1. Participants were on average most accurate at estimating the \textit{r} value when presented with the full contrast scatterplots (condition D). Error bars show standard deviations of estimates.}\label{fig:changes-with-r-e1}
+\includegraphics[width=1\linewidth]{contrast_and_scatterplots_files/figure-latex/changes-with-r-e1-1} \caption{\label{e1-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \textit{r} in experiment 1. Participants were on average most accurate at estimating the \textit{r} value when presented with the full contrast scatterplots. Error bars show standard deviations of estimates.}\label{fig:changes-with-r-e1}
 \end{figure}
 
 Figure \ref{e1-error-plot} shows how participants' mean estimates of
@@ -726,7 +728,7 @@ curves similar to those reported in previous literature (see Section
 
 \includegraphics[width=0.5\linewidth]{contrast_and_scatterplots_files/figure-latex/e1-sd-sd-plot-1} \hfill{}
 
-\caption{\label{e1-sd-sd-plot}The mean of standard deviations of participants in experiment 1, grouped by contrast condition. Error bars show spreads of standard deviations.}\label{fig:e1-sd-sd-plot}
+\caption{\label{e1-sd-sd-plot}The mean of standard deviations of participants' correlation estimates in experiment 1, grouped by contrast condition. Error bars show spreads of standard deviations.}\label{fig:e1-sd-sd-plot}
 \end{figure}
 
 Our hypothesis was not supported in this experiment. We hypothesized
@@ -748,9 +750,9 @@ between them was clearly non-linear.
 
 As mentioned previously, \citet{rensink_2012} and \citet{rensink_2014}
 describe what is, to our knowledge, the only other direct testing of
-correlation perception and point contrast, and reports no difference in
+correlation perception and point contrast, and report no difference in
 either bias or variability in correlation perception with regards to
-contrast manipulations. Our results, in comparison to these previously
+contrast manipulations. Our results, in comparison to those previously
 reported findings, do find an effect, which can be quantitatively
 explained by differences in experimental power, although we argue that
 methodological differences may have played a role also. Given the small
@@ -812,7 +814,7 @@ higher mean errors than all other conditions.
 150 participants were recruited using the Prolific.co platform. Normal
 to corrected-to-normal vision and English fluency were required for
 participation. In accordance with guidelines published in
-\citep{peer_2021}, participants were required to have previously
+\citealp{peer_2021}, participants were required to have previously
 completed at least 100 studies on Prolific, and were required to have a
 Prolific score of at least 100, indicating acceptance on at least
 100/101 previously completed studies. In addition, participants who had
@@ -836,15 +838,15 @@ plot, which can be seen in Figure \ref{e2-example-plots}. Three used
 functions relating point residuals to point contrast, which we refer to
 as decay parameters, with the remaining condition being the contrast
 alpha = 1 uniform contrast condition from the first experiment. We used
-the equation 1 to non-linearly map residuals to alpha values, where R is
-the residual of the point in question. 0.25 was chosen as the value of
+equation 1 to non-linearly map residuals to alpha values, where R is the
+residual of the point in question. 0.25 was chosen as the value of
 \(b\). Given the shape of the underestimation curve reported in previous
 literature (see Figure \ref{underestimation-curve}), intuition suggested
 that we use a symmetrically opposing curve (see Figure
-\ref{decay-parameters}) to relate point contrast with residuals. We
-tested a number of values of \(b\), and felt that 0.25 rendered plots
-that maintained point legibility while also allowing a large enough
-range in contrast that, if an effect was present, one would be found.
+\ref{decay-parameters}) to relate point contrast to residuals. We tested
+a number of values of \(b\), and felt that 0.25 rendered plots that
+maintained point legibility while also allowing a large enough range in
+contrast that, if an effect was present, one would be found.
 
 \begin{align}
   alpha = 1 - b^R
@@ -877,7 +879,7 @@ All analyses were conducted using R (version 4.2.2, \citealp{r_core}) As
 in experiment 1, models were built using the \textbf{buildmer} (version
 2.8, \citealp{voeten_buildmer_2022}) and \textbf{lme4} (version 1.1-31,
 \citealp{bates_lme4_2015}) packages, with contrast decay function being
-set as the predictor for participants' error in correlation estimates.
+set as the predictor for participants' errors in correlation estimates.
 
 \begin{figure}
 
@@ -921,7 +923,7 @@ insignificant.
 
 \begin{table}
 
-\caption{\label{tab:contrasts-table-e2}\label{contrasts-table-e2}Table showing the contrasts between different levels of the contrast condition factor.}
+\caption{\label{tab:contrasts-table-e2}\label{contrasts-table-e2}Table showing the contrasts between different levels of the contrast condition factor in experiment 2.}
 \centering
 \begin{tabular}[t]{lrl}
 \toprule
@@ -953,7 +955,7 @@ participants.
 
 }
 
-\caption{\label{e2-error-plot}The mean of participants' estimations of \textit{r} compared with objective Pearson's \textit{r}, plotted by contrast condition}\label{fig:e2-error-plot}
+\caption{\label{e2-error-plot}The means of participants' estimates of \textit{r} compared with objective Pearson's \textit{r} in experiment 2, plotted by contrast condition}\label{fig:e2-error-plot}
 \end{figure}
 
 \begin{figure}
@@ -962,7 +964,7 @@ participants.
 
 }
 
-\caption{\label{e2-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \textit{r} in experiment 2. Participants were on average most accurate at estimating the \textit{r} value when presented with the non-linear contrast decay scatterplots (condition A). Error bars show standard deviations of estimates.}\label{fig:changes-with-r-e2}
+\caption{\label{e2-changes-plot}Plots showing how participants' mean correlation estimation errors change with Pearson's \textit{r} in experiment 2. Participants were on average most accurate at estimating the \textit{r} value when presented with the non-linear contrast decay scatterplots. Error bars show standard deviations of estimates.}\label{fig:changes-with-r-e2}
 \end{figure}
 
 Figure \ref{e2-error-plot} shows how participants' mean estimates of
@@ -997,11 +999,11 @@ perceptual distance between contrasts with high (\textgreater{} 0.75)
 contrast alpha values, which translates in our study to no perceived
 differences, on average, between plots with linear decay parameters and
 full contrast. This apparent threshold for contrast effects was also
-found in experiment 1. Filtering out lower \emph{r} values, those with
+found in experiment 1. Selecting only lower \emph{r} values, those with
 naturally higher total residuals (arbitrarily \emph{r} \textless{} 0.6),
 still produces no significant differences between correlation estimation
 errors for linear decay and full contrast conditions (\(\chi^2\)(1) =
-0.09, \emph{p} = .769). Our effects sizes were again small in this
+0.09, \emph{p} = .769). Our effect sizes were again small in this
 experiment, with the largest when compared to full contrast being for
 the inverted non-linear decay condition. This suggests that it is easier
 to induce greater bias in correlation estimates through a reduction in
@@ -1069,11 +1071,12 @@ and statistics to draw their conclusions, often graduate students in
 visualization-heavy fields. We argue that this does not inform the
 design of commonly used data visualizations in a naturalistic way. In
 comparison, we have recruited from much more representative populations,
-including people from a variety of educational and national backgrounds,
-and have demonstrated that a simple framework can be used with these
-groups to gather high quality data and provide conclusions that can, by
-design, be thought of as far more naturalistic than studies that have
-taken place in labs with experienced participants.
+including people of a variety of nationalities and from a range of
+educational backgrounds, and have demonstrated that a simple framework
+can be used with these groups to gather high quality data and provide
+conclusions that can, by design, be thought of as far more naturalistic
+than studies that have taken place in labs with experienced
+participants.
 
 In agreement with much previous research
 \citep{rensink_2010, rensink_2012, rensink_2014, rensink_2017, pollack_1960},
@@ -1152,7 +1155,7 @@ the literature, replicated here in Figures \ref{e1-changes-plot} and
 were more accurate and less variable when \emph{r} was closer to 0 and
 1, may be partially due to the effects of range restriction. Given the
 variability of estimates, ratings of correlation may begin to truncate
-towards 0 or 1 as correlation gets towards 0 or 1. This may also be a
+towards 0 or 1 as correlation approaches 0 or 1. This may also be a
 result of scatterplots tending towards certain patterns when \emph{r} is
 close to 1 (scatterplot tends towards a single line of points) and 0
 (scatterplot tends towards an even random distribution). Range
@@ -1183,20 +1186,20 @@ there remains much to do. We were unable to quantitatively determine if
 0.25 is indeed the most optimal value for \(b\) in equation 1, for
 example. It may well be the case that changing the value of \(b\) as a
 function of the objective Pearson's \emph{r} value could produce more
-accurate correlation estimates in participants; our finding that
+accurate correlation estimation in participants; our finding that
 participants were more accurate in correlation estimation when \emph{r}
 was nearer 0 or 1 would suggest that the use of a decay parameter for
 these correlations is unnecessary.
 
 The simplicity of the direct estimation task we have used does confer
 some limitations on the conclusions we can draw, although these
-limitations do not prevent that data we have gathered from being
+limitations do not prevent the data we have gathered from being
 practically useful. We cannot comment on absolute perceptions of
 correlation in the same way that studies employing JND/bisection tasks
 can. Telling of this is the finding that participants' mean errors in
 judgements of correlation for the full contrast conditions were
 different in experiment 1 (0.149) vs experiment 2 (0.123). We suggest
-that this is due to our direct estimation paradigms, in which,
+that this is due to our direct estimation paradigm, in which,
 indirectly, participants are making comparative correlation judgements.
 While this is a limitation with regards to studying the perception of
 scatterplots from a psychophysical point of view, it still allows us to
