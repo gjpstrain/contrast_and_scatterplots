@@ -97,7 +97,7 @@ library(geomtextpath)
 ```{r eval-models, include=FALSE}
 # in this script, models are cached. If eval_models <- FALSE, script will load
 # cached models. Set eval_models <- TRUE to rebuild models from scratch
-eval_models <- TRUE
+eval_models <- FALSE
 
 if (eval_models == FALSE){
   lazyload_cache_dir('contrast_and_scatterplots_cache/latex')
@@ -853,7 +853,7 @@ dot_plot_function(E1_uniform_adjustments_tidy) +
   ylim(0.08, 0.2)
 ```
 
-```{r e1-model,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
+```{r e1-model,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, cache.path="contrast_and_scatterplots/latex/"}
 # E1 r estimation error modelling.
 e1_model <- buildmer(difference ~ contrast +
                        (1 + contrast | participant) +
@@ -861,7 +861,7 @@ e1_model <- buildmer(difference ~ contrast +
                      data = E1_uniform_adjustments_tidy)
 ```
 
-```{r e1-model-comparison, cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, message=FALSE, warning=FALSE, dependson="e1-model"}
+```{r e1-model-comparison, cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, message=FALSE, warning=FALSE,, cache.path="contrast_and_scatterplots/latex/", dependson="e1-model"}
 # E1 r estimation error model without fixed effect of contrast.
 e1_model_comparison <- comparison(e1_model)
 ```
@@ -913,7 +913,7 @@ contrasts_e1 <- contrasts_extract(e1_model) %>%
 knitr::kable(contrasts_e1, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e1}Table showing the contrasts between different levels of the contrast factor in E1.")
 ```
 
-```{r e1-lit, cache=eval_models, cache.comments=FALSE, eval=eval_models, echo=FALSE, warning=FALSE, dependson="e1-model"}
+```{r e1-lit, cache=eval_models, cache.comments=FALSE, eval=eval_models, echo=FALSE, warning=FALSE, dependson="e1-model", cache.path="contrast_and_scatterplots/latex/"}
 # builds model with literacy as a fixed effect
 e1_literacy <- lmer(add.terms(formula(e1_model), "literacy"),
                     data = E1_uniform_adjustments_tidy)
@@ -1190,7 +1190,7 @@ dot_plot_function(E2_spatially_dependent_tidy) +
   ylim(0.08,0.2)
 ```
 
-```{r e2-model,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
+```{r e2-model,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, cache.path="contrast_and_scatterplots/latex/"}
 # E2 r estimation error modelling.
 e2_model <- buildmer(difference ~ contrast +
                        (1 + contrast | participant) +
@@ -1198,7 +1198,7 @@ e2_model <- buildmer(difference ~ contrast +
                      data = E2_spatially_dependent_tidy)
 ```
 
-```{r e2-model-comparison,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, message=FALSE, warning=FALSE, dependson="e2-model"}
+```{r e2-model-comparison,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, message=FALSE, warning=FALSE, cache.path="contrast_and_scatterplots/latex/", dependson="e2-model"}
 # E2 r estimation error model without fixed effect of contrast.
 e2_model_comparison <- comparison(e2_model)
 ```
@@ -1254,7 +1254,7 @@ contrasts_e2 <- contrasts_extract(e2_model) %>%
 knitr::kable(contrasts_e2, booktabs = TRUE, digits = c(0,2,3), caption = "\\label{contrasts-table-e2}Table showing the contrasts between different levels of the contrast condition factor in experiment 2.")
 ```
 
-```{r e2-lit, cache=eval_models, cache.comments=FALSE, eval=eval_models, echo=FALSE, warning=FALSE, dependson="e2-model"}
+```{r e2-lit, cache=eval_models, cache.comments=FALSE, eval=eval_models, echo=FALSE, warning=FALSE, dependson="e2-model", cache.path="contrast_and_scatterplots/latex/"}
 # builds model with literacy as a fixed effect
 e2_literacy <- lmer(add.terms(formula(e2_model), "literacy"),
                     data = E2_spatially_dependent_tidy)
@@ -1299,7 +1299,7 @@ mean estimation errors change with objective *r* value.
 
 ## Discussion
 
-```{r e2-model-low-range ,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
+```{r e2-model-low-range ,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, include=FALSE, message=FALSE, warning=FALSE, cache.path="contrast_and_scatterplots/latex/"}
 # E2 r estimation error modelling with low r range
 E2_low_range <- E2_spatially_dependent_tidy %>%
   filter(contrast == c("B", "D")) %>%
@@ -1311,7 +1311,7 @@ e2_model_low_range <- buildmer(difference ~ contrast +
                      data = E2_low_range)
 ```
 
-```{r e2-model-low-range-comparison, cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, message=FALSE, warning=FALSE, dependson="e2-model-low-range"}
+```{r e2-model-low-range-comparison, cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, message=FALSE, warning=FALSE, dependson="e2-model-low-range", cache.path="contrast_and_scatterplots/latex/"}
 # E2 low range r estimation error model without fixed effect of contrast
 e2_model_comparison_low_range <- comparison(e2_model_low_range)
 ```
@@ -1438,7 +1438,7 @@ the best chance of interpreting the correlation displayed as accurately as possi
 
 ## Training {#training}
 
-```{r training-models-e1,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, warning=FALSE, dependson="e1-model"}
+```{r training-models-e1,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, warning=FALSE, dependson="e1-model", cache.path="contrast_and_scatterplots/latex/"}
 e1_training_model <- lmer(add.terms(formula(e1_model), "half"),
                           data = E1_uniform_adjustments_tidy)
 
@@ -1449,7 +1449,7 @@ e1_training_comparison <- e1_model
 anova_results(e1_training_comparison, e1_training_model)
 ```
 
-```{r training-models-e2,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, warning=FALSE, dependson="e2-model"}
+```{r training-models-e2,cache = eval_models, cache.comments=FALSE, eval = eval_models, echo=FALSE, warning=FALSE, dependson="e2-model", cache.path="contrast_and_scatterplots/latex/"}
 e2_training_model <- lmer(add.terms(formula(e2_model), "half"),
                           data = E2_spatially_dependent_tidy)
 
