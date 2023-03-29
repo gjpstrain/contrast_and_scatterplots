@@ -26,7 +26,7 @@ Once the container is running, open a web browser and type `localhost:8787` in t
 
 Opening `contrast_and_scatterplots.Rmd` and using the 'Knit' button (or shift+k) will allow you to re-create a .pdf of the manuscript.
 
-IMPORTANT: Models have been cached to increase performance. The cache will not be recognised automatically when using RStudio within the Docker container. eval_models must be set to FALSE in line 81 in order to use the cached models. This will prevent knitr from executing the code for each model, but will 'lazyload' all cached models so they can be used in manuscript generation. Setting eval_models to TRUE in line 81 will result in all models being re-generated.
+IMPORTANT: Models have been cached to increase performance. The cache will not be recognised automatically when using RStudio within the Docker container. eval_models must be set to FALSE in line 100 in order to use the cached models. This will prevent knitr from executing the code for each model, but will 'lazyload' all cached models so they can be used in manuscript generation. Setting eval_models to TRUE in line 100 will result in all models being re-generated.
 
 The manuscript was written using a template from the `rticles` package.
 
