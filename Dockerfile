@@ -38,3 +38,6 @@ RUN R -e "devtools::install_version('ggdist', version = '3.2.1', dependencies = 
 RUN R -e "devtools::install_version('ggpubr', version = '0.6.0', dependencies = T)"
 RUN R -e "devtools::install_version('pwr', version = '1.3-0', dependencies = T)"
 RUN R -e "devtools::install_version('geomtextpath', version = '0.1.1', dependencies = T)"
+RUN R -e "devtools::install_version('sjmisc', version = '2.8.10', dependencies = T)" 
+
+# building for ARM requires manual installation of sjmisc
