@@ -59,3 +59,7 @@ Knitting the manuscript may take some time depending on the performance of your 
 ## Pre-Registrations
 
 Pre-registrations for hypotheses with the OSF can be found here: https://osf.io/v23e9/
+
+## Updates
+
+28/11/2024: Due to a missing age value, the experimental model for E1 only examines 149 participants, instead of the full 150. Changing the `inner_join` to a `full_join` in line 173 fixes this. No results or statistics change as a result of this.
