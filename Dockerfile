@@ -17,6 +17,8 @@ RUN R -e "install.packages('devtools')"
 
 RUN R -e "require(devtools)"
 
+RUN R -e "install.packages('remotes')"
+
 RUN R -e "devtools::install_version('rticles', version = '0.24', dependencies = T)"
 RUN R -e "devtools::install_version('tinytex', version = '0.44', dependencies = T)"
 RUN R -e "devtools::install_version('MASS', version = '7.3-58.2', dependencies = T)"
@@ -28,7 +30,6 @@ RUN R -e "devtools::install_version('insight', version = '0.19.0', dependencies 
 RUN R -e "devtools::install_version('afex', version = '1.2-1', dependencies = T)"
 RUN R -e "devtools::install_version('bookdown', version = '0.32', dependencies = T)"
 RUN R -e "devtools::install_version('qwraps2', version = '0.5.2', dependencies = T)"
-RUN R -e "devtools::install_github('crsh/papaja')"
 RUN R -e "devtools::install_version('broom.mixed', version = '0.2.9.4', dependencies = T)"
 RUN R -e "devtools::install_version('kableExtra', version = '1.3.4', dependencies = T)"
 RUN R -e "devtools::install_version('lmerTest', version = '3.1-3', dependencies = T)"
@@ -39,5 +40,6 @@ RUN R -e "devtools::install_version('ggpubr', version = '0.6.0', dependencies = 
 RUN R -e "devtools::install_version('pwr', version = '1.3-0', dependencies = T)"
 RUN R -e "devtools::install_version('geomtextpath', version = '0.1.1', dependencies = T)"
 RUN R -e "devtools::install_version('sjmisc', version = '2.8.9', dependencies = T)" 
+RUN R -e "install.packages('papaja', version = '0.1.3', dependencies = T)"
 
 # building for ARM requires manual installation of sjmisc
